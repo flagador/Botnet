@@ -8,3 +8,7 @@ extern virus_t * virus_creer(char name){
     virus->name=name;
     virus->spreading_rate
 }
+
+void main(){
+    virus_creer("covid");
+}
