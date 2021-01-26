@@ -9,7 +9,7 @@ typedef struct
 	float research_rate;
 } virus_t ;
 
-extern virus_t * virus_creer(char name);
+extern virus_t * virus_creer(char * name);
 
 #endif
 
