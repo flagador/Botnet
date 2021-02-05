@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "listepc.h"
+#include "computer_list.h"
 
 int
 main()

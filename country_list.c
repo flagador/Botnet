@@ -1,17 +1,17 @@
-#include "country.h"
+#include "country_list.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 //TODO : country connexions
 
-static void afficher_country_list(const country_t * c){
+static void afficher_country_list(const country_list_t * c){
 
 	for(int i = 0; i<COUNTRY_NUMBER; i++){
 		printf("Nom : %s | PI : %i  | HP : %i  | CP : %i |\n", (c+i)->name, c[i].power_indicator, c[i].healthy_pcs_cpt, c[i].compromised_pcs_cpt);
 	}
 }
 
-extern void detruire_country_list(country_t ** c){
+extern void detruire_country_list(country_list_t ** c){
 	for(int i = 0; i<COUNTRY_NUMBER; i++){
 		free((*c)[i].name);		
 	}
@@ -19,10 +19,10 @@ extern void detruire_country_list(country_t ** c){
 	*c = NULL;
 }
 
-extern country_t * creer_country_list(){
+extern country_list_t * creer_country_list(){
 
 
-	country_t * country_list = malloc(sizeof(country_t)*COUNTRY_NUMBER);
+	country_list_t * country_list = malloc(sizeof(country_list_t)*COUNTRY_NUMBER);
 
 	FILE * fichier;
 

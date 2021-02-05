@@ -1,31 +1,31 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "listepc.h"
+#include "computer_list.h"
 
 extern 
-int liste_existe(liste_t * const liste){
+int liste_existe(computer_list_t * const liste){
     if(liste == NULL)
         return 0;
     return 1;
 }
 
 extern 
-liste_t * liste_creer(const int nb){
-    liste_t * liste;
+computer_list_t * liste_creer(const int nb){
+    computer_list_t * liste;
 
-    if((liste = malloc(sizeof(liste_t))) == NULL){
+    if((liste = malloc(sizeof(computer_list_t))) == NULL){
         fprintf(stderr, "liste_creer: debordement memoire lors de la creation d'une liste \n");
-        return((liste_t *)NULL);
+        return((computer_list_t *)NULL);
     }
 
     liste->nb = nb;
-    liste->liste = (objet_t **)NULL;
+    liste->liste = (computer_t **)NULL;
     if(nb > 0){
-        if((liste->liste = malloc (sizeof(objet_t *) *nb)) == NULL){
+        if((liste->liste = malloc (sizeof(computer_t *) *nb)) == NULL){
             fprintf(stderr, "liste_creer: debordement memoire lors de la creation d'une liste \n");
             free(liste);
-            return ((liste_t*)NULL);
+            return ((computer_list_t*)NULL);
         }
     }
     return (liste);
