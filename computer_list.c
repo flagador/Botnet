@@ -5,51 +5,89 @@
 
 
 extern 
-int liste_elem_ecrire(computer_list_t * liste, computer_t * const elem , const int ind){
-    if((ind > 0) || (ind < liste->nb)){
-        liste->liste[ind] = elem;
-        return(1);
-    }
-}
+int liste_elem_ecrire(computer_list_t * liste, computer_t * const elem){
+    if(liste->element==NULL){
+        element_t * new;
+        new = malloc(sizeof(element_t));
+        new->computer = elem;
+        new->next = new;
+        new->prev = new;
+        liste->element = new;
+        liste->nb++;
 
-extern 
-int liste_existe(computer_list_t * const liste){
-    if(liste == NULL)
-        return 0;
+        
+    }else{
+        element_t * new;
+        new = malloc(sizeof(element_t));
+        new->computer = elem;
+        new->prev = liste->element->prev;
+        new->next = liste->element;
+        liste->element->prev = new;
+        new->prev->next = new;
+        liste->nb++;
+    }
+    
+    
+    
+    /*
+    
+    if(liste->computer == NULL){
+        liste->computer = elem;
+        liste->next = liste;
+        liste->prev = liste;
+    }else{
+        element_t * new;
+        new = malloc(sizeof(element_t));
+        new->computer = elem;
+        new->prev = liste;
+        new->next = liste->next;
+        liste->next = new;
+
+    }*/
     return 1;
 }
 
+extern
+computer_t * get_element(int num, element_t * liste){
+    element_t * buff;
+    int i;
+    buff = liste;
+    for(i = 0; i<num; i++){
+        buff = liste->next;
+    }
+    return (buff->computer);
+}
+
 extern 
-computer_list_t * liste_creer(const int nb){
+computer_list_t * liste_creer(){
     computer_list_t * liste;
 
     if((liste = malloc(sizeof(computer_list_t))) == NULL){
         fprintf(stderr, "liste_creer: debordement memoire lors de la creation d'une liste \n");
         return((computer_list_t *)NULL);
     }
+    liste->detruire = liste_destroy;
+    liste->nb=0;
+    liste->element = NULL;
 
-    liste->nb = nb;
-    liste->liste = (computer_t **)NULL;
-    if(nb > 0){
-        if((liste->liste = malloc (sizeof(computer_t *) *nb)) == NULL){
-            fprintf(stderr, "liste_creer: debordement memoire lors de la creation d'une liste \n");
-            free(liste);
-            return ((computer_list_t*)NULL);
-        }
-    }
     return (liste);
 }
 
-/*
+
 static
-err_t liste_destroy(liste_t ** liste){
+int liste_destroy(computer_list_t ** liste){
+    element_t * elem;
+    element_t * next;
     int i;
-    for(i = 0; i<(*liste)->nb;i++){
-        if((*liste)->liste[i]!=NULL)
-            (*liste)->liste[i]->detruire(&((*liste)->liste[i]));
+    elem = (*liste)->element;
+    for(i=0 ;i<(*liste)->nb; i++){ 
+        elem->computer->detruire(&(elem->computer));
+        next=elem->next;
+        free(elem);
+        elem=next;
     }
-    free((*liste)->liste);
     free(*liste);
+    liste = NULL;
     return 1;
 }
-*/
+
