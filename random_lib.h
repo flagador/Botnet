@@ -1,3 +1,4 @@
+extern void init_rand();
 
 extern double loi_normale_CR(); //loi normale centrée réduite
 

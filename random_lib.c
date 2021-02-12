@@ -1,6 +1,12 @@
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
+
 #include "random_lib.h"
+
+extern void init_rand(){
+    srand(time(0));
+}
 
 //Loi normale selon la boite de muller https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform
 extern double loi_normale_CR(){ 
