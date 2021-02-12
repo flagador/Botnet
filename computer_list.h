@@ -8,3 +8,4 @@ typedef struct computer_list_s{
 extern int liste_existe(computer_list_t *const liste);
 //static err_t liste_destroy(liste_t ** liste);
 extern computer_list_t * liste_creer(const int nb);
+extern int liste_elem_ecrire(computer_list_t * liste, computer_t * const elem , const int ind);

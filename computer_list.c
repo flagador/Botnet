@@ -3,6 +3,15 @@
 #include <stdio.h>
 #include "computer_list.h"
 
+
+extern 
+int liste_elem_ecrire(computer_list_t * liste, computer_t * const elem , const int ind){
+    if((ind > 0) || (ind < liste->nb)){
+        liste->liste[ind] = elem;
+        return(1);
+    }
+}
+
 extern 
 int liste_existe(computer_list_t * const liste){
     if(liste == NULL)
