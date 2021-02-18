@@ -10,14 +10,14 @@ botnet.o : botnet.c
 country.o : country_list.c
 	gcc -c country_list.c -o country.o
 
-test_liste:test_liste.o computer_list.o
-	gcc computer_list.o test_liste.o -o test_liste
+test_liste:test_liste.o computer_list.o computer.o
+	gcc computer_list.o computer.o test_liste.o -o test_liste
 
 test_liste.o:test_liste.c
 	gcc -c test_liste.c
 
-computer_list.o: computer_list.c computer.c
-	gcc -c computer.c computer_list.c -o computer_list.o
+computer_list.o: computer_list.c 
+	gcc -c computer_list.c -o computer_list.o
 
 computer.o : computer.c
 	gcc -c computer.c -o computer.o
@@ -30,7 +30,6 @@ test_random.o : test_random.c
 
 random_lib.o : random_lib.c
 	gcc -c random_lib.c
-
 
 clean:
 	rm -rf *.o
