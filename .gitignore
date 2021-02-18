@@ -448,3 +448,8 @@ MigrationBackup/
 .ionide/
 
 # End of https://www.toptal.com/developers/gitignore/api/c,visualstudio,codeblocks,sublimetext
+
+botnet
+test_computer
+test_liste
+test_random
