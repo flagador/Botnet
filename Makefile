@@ -1,4 +1,4 @@
-BIN = botnet test_random 
+BIN = botnet test_random  test_liste
 OBJ= test_random.o  computer.o country.o botnet.o
 
 botnet: botnet.o country.o
@@ -9,6 +9,12 @@ botnet.o : botnet.c
 
 country.o : country_list.c
 	gcc -c country_list.c -o country.o
+
+test_liste:test_liste.o computer_list.o
+	gcc computer_list.o test_liste.o -o test_liste
+
+test_liste.o:test_liste.c
+	gcc -c test_liste.c
 
 computer_list.o: computer_list.c computer.c
 	gcc -c computer.c computer_list.c -o computer_list.o
@@ -30,5 +36,6 @@ clean:
 	rm -rf *.o
 	rm botnet
 	rm test_random
+	rm test_liste
 
 all : $(BIN) $(OBJ)
