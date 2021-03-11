@@ -4,7 +4,7 @@
 #include "virus.h"
 
 
-extern virus_t * virus_create(char name[], float spr_rate, float rsch_rate){
+extern virus_t *virus_create(char name[], float spr_rate, float rsch_rate){
     virus_t * virus = malloc(sizeof(virus_t));
 
     virus->name=name;
@@ -15,11 +15,11 @@ extern virus_t * virus_create(char name[], float spr_rate, float rsch_rate){
     return(virus);
 }
 
-extern void *edit_rsch_rate(virus_t * virus, float rsch_rate){
+extern void edit_rsch_rate(virus_t * virus, float rsch_rate){
     virus->research_rate=rsch_rate;
 }
 
-extern void *edit_spr_rate(virus_t * virus, float spr_rate){
+extern void edit_spr_rate(virus_t * virus, float spr_rate){
     virus->spreading_rate=spr_rate;
 }
 
@@ -29,16 +29,12 @@ static void virus_destroy(virus_t **virus){
 }
 
 static void virus_display(virus_t *virus){
-    if(virus!=NULL){
-        printf("Nom du virus : %s \n", virus->name);
-        printf("Taux de propagation : %f \n", virus->spreading_rate);
-        printf("Taux de recherche : %f \n", virus->research_rate);
-    } else {
-        printf("Le virus n'existe pas \n");
-    }
+    printf("Nom du virus : %s \n", virus->name);
+    printf("Taux de propagation : %f \n", virus->spreading_rate);
+    printf("Taux de recherche : %f \n", virus->research_rate);
 }
 
-int main(){
+/*int main(){
     virus_t * virus = virus_create("covid",3.1,2.5);
     printf("kebab");
     virus_display(virus);
@@ -46,6 +42,6 @@ int main(){
     virus_display(virus);
     virus_destroy(&virus);
     virus_display(virus);
-}
+}*/
 
 

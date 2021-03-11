@@ -3,7 +3,7 @@
 
 typedef struct
 {
-	char * name;
+	char *name;
 
 	float spreading_rate;
 	float research_rate;
