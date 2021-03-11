@@ -38,17 +38,17 @@ static void virus_display(virus_t *virus){
 }
 
 static int spreads(virus_t *virus){ //à combien d'ordinateurs le virus va-t-il se propager
-    return((int)virus->spreading_rate*(rand()%10));
+    return((int)(virus->spreading_rate*(rand()%10)));
 }
 
-/*int main(){
+int main(){
     srand(time(0)); 
     virus_t * virus = virus_create("covid",3.1,2.5);
     printf("kebab");
     virus_display(virus);
-    edit_spr_rate(virus, 2.1);
+    edit_spr_rate(virus, 1.2);
     virus_display(virus);
     printf("%d\n", spreads(virus));
-}*/
+}
 
 
