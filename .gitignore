@@ -134,7 +134,7 @@ bld/
 .vs/
 # Uncomment if you have tasks that create the project's static files in wwwroot
 #wwwroot/
-
+.vscode/
 # Visual Studio 2017 auto generated files
 Generated\ Files/
 
@@ -448,3 +448,8 @@ MigrationBackup/
 .ionide/
 
 # End of https://www.toptal.com/developers/gitignore/api/c,visualstudio,codeblocks,sublimetext
+
+botnet
+test_computer
+test_liste
+test_random
