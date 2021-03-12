@@ -5,6 +5,7 @@
 #include "upgrade.c"
 #include "jeu.h"
 #include "computer_list.h"
+#include "country_list.h"
 
 extern jeu_t *jeu_create(virus_t *vir, float btc)
 { //cr�� un jeu
@@ -60,6 +61,15 @@ int mine_btc(jeu_t *jeu, computer_list_t *list) // mine des bitcoins
         }
     }
 }
+
+int game_state(country_list_t * list){ // vérifies si on a infecté 51% des ordinateurs du monde
+    if(list->compromised_pcs_cpt/(list->healthy_pcs_cpt+list->compromised_pcs_cpt)>=0.51){
+        return(1);
+    } else {
+        return(0);
+    }
+}
+
 
 int main()
 {
