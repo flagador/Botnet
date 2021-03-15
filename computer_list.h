@@ -1,3 +1,6 @@
+#ifndef _COMPUTER_LIST_H_
+#define _COMPUTER_LIST_H_
+
 #include "computer.h"
 
 typedef struct computer_list_s{
@@ -8,3 +11,5 @@ typedef struct computer_list_s{
 extern int liste_existe(computer_list_t *const liste);
 //static err_t liste_destroy(liste_t ** liste);
 extern computer_list_t * liste_creer(const int nb);
+
+#endif
