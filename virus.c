@@ -4,6 +4,7 @@
 #include <math.h>
 #include <time.h>
 #include "virus.h"
+#include "random_lib.h"
 
 extern virus_t *virus_create(char name[], float spr_rate, float rsch_rate)
 {
@@ -14,6 +15,9 @@ extern virus_t *virus_create(char name[], float spr_rate, float rsch_rate)
     virus->spreading_rate = spr_rate;
 
     virus->research_rate = rsch_rate;
+
+    init_rand();
+
     return (virus);
 }
 
