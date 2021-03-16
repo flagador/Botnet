@@ -13,5 +13,6 @@ typedef struct
 } jeu_t ;
 
 extern jeu_t * jeu_create(virus_t *virus, float btc);
+extern void buy_upgrade(jeu_t *jeu, upgrade_t *upgrade);
 
 #endif
