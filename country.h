@@ -5,8 +5,6 @@
 
 typedef struct country_s {
 
-	computer_list_t * computer_list_t; 
-
     struct country_s** borders;
 
 	int nb_borders;
@@ -18,7 +16,7 @@ typedef struct country_s {
 	computer_list_t * computers; 
 
 	int power_indicator;
-	
+
 	unsigned long int healthy_pcs_cpt;
 	unsigned long int compromised_pcs_cpt;
 
