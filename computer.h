@@ -1,3 +1,6 @@
+#ifndef _COMPUTER_H_
+#define _COMPUTER_H_
+
 typedef struct computer_s computer_t;
 struct computer_s
 {
@@ -11,6 +14,6 @@ struct computer_s
 };
 
 extern computer_t * computer_create(int weight ,int power, int status);
-extern int computer_exist(computer_t * const compurer);
+extern int computer_exist( computer_t * const computer);
 
-
+#endif

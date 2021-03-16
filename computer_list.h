@@ -1,3 +1,6 @@
+#ifndef _COMPUTER_LIST_H_
+#define _COMPUTER_LIST_H_
+
 #include "computer.h"
 typedef struct element_s element_t;
 struct element_s{

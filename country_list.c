@@ -2,47 +2,154 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//TODO : country connexions
+extern void afficher_country_list(const country_list_t *c)
+{
 
-static void afficher_country_list(const country_list_t * c){
-
-	for(int i = 0; i<COUNTRY_NUMBER; i++){
-		printf("Nom : %s | PI : %i  | HP : %i  | CP : %i |\n", (c+i)->name, c[i].power_indicator, c[i].healthy_pcs_cpt, c[i].compromised_pcs_cpt);
+	for (int i = 0; i < c->nb; i++)
+	{
+		afficher_country(c->liste[i]);
 	}
 }
 
-extern void detruire_country_list(country_list_t ** c){
-	for(int i = 0; i<COUNTRY_NUMBER; i++){
-		free((*c)[i].name);		
+extern void detruire_country_list(country_list_t **c)
+{
+	for (int i = 0; i < (*c)->nb; i++)
+	{
+		detruire_country(&(*c)->liste[i]);
 	}
 	free(*c);
 	*c = NULL;
 }
 
-extern country_list_t * creer_country_list(){
+int compter_borders(int id_country)
+{
+	FILE *fichier;
+	fichier = fopen("datas/borders", "r");
 
+	int id_country_found, id_border;
+	char tete;
+	int cpt = 0;
 
-	country_list_t * country_list = malloc(sizeof(country_list_t)*COUNTRY_NUMBER);
+	tete = fscanf(fichier, "%i :", &id_country_found);
+	while (tete != EOF)
+	{
+		// printf("\nCountry found : %i", id_country_found);
+		if (id_country_found != id_country)
+		{
+			do
+			{
+				fscanf(fichier, "%c", &tete);
+				// printf("tete : %c", tete);
+			} while (tete != '\n');
+		}
+		else
+		{
+			fscanf(fichier, "%i ", &id_border);
+			// printf("coutryfound is good, border = %i\n", id_border);
 
-	FILE * fichier;
+			while (id_border != -1)
+			{
+				cpt++;
+				fscanf(fichier, "%i ", &id_border);
+			}
+			return cpt;
+		}
+		tete = fscanf(fichier, "%i :", &id_country_found);
+	}
+}
+
+void set_borders(country_list_t *c)
+{
+	FILE *fichier;
+	fichier = fopen("datas/borders", "r");
+	int border, country, tete, nb_borders, i;
+	//pour tout le fichier
+	tete = fscanf(fichier, "%i :", &country);
+	while (tete != EOF)
+	{
+
+		//récupération du premier caractère de la première ligne
+		nb_borders = compter_borders(country);
+
+		//on crée un tableau de pointeurs vers les pays
+		country_t *borders[nb_borders];
+
+		i = 0;
+		do
+		{
+			tete = fscanf(fichier, "%i", &border);
+			if (border != -1)
+			{
+				borders[i] = c->liste[border];
+				i++;
+			}
+
+		} while (border != -1 && tete != EOF);
+
+		ajouter_borders(c->liste[country], borders, nb_borders);
+		tete = fscanf(fichier, "%i :", &country);
+	}
+}
+
+int compter_lignes(char *n_fichier)
+{
+	FILE *fichier;
+
+	fichier = fopen(n_fichier, "r");
+
+	int cpt = 0;
+	int read;
+	char tete;
+
+	do
+	{
+		tete = fgetc(fichier);
+		if (tete == '\n')
+			cpt++;
+	} while (!feof(fichier));
+
+	return cpt;
+}
+
+extern country_list_t *creer_country_list()
+{
+	printf("Création de country list...\n");
+
+	int country_nb = compter_lignes("./datas/countrylist") + 1;
+
+	printf("Lignes comptées ! (%i)\n", country_nb);
+
+	country_list_t *country_list = malloc(sizeof(country_list_t));
+
+	country_list->liste = malloc(sizeof(country_t) * country_nb);
+
+	FILE *fichier;
 
 	fichier = fopen("./datas/countrylist", "r");
 
-	for(int i=0; i<COUNTRY_NUMBER; i++){
-		
-		(country_list+i)->name = malloc(30*sizeof(char));
+	int i = 0;
+	int read;
+	char name[30];
+	int power_indicator;
 
-		fscanf(fichier, "\n%[^,], %i",(country_list+i)->name, &((country_list+i)->power_indicator));
-		(country_list+i)->healthy_pcs_cpt = 0;
-		(country_list+i)->healthy_pcs_cpt = 0;
+	country_t *country;
+	do
+	{
 
-	} 
+		read = fscanf(fichier, "\n%[^,], %i", name, &power_indicator);
+
+		country = creer_country(name, power_indicator, i);
+
+		country_list->liste[i] = country;
+		i++;
+
+	} while (read != EOF);
 
 	fclose(fichier);
 
-	country_list->afficher = afficher_country_list; 
-	country_list->detruire = detruire_country_list;
+	country_list->nb = country_nb;
+
+	set_borders(country_list);
 
 	return country_list;
 }
-
