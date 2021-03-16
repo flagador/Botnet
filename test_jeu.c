@@ -85,23 +85,6 @@ int main()
     country_list_t * cl = creer_country_list();
 
     cl->liste[0]->compromised_pcs_cpt = 10;
-    cl->liste[1]->compromised_pcs_cpt = 10;
-    cl->liste[2]->compromised_pcs_cpt = 10;
-    cl->liste[3]->compromised_pcs_cpt = 10;
-    cl->liste[4]->compromised_pcs_cpt = 10;
-    cl->liste[5]->compromised_pcs_cpt = 10;
-    cl->liste[6]->compromised_pcs_cpt = 10;
-    cl->liste[7]->compromised_pcs_cpt = 10;
-    cl->liste[8]->compromised_pcs_cpt = 10;
-    cl->liste[9]->compromised_pcs_cpt = 10;
-    cl->liste[10]->compromised_pcs_cpt = 10;
-    cl->liste[11]->compromised_pcs_cpt = 10;
-    cl->liste[12]->compromised_pcs_cpt = 10;
-    cl->liste[13]->compromised_pcs_cpt = 10;
-    cl->liste[14]->compromised_pcs_cpt = 10;
-    cl->liste[15]->compromised_pcs_cpt = 10;
-    cl->liste[16]->compromised_pcs_cpt = 10;
-    cl->liste[17]->compromised_pcs_cpt = 10;
     while(game_state(cl,jeu)==0)
     {
         choix(cl, jeu, upgrade, cles_usb, trojan, fake_ad);

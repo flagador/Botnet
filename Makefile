@@ -1,8 +1,9 @@
 BIN = botnet test_random test_virus test_jeu
 OBJ= test_random.o  computer.o country_list.o botnet.o country.o
 
-botnet: botnet.o country_list.o computer.o country.o computer_list.o random_lib.o
-	gcc botnet.o country_list.o computer.o country.o computer_list.o random_lib.o -o botnet -lm
+botnet: botnet.o jeu.o virus.o upgrade.o country_list.o computer_list.o country.o random_lib.o
+	gcc botnet.o jeu.o virus.o upgrade.o country_list.o computer_list.o country.o random_lib.o -o botnet -lm
+
 
 botnet.o : botnet.c country_list.h
 	gcc -c botnet.c -o botnet.o
