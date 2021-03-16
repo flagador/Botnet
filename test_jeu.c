@@ -6,6 +6,20 @@
 #include "jeu.h"
 #include "computer_list.h"
 #include "country_list.h"
+#include "time.h"
+
+void delay(int number_of_seconds) 
+{ 
+    // Converting time into milli_seconds 
+    int milli_seconds = 1000 * number_of_seconds; 
+  
+    // Storing start time 
+    clock_t start_time = clock(); 
+  
+    // looping till required time is not achieved 
+    while (clock() < start_time + milli_seconds) 
+        ; 
+} 
 
 int main()
 {
@@ -37,8 +51,22 @@ int main()
     mine_btc(jeu, list_pc);
     printf("Thunes : %f \n", jeu->btc);*/
 
-    country_list_t * list_country = creer_country_list();
-    afficher_country_list(list_country);
+    country_list_t * cl = creer_country_list();
+
+    cl->liste[0]->compromised_pcs_cpt = 10;
+
+    for(int i = 0; i < 50; i++)
+    {
+        spread_world(jeu->virus, cl); 
+        mine_btc_world(jeu, cl);
+        printf(" * * * * * * * * * * * Thunes : %f \n", jeu->btc);
+    }
+
+    buy_upgrade(jeu, trojan);
+    printf(" * * * * * * * * * * * Thunes : %f \n", jeu->btc);
+
+    virus_destroy(&jeu->virus);
+    detruire_country_list(&cl); 
 
     return 0;
 }

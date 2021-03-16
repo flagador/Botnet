@@ -44,19 +44,16 @@ void edit_mining_rate(jeu_t * jeu, float rate){ // modifie le taux de minage
     jeu->mining_rate=rate;
 }
 
-void mine_btc_country(jeu_t *jeu, computer_list_t *list) // mine des bitcoins 
+extern void mine_btc_country(jeu_t *jeu, country_t * country) // mine des bitcoins 
 {   
-    for(int i=0; i<list->nb; i++) 
-    {
-        if (list->liste[i]->status == 1){
-
-            jeu->btc += (list->liste[i]->power * list->liste[i]->weight * jeu->mining_rate);
-        }
-    }
+    jeu->btc+= 0.01*country->power_indicator * country->compromised_pcs_cpt* jeu->mining_rate;
+            
 }
 
-void mine_btc_world(country_list_t * list){
-    
+extern void mine_btc_world(jeu_t *jeu, country_list_t * list){
+    for(int i=0; i<list->nb; i++){
+        mine_btc_country(jeu, list->liste[i]);
+    } 
 }
 
 int game_state(country_list_t * list, jeu_t *jeu){ // vérifies si on a infecté 51% des ordinateurs du monde
