@@ -44,15 +44,14 @@ void edit_mining_rate(jeu_t * jeu, float rate){ // modifie le taux de minage
 }
 
 void mine_btc(jeu_t *jeu, computer_list_t *list) // mine des bitcoins 
-{
-    int i=0;
-    while(list->liste[i]!=NULL)
+{   
+    for(int i=0; i<list->nb; i++) 
     {
-        if ((list->liste[i])->status == 1){
+        if (list->element->computer->status == 1){
 
-            jeu->btc += (list->liste[i])->power * (list->liste[i])->weight * jeu->mining_rate;
+            jeu->btc += (list->element->computer->power * list->element->computer->weight * jeu->mining_rate);
         }
-        i++;
+        list->element=list->element->next;
     }
 }
 
@@ -86,11 +85,11 @@ int main()
     virus_display(jeu->virus);
     printf("Thunes : %f \n", jeu->btc);
 
-    computer_list_t * list_pc = liste_creer(10);
+    computer_list_t * list_pc = liste_creer();
     computer_t * c = computer_create(10, 5, 0);
     computer_t * c1 = computer_create(15, 10, 1);
-    liste_elem_ecrire(list_pc, c, 0);
-    liste_elem_ecrire(list_pc, c1, 1);
+    liste_elem_ecrire(list_pc, c);
+    liste_elem_ecrire(list_pc, c1);
 
     mine_btc(jeu, list_pc);
     printf("Thunes : %f \n", jeu->btc);
