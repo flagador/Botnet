@@ -44,23 +44,33 @@ extern void virus_display(virus_t *virus)
     printf("Taux de recherche : %f \n", virus->research_rate);
 }
 
+static void infect(unsigned long int nb, country_t *c)
+{
+    if (nb > c->healthy_pcs_cpt)
+    {
+        c->compromised_pcs_cpt += c->healthy_pcs_cpt;
+        c->healthy_pcs_cpt = 0;
+    }
+    else
+    {
+        c->compromised_pcs_cpt += nb;
+        c->healthy_pcs_cpt -= nb;
+    }
+}
+
 static void spread_country(virus_t *virus, country_t *c)
 {
     if (c->compromised_pcs_cpt > 0)
     {
         long int nouveaux_cas = loi_normale_int((c->compromised_pcs_cpt / 3) * virus->spreading_rate, (c->compromised_pcs_cpt / 3) / 5);
 
-        if (nouveaux_cas > c->healthy_pcs_cpt)
+        if (test_bernoulli(c->compromised_pcs_cpt / (c->healthy_pcs_cpt + c->compromised_pcs_cpt) * 0.05))
         {
-            c->compromised_pcs_cpt += c->healthy_pcs_cpt;
-            c->healthy_pcs_cpt = 0;
+            int infected_country = random_in(c->nb_borders);
+            printf("%s is infected !", c->borders[infected_country]->name);
+            infect(5, c->borders[infected_country]);
         }
-        else
-        {
-            c->compromised_pcs_cpt += nouveaux_cas;
-            c->healthy_pcs_cpt -= nouveaux_cas;
-        }
-        
+        infect(nouveaux_cas, c);
     }
 }
 

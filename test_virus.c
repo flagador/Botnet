@@ -1,6 +1,7 @@
 #include "virus.h"
 #include "country_list.h"
 #include "stdio.h"
+#include <stdlib.h>
 #include <unistd.h>
 
 int main()
@@ -10,10 +11,11 @@ int main()
 
     cl->liste[0]->compromised_pcs_cpt = 10;
 
-    for(int i = 0; i < 70; i++)
+    for(int i = 0; i < 1000; i++)
     {
         sleep(1);
-        afficher_country(cl->liste[0]);
+        system("clear");
+        afficher_country_list(cl);
         spread_world(v, cl); 
     }
 

@@ -24,3 +24,14 @@ extern double loi_normale(double delta, double sigma){
 extern int loi_normale_int(double delta, double sigma){
     return (int) (loi_normale_CR() * sigma + delta);
 }
+
+extern int test_bernoulli(double p)
+{
+    double r = (double)rand() / (double)RAND_MAX;
+    return(r<p); 
+}
+
+extern int random_in(int a)
+{
+    return rand() % a; 
+}
