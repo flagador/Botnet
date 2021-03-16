@@ -44,7 +44,7 @@ void edit_mining_rate(jeu_t * jeu, float rate){ // modifie le taux de minage
     jeu->mining_rate=rate;
 }
 
-void mine_btc(jeu_t *jeu, computer_list_t *list) // mine des bitcoins 
+void mine_btc_country(jeu_t *jeu, computer_list_t *list) // mine des bitcoins 
 {   
     for(int i=0; i<list->nb; i++) 
     {
@@ -55,12 +55,24 @@ void mine_btc(jeu_t *jeu, computer_list_t *list) // mine des bitcoins
     }
 }
 
-/*int game_state(country_list_t * list){ // vérifies si on a infecté 51% des ordinateurs du monde
-    if(list->compromised_pcs_cpt/(list->healthy_pcs_cpt+list->compromised_pcs_cpt)>=0.51){
+void mine_btc_world(country_list_t * list){
+    
+}
+
+int game_state(country_list_t * list, jeu_t *jeu){ // vérifies si on a infecté 51% des ordinateurs du monde
+    int healthy_pcs=0;
+    int compromised_pcs=0;
+    for(int i=0; i<list->nb; i++){
+        healthy_pcs+=list->liste[i]->healthy_pcs_cpt;
+        compromised_pcs+=list->liste[i]->compromised_pcs_cpt;
+    }
+    if((compromised_pcs/(compromised_pcs+healthy_pcs))>0.51){
         return(1);
-    } else {
+    } /*else if(){
+        return(-1);
+    }*/ else{
         return(0);
     }
 }
-*/
+
 
