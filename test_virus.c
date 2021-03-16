@@ -1,20 +1,7 @@
 #include "virus.h"
 #include "country_list.h"
 #include "stdio.h"
-#include "time.h"
-
-void delay(int number_of_seconds) 
-{ 
-    // Converting time into milli_seconds 
-    int milli_seconds = 1000 * number_of_seconds; 
-  
-    // Storing start time 
-    clock_t start_time = clock(); 
-  
-    // looping till required time is not achieved 
-    while (clock() < start_time + milli_seconds) 
-        ; 
-} 
+#include <unistd.h>
 
 int main()
 {
@@ -25,7 +12,7 @@ int main()
 
     for(int i = 0; i < 70; i++)
     {
-        delay(1);
+        sleep(1);
         afficher_country(cl->liste[0]);
         spread_world(v, cl); 
     }

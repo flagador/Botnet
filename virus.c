@@ -60,6 +60,7 @@ static void spread_country(virus_t *virus, country_t *c)
             c->compromised_pcs_cpt += nouveaux_cas;
             c->healthy_pcs_cpt -= nouveaux_cas;
         }
+        
     }
 }
 
