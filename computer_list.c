@@ -31,9 +31,8 @@ computer_list_t * liste_creer(const int nb){
     return (liste);
 }
 
-/*
-static
-err_t liste_destroy(liste_t ** liste){
+extern
+void liste_destroy(computer_list_t ** liste){
     int i;
     for(i = 0; i<(*liste)->nb;i++){
         if((*liste)->liste[i]!=NULL)

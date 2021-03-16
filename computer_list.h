@@ -9,7 +9,7 @@ typedef struct computer_list_s{
 }computer_list_t;
 
 extern int liste_existe(computer_list_t *const liste);
-//static err_t liste_destroy(liste_t ** liste);
+extern void liste_destroy(computer_list_t ** liste);
 extern computer_list_t * liste_creer(const int nb);
 
 #endif
