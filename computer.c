@@ -3,8 +3,7 @@
 #include "computer.h"
 
 
-extern 
-int computer_exist( computer_t * const computer)
+extern int computer_exist( computer_t * const computer)
 {
     if (computer == NULL)
         return 0;

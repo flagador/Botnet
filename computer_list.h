@@ -1,3 +1,6 @@
+#ifndef _COMPUTER_LIST_H_
+#define _COMPUTER_LIST_H_
+
 #include "computer.h"
 typedef struct element_s element_t;
 struct element_s{
@@ -18,3 +21,5 @@ static int liste_destroy(computer_list_t ** liste);
 extern computer_list_t * liste_creer( void );
 extern int liste_elem_ecrire(computer_list_t * liste, computer_t * const elem);
 extern computer_t * get_element(int num, element_t * liste);
+
+#endif

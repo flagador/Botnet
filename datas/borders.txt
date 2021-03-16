@@ -1,0 +1,30 @@
+Europe de l'ouest :
+    Europe de l'est 
+    Russie
+
+Europe de l'est :
+    Europe de l'ouest
+    Russie
+
+Russie :
+    Amérique du Nord
+    Europe de l'est 
+    Europe de l'ouest
+    
+    
+Afrique du Nord :
+    Afrique du Sud
+    Europe de l'est 
+    Afrique centrale
+
+Moyen-orient
+Inde
+Chine
+Korée du nord
+Reste de l'asie
+Japon
+Océanie
+Brésil
+Reste d'Amérique du Sud
+Amérique centrale
+Amérique du Nord
