@@ -4,8 +4,9 @@
 #include "virus.c"
 #include "upgrade.c"
 #include "jeu.h"
-#include "computer_list.h"
-#include "country_list.h"
+#include "country_list.c"
+
+
 
 extern jeu_t *jeu_create(virus_t *vir, float btc)
 { //cr�� un jeu
@@ -23,7 +24,7 @@ extern jeu_t *jeu_create(virus_t *vir, float btc)
 void buy_upgrade(jeu_t *jeu, upgrade_t *upgrade)
 { //achat d'un upgrade
 
-    if (jeu->btc > upgrade->price)
+    if (jeu->btc >= upgrade->price)
     {
         jeu->btc = jeu->btc - upgrade->price; //enleve le prix de l'upgrade � notre argent
 
@@ -38,27 +39,20 @@ void buy_upgrade(jeu_t *jeu, upgrade_t *upgrade)
     }
 }
 
-void edit_mining_rate(jeu_t * jeu, float rate){ // modifie le taux de recherche dur virus et le taux de minage
-    jeu->virus->research_rate-=jeu->mining_rate;
-    jeu->virus->research_rate+=rate;
+void edit_mining_rate(jeu_t * jeu, float rate){ // modifie le taux de minage
     jeu->mining_rate=rate;
-
 }
 
-int mine_btc(jeu_t *jeu, computer_list_t *list) // mine des bitcoins 
+void mine_btc(jeu_t *jeu, computer_list_t *list) // mine des bitcoins 
 {
-    computer_t *current_pc = (*list->liste);
-    if ((*list->liste)->status == 1)
+    int i=0;
+    while(list->liste[i]!=NULL)
     {
-        jeu->btc += (*list->liste)->power * (*list->liste)->weight * jeu->mining_rate;
-    }
+        if ((list->liste[i])->status == 1){
 
-    for (int i = 0; i < list->nb; i++)
-    {
-        if ((*list->liste)->status == 1){
-            current_pc = list->liste + sizeof(computer_list_t);
-            jeu->btc += (*list->liste)->power * (*list->liste)->weight * jeu->mining_rate;
+            jeu->btc += (list->liste[i])->power * (list->liste[i])->weight * jeu->mining_rate;
         }
+        i++;
     }
 }
 
@@ -90,6 +84,15 @@ int main()
     buy_upgrade(jeu, upgrade);
 
     virus_display(jeu->virus);
+    printf("Thunes : %f \n", jeu->btc);
+
+    computer_list_t * list_pc = liste_creer(10);
+    computer_t * c = computer_create(10, 5, 0);
+    computer_t * c1 = computer_create(15, 10, 1);
+    liste_elem_ecrire(list_pc, c, 0);
+    liste_elem_ecrire(list_pc, c1, 1);
+
+    mine_btc(jeu, list_pc);
     printf("Thunes : %f \n", jeu->btc);
 
     return 0;
