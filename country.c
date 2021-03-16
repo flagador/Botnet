@@ -37,14 +37,14 @@ extern void detruire_country(country_t **c)
 extern void afficher_country(country_t *c)
 {
 	printf("Nom : %s | PI : %i  | HP : %lu  | CP : %lu | ID : %i | BO : %i\n", c->name, c->power_indicator, c->healthy_pcs_cpt, c->compromised_pcs_cpt, c->identifiant, c->nb_borders);
-	if (c->nb_borders)
-	{
-		printf("Frontières : \n");
-		for (int i = 0; i < c->nb_borders; i++)
-		{
-			printf("%s\n", c->borders[i]->name);
-		}
-	}
+	// if (c->nb_borders)
+	// {
+	// 	printf("Frontières : \n");
+	// 	for (int i = 0; i < c->nb_borders; i++)
+	// 	{
+	// 		printf("%s\n", c->borders[i]->name);
+	// 	}
+	// }
 }
 
 extern void ajouter_borders(country_t *c, country_t **liste_border, int nb_borders)

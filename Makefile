@@ -20,7 +20,7 @@ computer.o : computer.c
 	gcc -c computer.c -o computer.o
 
 upgrade.o: upgrade.c
-	gcc upgrade.c -c upgrade.o
+	gcc -c upgrade.c -o upgrade.o
 
 test_random : test_random.o random_lib.o
 	gcc random_lib.o test_random.o -o test_random -lm 
