@@ -4,7 +4,8 @@
 #include "virus.c"
 #include "upgrade.c"
 #include "jeu.h"
-#include "country_list.c"
+#include "computer_list.h"
+#include "country_list.h"
 
 
 
@@ -55,14 +56,14 @@ void mine_btc(jeu_t *jeu, computer_list_t *list) // mine des bitcoins
     }
 }
 
-int game_state(country_list_t * list){ // vérifies si on a infecté 51% des ordinateurs du monde
+/*int game_state(country_list_t * list){ // vérifies si on a infecté 51% des ordinateurs du monde
     if(list->compromised_pcs_cpt/(list->healthy_pcs_cpt+list->compromised_pcs_cpt)>=0.51){
         return(1);
     } else {
         return(0);
     }
 }
-
+*/
 
 int main()
 {
@@ -93,6 +94,9 @@ int main()
 
     mine_btc(jeu, list_pc);
     printf("Thunes : %f \n", jeu->btc);
+
+    country_list_t * list_country = creer_country_list();
+    afficher_country_list(list_country);
 
     return 0;
 }
