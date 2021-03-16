@@ -1,8 +1,8 @@
-BIN = botnet test_random 
+BIN = botnet test_random test_virus
 OBJ= test_random.o  computer.o country_list.o botnet.o country.o
 
-botnet: botnet.o country_list.o computer.o country.o 
-	gcc botnet.o country_list.o computer.o country.o -o botnet
+botnet: botnet.o country_list.o computer.o country.o computer_list.o random_lib.o
+	gcc botnet.o country_list.o computer.o country.o computer_list.o random_lib.o -o botnet -lm
 
 botnet.o : botnet.c country_list.h
 	gcc -c botnet.c -o botnet.o
@@ -28,6 +28,11 @@ test_random.o : test_random.c
 random_lib.o : random_lib.c
 	gcc -c random_lib.c
 
+test_virus : test_virus.o virus.o country_list.o country.o computer_list.o random_lib.o
+	gcc test_virus.o virus.o country_list.o country.o computer_list.o random_lib.o -o test_virus -lm
+
+test_virus.o : test_virus.c
+	gcc -c test_virus.c
 
 clean:
 	rm -rf *.o
