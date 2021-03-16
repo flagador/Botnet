@@ -56,7 +56,7 @@ extern void mine_btc_world(jeu_t *jeu, country_list_t * list){
     } 
 }
 
-int game_state(country_list_t * list, jeu_t *jeu){ // vérifies si on a infecté 51% des ordinateurs du monde
+extern int game_state(country_list_t * list, jeu_t *jeu){ // vérifies si on a infecté 51% des ordinateurs du monde
     int healthy_pcs=0;
     int compromised_pcs=0;
     for(int i=0; i<list->nb; i++){

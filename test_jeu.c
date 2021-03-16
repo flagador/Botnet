@@ -21,49 +21,99 @@ void delay(int number_of_seconds)
         ; 
 } 
 
+void afficher_pays(country_list_t * cl){
+    for(int i=0; i<18; i++){
+        afficher_country(cl->liste[i]);
+    }
+}
+
+void choix(country_list_t * cl, jeu_t * jeu, upgrade_t * upgrade, upgrade_t * cles_usb, upgrade_t * trojan, upgrade_t * fake_ad){
+    printf(" 1 \n");
+    upgrade_display(upgrade);
+    printf(" 2 \n");
+    upgrade_display(cles_usb);
+    printf(" 3 \n");
+    upgrade_display(trojan);
+    printf(" 4 \n");
+    upgrade_display(fake_ad);
+    printf(" 5 : Afficher pays \n");
+    printf(" 6 : Ne rien faire \n");
+
+    int choix;
+    printf("Quel choix voulez vous faire ?");
+    scanf("%i", &choix);
+    switch(choix){
+        case 1 : buy_upgrade(jeu, upgrade);
+        break;
+        case 2 : buy_upgrade(jeu, cles_usb);
+        break;
+        case 3 : buy_upgrade(jeu, trojan);
+        break;
+        case 4 : buy_upgrade(jeu, fake_ad);
+        break;
+        case 5 : afficher_pays(cl);
+        break;
+        case 6 : exit;
+        default : printf("pouet pouet");
+    } 
+}
+
+
+
 int main()
 {
 
-    virus_t *virus = virus_create("kaboub", 0.5, 0.5);
+    virus_t *virus = virus_create("kaboub", 1, 1);
     virus_display(virus);
 
     upgrade_t *upgrade = upgrade_create("phishing", 30.0, 0.2, 0.2);
     upgrade_t *cles_usb = upgrade_create("clés usb", 15, 0.1, 0.3);
     upgrade_t *trojan = upgrade_create("trojan", 100.0, 0.5, 0.3);
     upgrade_t *fake_ad = upgrade_create("fake ad", 150, 1.0, 1.0);
-    upgrade_display(upgrade);
+    //upgrade_display(upgrade);
 
     jeu_t *jeu = jeu_create(virus, 200.5);
     virus_display(jeu->virus);
 
-    printf("Thunes : %f \n", jeu->btc);
+   /* printf("Thunes : %f \n", jeu->btc);
     buy_upgrade(jeu, upgrade);
 
     virus_display(jeu->virus);
-    printf("Thunes : %f \n", jeu->btc);
-
-    /*computer_list_t * list_pc = liste_creer(10);
-    computer_t * c = computer_create(10, 5, 0);
-    computer_t * c1 = computer_create(15, 10, 1);
-    liste_elem_ecrire(list_pc, c);
-    liste_elem_ecrire(list_pc, c1);
-
-    mine_btc(jeu, list_pc);
     printf("Thunes : %f \n", jeu->btc);*/
+
 
     country_list_t * cl = creer_country_list();
 
     cl->liste[0]->compromised_pcs_cpt = 10;
-
-    for(int i = 0; i < 50; i++)
+    cl->liste[1]->compromised_pcs_cpt = 10;
+    cl->liste[2]->compromised_pcs_cpt = 10;
+    cl->liste[3]->compromised_pcs_cpt = 10;
+    cl->liste[4]->compromised_pcs_cpt = 10;
+    cl->liste[5]->compromised_pcs_cpt = 10;
+    cl->liste[6]->compromised_pcs_cpt = 10;
+    cl->liste[7]->compromised_pcs_cpt = 10;
+    cl->liste[8]->compromised_pcs_cpt = 10;
+    cl->liste[9]->compromised_pcs_cpt = 10;
+    cl->liste[10]->compromised_pcs_cpt = 10;
+    cl->liste[11]->compromised_pcs_cpt = 10;
+    cl->liste[12]->compromised_pcs_cpt = 10;
+    cl->liste[13]->compromised_pcs_cpt = 10;
+    cl->liste[14]->compromised_pcs_cpt = 10;
+    cl->liste[15]->compromised_pcs_cpt = 10;
+    cl->liste[16]->compromised_pcs_cpt = 10;
+    cl->liste[17]->compromised_pcs_cpt = 10;
+    while(game_state(cl,jeu)==0)
     {
+        choix(cl, jeu, upgrade, cles_usb, trojan, fake_ad);
         spread_world(jeu->virus, cl); 
         mine_btc_world(jeu, cl);
         printf(" * * * * * * * * * * * Thunes : %f \n", jeu->btc);
+        
+    }
+    if(game_state(cl,jeu)==1){
+        printf("Vous avez gagné,wow !");
     }
 
-    buy_upgrade(jeu, trojan);
-    printf(" * * * * * * * * * * * Thunes : %f \n", jeu->btc);
 
     virus_destroy(&jeu->virus);
     detruire_country_list(&cl); 
