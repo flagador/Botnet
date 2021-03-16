@@ -16,10 +16,8 @@ struct computer_list_s{
     element_t * element;
 };
 
-extern int liste_existe(element_t *const liste);
-static int liste_destroy(computer_list_t ** liste);
-extern computer_list_t * liste_creer( void );
-extern int liste_elem_ecrire(computer_list_t * liste, computer_t * const elem);
-extern computer_t * get_element(int num, element_t * liste);
+extern int liste_existe(computer_list_t *const liste);
+extern void liste_destroy(computer_list_t ** liste);
+extern computer_list_t * liste_creer(const int nb);
 
 #endif

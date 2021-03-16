@@ -73,11 +73,8 @@ computer_list_t * liste_creer(){
     return (liste);
 }
 
-
-static
-int liste_destroy(computer_list_t ** liste){
-    element_t * elem;
-    element_t * next;
+extern
+void liste_destroy(computer_list_t ** liste){
     int i;
     elem = (*liste)->element;
     for(i=0 ;i<(*liste)->nb; i++){ 
@@ -90,4 +87,3 @@ int liste_destroy(computer_list_t ** liste){
     liste = NULL;
     return 1;
 }
-

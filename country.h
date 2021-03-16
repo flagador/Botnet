@@ -18,8 +18,9 @@ typedef struct country_s {
 	computer_list_t * computers; 
 
 	int power_indicator;
-	int healthy_pcs_cpt;
-	int compromised_pcs_cpt;
+	
+	unsigned long int healthy_pcs_cpt;
+	unsigned long int compromised_pcs_cpt;
 
 } country_t;
 
