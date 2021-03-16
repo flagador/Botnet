@@ -42,4 +42,3 @@ void liste_destroy(computer_list_t ** liste){
     free(*liste);
     return 1;
 }
-*/
