@@ -33,11 +33,7 @@ computer_list_t * liste_creer(const int nb){
 
 extern
 void liste_destroy(computer_list_t ** liste){
-    int i;
-    for(i = 0; i<(*liste)->nb;i++){
-        if((*liste)->liste[i]!=NULL)
-            (*liste)->liste[i]->detruire(&((*liste)->liste[i]));
-    }
     free((*liste)->liste);
     free(*liste);
+    *liste = NULL;
 }
