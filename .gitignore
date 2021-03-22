@@ -456,6 +456,7 @@ test/test_liste
 test/test_random
 test/test_virus
 test/test_jeu
+test/sdltest
 
 #exceptions
 !*/.gitkeep
