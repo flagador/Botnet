@@ -105,11 +105,10 @@ int main()
     cl->liste[0]->compromised_pcs_cpt = 10;
     while(game_state(cl)==0)
     {
+        printf("-----Thunes----- : %f \n", jeu->btc);
         choix(cl, jeu, upgrade, cles_usb, trojan, fake_ad);
         spread_world(jeu->virus, cl); 
         mine_btc_world(jeu, cl);
-        printf(" * * * * * * * * * * * Thunes : %f \n", jeu->btc);
-        printf("\n \n Proportion pc infectes %Lf \n \n", *proportion);
         
     }
     if(game_state(cl)==1){
