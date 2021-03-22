@@ -54,6 +54,10 @@ test/test_jeu : test/test_jeu.o bin/jeu.o bin/virus.o bin/upgrade.o bin/country_
 test/test_jeu.o : test/test_jeu.c
 	gcc -c test/test_jeu.c -o test/test_jeu.o
 
+doc:
+	rm -rf doc/
+	mkdir doc
+	doxygen doxy_cfg
 
 
 clean:
