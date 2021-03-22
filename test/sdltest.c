@@ -1,4 +1,4 @@
-/*#include "../lib/data_sdl.h"
+#include "../lib/data_sdl.h"
 #include "../lib/country_list.h"
 #include "../lib/virus.h"
 #include "../lib/upgrade.h"
@@ -158,7 +158,7 @@ void startNewGame(){
                 if(events.button.button == SDL_BUTTON_LEFT)
                     if(isOnButton(pboutique)){
                         printf("SHOP \n");
-                        shop(pRenderer, pWindow);
+                        //shop(pRenderer, pWindow);
                     }
                 break;
             }
@@ -190,7 +190,7 @@ void startNewGame(){
     IMG_Quit();
     SDL_Quit();
 }
-
+/*
 int shop(SDL_Renderer * Render, SDL_Window * Window){
     SDL_Color white = {255,255,255};
 
