@@ -16,7 +16,7 @@
 #include <time.h>
 #include "../lib/virus.h"
 #include "../lib/random_lib.h"
-
+#include "../lib/config.h"
 /**
  * @brief Créer un objet virus_t
  * 
@@ -115,9 +115,9 @@ static void spread_country(virus_t *virus, country_t *c)
 {
     if (c->compromised_pcs_cpt > 0)
     {
-        long int nouveaux_cas = loi_normale_int((c->compromised_pcs_cpt / 3) * virus->spreading_rate, (c->compromised_pcs_cpt / 3) / 5);
+        long int nouveaux_cas = loi_normale_int((c->compromised_pcs_cpt * BOTNET_EXPENSION_MEDIANE) * virus->spreading_rate, (c->compromised_pcs_cpt * BOTNET_EXPENSION_MEDIANE) * BOTNET_EXPENSION_ECART_TYPE);
 
-        if (test_bernoulli(c->compromised_pcs_cpt / (c->healthy_pcs_cpt + c->compromised_pcs_cpt) * 0.05))
+        if (test_bernoulli(c->compromised_pcs_cpt / (c->healthy_pcs_cpt + c->compromised_pcs_cpt) * BOTNET_BORDER_LEAK))
         {
             int infected_country = random_in(c->nb_borders);
             printf("%s is infected !", c->borders[infected_country]->name);

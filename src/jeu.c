@@ -17,7 +17,7 @@
 #include "../lib/computer_list.h"
 #include "../lib/country_list.h"
 #include "../lib/random_lib.h"
-
+#include "../lib/config.h"
 
 /**
  * @brief Créer un jeu_t avec le virus_t passé en paramètre et la somme de bitcoins de départ
@@ -34,7 +34,7 @@ extern jeu_t *jeu_create(virus_t *vir, float btc)
 
     jeu->btc = btc;
 
-    jeu->mining_rate=0.5;
+    jeu->mining_rate=DEFAULT_MINING_RATE;
 
     return (jeu);
 }
@@ -81,7 +81,7 @@ void edit_mining_rate(jeu_t * jeu, float rate){ // modifie le taux de minage
  */
 extern void mine_btc_country(jeu_t *jeu, country_t * country) // mine des bitcoins 
 {   
-    jeu->btc+= 0.01*country->power_indicator * country->compromised_pcs_cpt* jeu->mining_rate;
+    jeu->btc+= BITCOIN_MINING_COEFFICIENT * country->compromised_pcs_cpt* jeu->mining_rate;
             
 }
 
@@ -110,7 +110,7 @@ int search_virus(jeu_t * jeu, country_list_t * list){
  */
 extern int game_state(jeu_t * jeu, country_list_t * list){ // vérifies si on a infecté 51% des ordinateurs du monde
     float proportion = compromised_healthy_proportion(list);
-    if(proportion>=0.51){
+    if(proportion>=WIN_PROPORTION){
         return(1);
     } else if(search_virus(jeu, list)){
         return(-1);
