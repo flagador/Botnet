@@ -1,8 +1,22 @@
+/**
+ * @file country.h
+ * @author {Grégoire BELLON, Klemens Galus, Julian LEBOUC}
+ * @brief Définition structure country_s et prototypes fonctions externes
+ * @version 0.1
+ * @date 2021-03-22
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
 #ifndef _COUNTRY_H_
 #define _COUNTRY_H_
 
 #include "computer_list.h"
-
+/**
+ * @struct country_s
+ * @brief Structure contenant une liste de frontières, un nombre de frontières, un nom, identifiant, une liste d'orfinateurs, un indictauer de puissance, un compteur de pc sains et de pc compromis
+ * 
+ */
 typedef struct country_s {
 
     struct country_s** borders;

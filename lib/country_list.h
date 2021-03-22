@@ -1,8 +1,24 @@
+/**
+ * @file country_list.h
+ * @author {Grégoire BELLON, Klemens Galus, Julian LEBOUC}
+ * @brief Définition structure country_list_t et prototypes fonctions externes
+ * @version 0.1
+ * @date 2021-03-22
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #ifndef _COUNTRY_LIST_H_
 #define _COUNTRY_LIST_H_
 
 #include "country.h"
 
+/**
+ * @struct country_list_s
+ * @brief Structure contenant un nombre de pays et une liste de country_s
+ * 
+ */
 typedef struct country_list_s
 {
 	int nb;

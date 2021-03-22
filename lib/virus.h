@@ -1,8 +1,22 @@
+/**
+ * @file virus.h
+ * @author {Grégoire BELLON, Klemens Galus, Julian LEBOUC}
+ * @brief Définition structure virus_t et prototypes de fonctions externes
+ * @version 0.1
+ * @date 2021-03-22
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
 #ifndef _VIRUS_H_
 #define _VIRUS_H_
 
 #include "country_list.h"
-
+/**
+ * @struct virus_t
+ * @brief Structure contenant un nom, un taux de propagation et de recherche
+ * 
+ */
 typedef struct
 {
 	char *name;
