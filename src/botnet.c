@@ -103,7 +103,7 @@ int main()
     country_list_t * cl = creer_country_list();
 
     cl->liste[0]->compromised_pcs_cpt = 10;
-    while(game_state(cl,jeu)==0)
+    while(game_state(cl)==0)
     {
         choix(cl, jeu, upgrade, cles_usb, trojan, fake_ad);
         spread_world(jeu->virus, cl); 
@@ -112,7 +112,7 @@ int main()
         printf("\n \n Proportion pc infectes %Lf \n \n", *proportion);
         
     }
-    if(game_state(cl,jeu)==1){
+    if(game_state(cl)==1){
         printf("Vous avez gagné,wow !");
     }
 
