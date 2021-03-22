@@ -24,7 +24,7 @@ extern void detruire_country_list(country_list_t **c)
 int compter_borders(int id_country)
 {
 	FILE *fichier;
-	fichier = fopen("datas/borders", "r");
+	fichier = fopen("../datas/borders", "r");
 
 	int id_country_found, id_border;
 	char tete;
@@ -61,7 +61,7 @@ int compter_borders(int id_country)
 void set_borders(country_list_t *c)
 {
 	FILE *fichier;
-	fichier = fopen("datas/borders", "r");
+	fichier = fopen("../datas/borders", "r");
 	int border, country, tete, nb_borders, i;
 	//pour tout le fichier
 	tete = fscanf(fichier, "%i :", &country);
@@ -115,7 +115,7 @@ extern country_list_t *creer_country_list()
 {
 	printf("Création de country list...\n");
 
-	int country_nb = compter_lignes("./datas/countrylist") + 1;
+	int country_nb = compter_lignes("../datas/countrylist") + 1;
 
 	printf("Lignes comptées ! (%i)\n", country_nb);
 
@@ -125,7 +125,7 @@ extern country_list_t *creer_country_list()
 
 	FILE *fichier;
 
-	fichier = fopen("./datas/countrylist", "r");
+	fichier = fopen("../datas/countrylist", "r");
 
 	int i = 0;
 	int read;

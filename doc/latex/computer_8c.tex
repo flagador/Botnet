@@ -15,9 +15,8 @@ Include dependency graph for computer.\+c\+:
 \item 
 int \mbox{\hyperlink{computer_8c_a700fd11e6629ad0d66937b31e7bc0389}{computer\+\_\+exist}} (\mbox{\hyperlink{structcomputer__s}{computer\+\_\+t}} $\ast$const computer)
 \begin{DoxyCompactList}\small\item\em Retourne vrai si l\textquotesingle{}ordinateur passé en parametre existe. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{computer_8c_adf8d2f91a1161ee98ac2b2ef62a454ac}\label{computer_8c_adf8d2f91a1161ee98ac2b2ef62a454ac}} 
-\mbox{\hyperlink{structcomputer__s}{computer\+\_\+t}} $\ast$ {\bfseries computer\+\_\+create} (int weight, int power, int status)
-\end{DoxyCompactItemize}
+\mbox{\hyperlink{structcomputer__s}{computer\+\_\+t}} $\ast$ \mbox{\hyperlink{computer_8c_adf8d2f91a1161ee98ac2b2ef62a454ac}{computer\+\_\+create}} (int weight, int power, int status)
+\begin{DoxyCompactList}\small\item\em Créer un objet computer\+\_\+t. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -26,9 +25,40 @@ Le fichier \mbox{\hyperlink{computer_8c}{computer.\+c}} définie les fonctions p
 \begin{DoxyAuthor}{Author}
 \{Grégoire B\+E\+L\+L\+ON, Klemens Galus, Julian L\+E\+B\+O\+UC\} 
 \end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2021-\/03-\/22
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2021 
+\end{DoxyCopyright}
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{computer_8c_adf8d2f91a1161ee98ac2b2ef62a454ac}\label{computer_8c_adf8d2f91a1161ee98ac2b2ef62a454ac}} 
+\index{computer.c@{computer.c}!computer\_create@{computer\_create}}
+\index{computer\_create@{computer\_create}!computer.c@{computer.c}}
+\doxysubsubsection{\texorpdfstring{computer\_create()}{computer\_create()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcomputer__s}{computer\+\_\+t}}$\ast$ computer\+\_\+create (\begin{DoxyParamCaption}\item[{int}]{weight,  }\item[{int}]{power,  }\item[{int}]{status }\end{DoxyParamCaption})}
+
+
+
+Créer un objet computer\+\_\+t. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em weight} & \\
+\hline
+{\em power} & puissance de l\textquotesingle{}ordinateur \\
+\hline
+{\em status} & status \+: infecte ou non \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+computer\+\_\+t$\ast$ 
+\end{DoxyReturn}
 \mbox{\Hypertarget{computer_8c_a700fd11e6629ad0d66937b31e7bc0389}\label{computer_8c_a700fd11e6629ad0d66937b31e7bc0389}} 
 \index{computer.c@{computer.c}!computer\_exist@{computer\_exist}}
 \index{computer\_exist@{computer\_exist}!computer.c@{computer.c}}
