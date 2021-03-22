@@ -53,8 +53,6 @@ int mainMenu(SDL_Renderer * pRenderer, SDL_Window * pWindow){
     if(font == NULL){
         printf("Aie \n");
     }
-    
-
     while (isOpen)
     {
         while (SDL_PollEvent(&events))
@@ -151,7 +149,7 @@ void startNewGame(){
 int shop(SDL_Renderer * Render, SDL_Window * Window){
     SDL_RenderClear(Render);
     SDL_Event events;
-    SDL_Rect pQ, pReturn, pItem0,pItem1,pItem2,pItem3;
+    SDL_Rect pQ, pReturn, pItem0,pItem1,pItem2,pItem3,pItem4,pItem5,pItem6,pItem7;
     int isOpen = 1;
     while (isOpen)
     {
@@ -191,6 +189,11 @@ int shop(SDL_Renderer * Render, SDL_Window * Window){
     initRect(Render, &pItem1, 372, 80,100,100, 118,118,118);
     initRect(Render, &pItem2, 608, 80,100,100, 118,118,118);
     initRect(Render, &pItem3, 844, 80,100,100, 118,118,118);
+
+    initRect(Render, &pItem4, 136, 280,100,100, 118,118,118);
+    initRect(Render, &pItem5, 372, 280,100,100, 118,118,118);
+    initRect(Render, &pItem6, 608, 280,100,100, 118,118,118);
+    initRect(Render, &pItem7, 844, 280,100,100, 118,118,118);
 
 
     initRect(Render, &pReturn, 1080-70, 720-70, 50,50, 255,0,0);
