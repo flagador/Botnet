@@ -1,6 +1,8 @@
 BIN = bin/botnet test/test_random test/test_virus test/test_jeu
 OBJ= test/test_random.o  bin/computer.o bin/country_list.o bin/botnet.o bin/country.o
 
+.PHONY: test clean doc
+
 bin/ : 
 	mkdir bin
 
@@ -55,10 +57,9 @@ test/test_jeu.o : test/test_jeu.c
 	gcc -c test/test_jeu.c -o test/test_jeu.o
 
 doc:
-	rm -rf doc/
 	mkdir doc
+	rm -rf doc/*
 	doxygen doxy_cfg
-
 
 clean:
 	rm -rf bin/*
