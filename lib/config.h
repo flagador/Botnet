@@ -10,3 +10,5 @@
 #define BOTNET_EXPENSION_MEDIANE 0.2 //X * corrupted PCs
 #define BOTNET_EXPENSION_ECART_TYPE 0.2 //X fois la médiane
 #define BITCOIN_MINING_COEFFICIENT 0.1
+
+#define MAX_LEN 20 //Taille MAX du nom du virus

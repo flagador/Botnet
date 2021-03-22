@@ -21,7 +21,6 @@
 #include "../lib/country_list.h"
 #include "../lib/config.h"
 #include "../lib/data_sdl.h"
-
 void delay(int number_of_seconds)
 {
     // Converting time into milli_seconds
@@ -141,9 +140,9 @@ int mainMenu(){
                     }
                 break;
             }
-        }
 
-    
+        }
+        
         SDL_SetRenderDrawColor(pRenderer, 0,255,0,255);
         SDL_RenderPresent(pRenderer);
     
@@ -167,6 +166,57 @@ int mainMenu(){
     SDL_Quit();
     return ret;
 }
+
+int nameVirus(SDL_Renderer * Render, SDL_Window * Window, char ** textaa){
+    size_t len = 0;
+    size_t l = 0;
+    size_t lcp = 0;
+    SDL_Color white = {255,255,255};
+    SDL_RenderClear(Render);
+    SDL_Event events;
+    SDL_Rect pQ;
+    int isOpen = 1;
+    SDL_StartTextInput();
+    while (isOpen)
+    {
+        while (SDL_PollEvent(&events))
+        {
+            switch (events.type)
+            {
+            case SDL_QUIT:
+                isOpen = 0;
+                return 0;
+                break;
+            case SDL_MOUSEBUTTONDOWN:
+                if(events.button.button == SDL_BUTTON_LEFT)
+                    
+                break;
+            case SDL_TEXTINPUT:
+                l = strlen(events.text.text);
+                lcp = len + 1 < MAX_LEN ? 1 : MAX_LEN - len;
+                strncpy(*textaa+len, events.text.text, lcp);
+                len += lcp;
+                printf("%s \n", *textaa);
+                break;
+            case SDL_KEYDOWN:
+                if(events.key.keysym.sym == SDLK_BACKSPACE && len){
+                        textaa[0][len -1] = 0;
+                        len--;
+                        printf("%s \n", *textaa);
+                    }else if(events.key.keysym.sym == SDLK_RETURN && len){
+                        printf("text : %s \n", *textaa);
+                        SDL_StopTextInput();
+                        isOpen = 0;
+                    }
+                break;
+            }
+        }
+    initRect(Render, &pQ, 0,0,LONG,HAUT, 0,137,255,255);
+    SDL_RenderPresent(Render);
+    }
+    return 1;
+}
+
 
 int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *upgrade, upgrade_t *cles_usb, upgrade_t *trojan, upgrade_t *fake_ad){
     SDL_Color white = {255,255,255};
@@ -232,6 +282,31 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *upgr
 
 
 void startNewGame(){
+    char *VirusName = calloc(MAX_LEN, sizeof(char *));
+    /*
+
+    ATTENTION IL VA FALLOIR DETRUIRE VIRUSNAME A LA FIN
+
+    */
+    SDL_Color white = {255,255,255};
+
+    int flags = IMG_INIT_JPG|IMG_INIT_PNG;
+    if(IMG_Init(flags))
+        printf("GOOD INIT\n");
+    SDL_Window* pWindow = NULL ;     
+    SDL_Renderer* pRenderer = NULL;
+
+    if (SDL_CreateWindowAndRenderer(LONG, HAUT, SDL_WINDOW_SHOWN, &pWindow, &pRenderer) < 0)
+    {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", SDL_GetError());        
+        SDL_Quit();         
+    }
+    TTF_Init();
+
+    TTF_Font * font = TTF_OpenFont("../asset/Lato-Black.ttf", 60);
+    
+    nameVirus(pRenderer, pWindow, &VirusName);
+    printf("%s \n", VirusName);
     char buffer [10];
     int result;
     char *buf = malloc(200); 
@@ -245,7 +320,13 @@ void startNewGame(){
     chdir(buf);
     free(buf);
 
-    virus_t *virus = virus_create("kaboub", 1, 1);
+    virus_t *virus = virus_create(VirusName, 1, 1);
+
+    printf("K: %s \n", virus->name);
+
+    char WinName[MAX_LEN + 15] = "BotNet : ";
+    strcat(WinName, VirusName);
+    SDL_SetWindowTitle(pWindow, WinName);
     //virus_display(virus);
     long double *proportion;
 
@@ -267,24 +348,6 @@ void startNewGame(){
     country_list_t *cl = creer_country_list();
 
     cl->liste[0]->compromised_pcs_cpt = 10;
-
-
-    SDL_Color white = {255,255,255};
-
-    int flags = IMG_INIT_JPG|IMG_INIT_PNG;
-    if(IMG_Init(flags))
-        printf("GOOD INIT\n");
-    SDL_Window* pWindow = NULL ;     
-    SDL_Renderer* pRenderer = NULL;
-
-    if (SDL_CreateWindowAndRenderer(LONG, HAUT, SDL_WINDOW_SHOWN, &pWindow, &pRenderer) < 0)
-    {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", SDL_GetError());        
-        SDL_Quit();         
-    }
-    TTF_Init();
-
-    TTF_Font * font = TTF_OpenFont("../asset/Lato-Black.ttf", 60);
 
 
     SDL_Texture *pMap = NULL;
@@ -339,12 +402,10 @@ void startNewGame(){
 
     initRect(pRenderer, &prpour,20 ,HAUT-180+30, 200 , 20 , 255,155,155,255);
     initRect(pRenderer, &prr,20 ,HAUT-180+30, 2*((int)(compromised_healthy_proportion(cl)*100)) , 20 , 240,13,13,255);
-    printf("%f\n", compromised_healthy_proportion(cl));
     initRect(pRenderer, &prpoub,20 ,HAUT-180+70, 200 , 20 , 155,155,255,255);
     initRect(pRenderer, &prb,20 ,HAUT-180+70, 2*j , 20 , 13,13,240,255);
 
     snprintf(buffer , 10, "%.2f", jeu->btc);
-
     initRect(pRenderer, &pmoney, 20, HAUT-180+120, 50, 20,  91,91,91, 255);
     showText(pRenderer, &pmoney, buffer, font, &white);
     SDL_RenderCopy(pRenderer, pBitcoin, NULL, &pRecBit);

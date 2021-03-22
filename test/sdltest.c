@@ -249,3 +249,22 @@ int shop(SDL_Renderer * Render, SDL_Window * Window){
     return 1;
 }
 */
+/*
+                            SDL_StartTextInput();
+                            if(events.type == SDL_TEXTINPUT){
+                                l = strlen(events.text.text);
+                                lcp = len + 1 < MAX_LEN ? 1 : MAX_LEN - len;
+                                strncpy(textaa+len, events.text.text, lcp);
+                                len += lcp;
+                                printf("%s \n", textaa);
+                            }else if(events.type == SDL_KEYDOWN){
+                                if(events.key.keysym.sym == SDLK_BACKSPACE && len){
+                                    textaa[len -1] = 0;
+                                    len--;
+                                    printf("%s \n", textaa);
+                                }else if(events.key.keysym.sym == SDLK_RETURN && len){
+                                    printf("text : %s \n", textaa);
+                                    SDL_StopTextInput();
+                                }
+                            }
+*/
