@@ -10,21 +10,44 @@ Russie :
     Amérique du Nord
     Europe de l'est 
     Europe de l'ouest
+    Moyen-orient
     
     
 Afrique du Nord :
     Afrique du Sud
     Europe de l'est 
     Afrique centrale
+    Moyen-orient
 
-Moyen-orient
-Inde
-Chine
-Korée du nord
+Amérique du Nord :
+    Russie
+
+Afrique du Sud:
+    Afrique du Nord
+    Afrique Centrale
+
+Afrique Centrale:
+    Afrique du Nord
+    Afrique du Sud
+
+Moyen-orient:
+    Inde
+    Russie
+    Afrique du Nord
+
+Inde :
+    Chine
+    Moyen Orient
+
+Chine :
+    Inde
+    Corée du Sud
+
+Corée du nord
 Reste de l'asie
 Japon
 Océanie
 Brésil
 Reste d'Amérique du Sud
 Amérique centrale
-Amérique du Nord
+

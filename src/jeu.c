@@ -103,18 +103,8 @@ extern void mine_btc_world(jeu_t *jeu, country_list_t * list){
  * @param jeu 
  * @return int 
  */
-extern int game_state(country_list_t * list, jeu_t *jeu){ // vérifies si on a infecté 51% des ordinateurs du monde
-    float healthy_pcs=0;
-    float compromised_pcs=0;
-    long double proportion;
-    for(int i=0; i<list->nb; i++){
-        healthy_pcs+=list->liste[i]->healthy_pcs_cpt;
-        compromised_pcs+=list->liste[i]->compromised_pcs_cpt;
-    }
-    proportion= compromised_pcs/(compromised_pcs+healthy_pcs);
-    printf("Pc infectes : %f Pc clean %f", compromised_pcs, healthy_pcs);
-    printf("\n \n Proportion pc infectes %Lf \n \n", proportion);
-    
+extern int game_state(country_list_t * list){ // vérifies si on a infecté 51% des ordinateurs du monde
+    float proportion = compromised_healthy_proportion(list);
     if(proportion>=WIN_PROPORTION){
         return(1);
     } /*else if(){

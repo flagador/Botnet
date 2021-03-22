@@ -176,3 +176,25 @@ extern country_list_t *creer_country_list()
 
 	return country_list;
 }
+
+extern float count_compromised_pcs(country_list_t * list){
+    float compromised_pcs=0;
+    for(int i=0; i<list->nb; i++){
+        compromised_pcs+=list->liste[i]->compromised_pcs_cpt;
+    }
+	return compromised_pcs;
+}
+
+extern float count_healthy_pcs(country_list_t * list){
+    float healthy_pcs=0;
+    for(int i=0; i<list->nb; i++){
+        healthy_pcs+=list->liste[i]->healthy_pcs_cpt;
+    }
+	return healthy_pcs;
+}
+
+extern float compromised_healthy_proportion(country_list_t * list){
+	float cp_pcs = count_compromised_pcs(list);
+	float ht_pcs = count_healthy_pcs(list);
+	return(cp_pcs/(cp_pcs+ht_pcs));
+}
