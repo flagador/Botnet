@@ -55,7 +55,6 @@ test/test_jeu.o : test/test_jeu.c
 	gcc -c test/test_jeu.c -o test/test_jeu.o
 
 
-
 clean:
 	rm -rf bin/*
 	rm -rf test/test*.o

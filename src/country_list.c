@@ -2,6 +2,17 @@
 #include <stdlib.h>
 #include "../lib/country_list.h"
 
+/**
+ * \file country_list.c
+ *  \brief Liste de pays, et opérations (créateur, destructeur) qui y sont associés.
+ *  \author {Grégoire BELLON, Klemens Galus, Julian LEBOUC}
+*/
+
+/**
+ * @brief Affiche les pays au même format que country.afficher_country
+ * 
+ * @param c {Pointeur de liste de pays}
+ */
 extern void afficher_country_list(const country_list_t *c)
 {
 
@@ -11,6 +22,11 @@ extern void afficher_country_list(const country_list_t *c)
 	}
 }
 
+/**
+ * @brief Destructeur de country_list
+ * 
+ * @param c {Pointeur de liste de pays}
+ */
 extern void detruire_country_list(country_list_t **c)
 {
 	for (int i = 0; i < (*c)->nb; i++)
@@ -21,6 +37,7 @@ extern void detruire_country_list(country_list_t **c)
 	*c = NULL;
 }
 
+//Compte les frontières grâce au fichier texte "borders"
 int compter_borders(int id_country)
 {
 	FILE *fichier;
@@ -58,6 +75,7 @@ int compter_borders(int id_country)
 	}
 }
 
+//initialise les borders de c grâce au fichier texte borders
 void set_borders(country_list_t *c)
 {
 	FILE *fichier;
@@ -111,6 +129,11 @@ int compter_lignes(char *n_fichier)
 	return cpt;
 }
 
+/**
+ * @brief Créateur de la country_list, à partir du fichier data/countrylist
+ * 
+ * @return country_list_t* 
+ */
 extern country_list_t *creer_country_list()
 {
 	printf("Création de country list...\n");
