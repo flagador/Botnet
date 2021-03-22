@@ -9,6 +9,8 @@
 #define LONG 1080
 #define HAUT 720
 
+SDL_Color white = {255,255,255};
+
 int mainMenu();
 void startNewGame();
 int shop(SDL_Renderer * Render, SDL_Window * Window);

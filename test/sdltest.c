@@ -1,4 +1,5 @@
 #include "../lib/data_sdl.h"
+#include "../lib/country_list.h"
 #include <unistd.h>
 #include <stdio.h>
 
@@ -31,9 +32,6 @@ int mainMenu(){
     SDL_Renderer* pRenderer = NULL;
     SDL_Rect pstart, pcharge, pquit;
     SDL_Event events;
-
-    SDL_Color white = {255,255,255};
-
     if (SDL_CreateWindowAndRenderer(LONG, HAUT, SDL_WINDOW_SHOWN, &pWindow, &pRenderer) < 0)
     {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", SDL_GetError());        
@@ -49,13 +47,6 @@ int mainMenu(){
     if(font == NULL){
         printf("Aie \n");
     }
-    /*SDL_Surface * sQuit = NULL;
-    SDL_Texture * tQuit = NULL;
-    SDL_Surface * sStart = NULL;
-    SDL_Texture * tStart = NULL;
-    SDL_Surface * sCharge = NULL;
-    SDL_Texture * tCharge = NULL;
-    initText(sStart, tStart, font, pRenderer, white, "JOUER");*/
     while (isOpen)
     {
         while (SDL_PollEvent(&events))
@@ -118,6 +109,10 @@ void startNewGame(){
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", SDL_GetError());        
         SDL_Quit();         
     }
+    TTF_Init();
+
+    TTF_Font * font = TTF_OpenFont("../asset/Lato-Black.ttf", 60);
+
 
     SDL_Texture *pMap = NULL;
     pMap = IMG_LoadTexture(pRenderer, "../asset/map.png");
@@ -167,7 +162,8 @@ void startNewGame(){
 
     initRect(pRenderer, &ptestslider,20 ,HAUT-180+120, 200 , 20 , 155,155,255);
 
-    
+    showText(pRenderer, &pBottom, "\u20bf", font, &white);
+
 
     initRect(pRenderer, &pboutique, 1080-100, 720-100, 50,50, 0,0,0);
     SDL_RenderPresent(pRenderer);
@@ -175,6 +171,8 @@ void startNewGame(){
     SDL_DestroyTexture(pMap);
     SDL_DestroyRenderer(pRenderer);
     SDL_DestroyWindow(pWindow);
+    TTF_CloseFont(font);
+    TTF_Quit();
     IMG_Quit();
     SDL_Quit();
 }
