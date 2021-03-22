@@ -85,7 +85,12 @@ extern void virus_display(virus_t *virus)
     printf("Taux de recherche : %f \n", virus->research_rate);
 }
 
-
+/**
+ * @brief Infecte des PCs dans un pays donné, en gérant les différents cas (HP < nb)
+ * 
+ * @param nb Nombre de PCs à infecter
+ * @param c Pointeur du pays dans lesquels il faut infecter les PCs
+ */
 static void infect(unsigned long int nb, country_t *c)
 {
     if (nb > c->healthy_pcs_cpt)
@@ -100,6 +105,12 @@ static void infect(unsigned long int nb, country_t *c)
     }
 }
 
+/**
+ * @brief Propage le virus dans un pays donné, en fonction du nombre de PCs compromis de ce dernier. Gère les fuites aux frontières aussi
+ * 
+ * @param virus Virus qui se propage
+ * @param c Pays dans lequel le virus se propage
+ */
 static void spread_country(virus_t *virus, country_t *c)
 {
     if (c->compromised_pcs_cpt > 0)
@@ -116,6 +127,12 @@ static void spread_country(virus_t *virus, country_t *c)
     }
 }
 
+/**
+ * @brief Etendre le botnet au monte
+ * 
+ * @param virus Virus à étendre
+ * @param cl Liste de pays dans lequel le virus s'étend
+ */
 extern void spread_world(virus_t *virus, country_list_t *cl) //propagation du virus
 {
     for (int i = 0; i < cl->nb; i++)

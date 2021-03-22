@@ -4,7 +4,7 @@ OBJ= test/test_random.o  bin/computer.o bin/country_list.o bin/botnet.o bin/coun
 .PHONY: test clean doc
 
 bin/ : 
-	mkdir bin
+	mkdir -p bin
 
 bin/botnet: bin/botnet.o bin/jeu.o bin/virus.o bin/upgrade.o bin/country_list.o bin/computer_list.o bin/country.o bin/random_lib.o bin/
 	gcc bin/botnet.o bin/jeu.o bin/virus.o bin/upgrade.o bin/country_list.o bin/computer_list.o bin/country.o bin/random_lib.o -o bin/botnet -lm
@@ -57,7 +57,7 @@ test/test_jeu.o : test/test_jeu.c
 	gcc -c test/test_jeu.c -o test/test_jeu.o
 
 doc:
-	mkdir doc
+	mkdir -p doc
 	rm -rf doc/*
 	doxygen doxy_cfg
 
