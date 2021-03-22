@@ -3,8 +3,8 @@
 #include <string.h>
 #include <math.h>
 #include <time.h>
-#include "virus.h"
-#include "random_lib.h"
+#include "../lib/virus.h"
+#include "../lib/random_lib.h"
 
 extern virus_t *virus_create(char name[], float spr_rate, float rsch_rate)
 {

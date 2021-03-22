@@ -1,8 +1,9 @@
-#include "country.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "string.h"
-#include "random_lib.h"
+#include <string.h>
+
+#include "../lib/random_lib.h"
+#include "../lib/country.h"
 
 extern country_t *creer_country(char *name, int power_indicator, int id)
 {

@@ -1,8 +1,9 @@
-#include "virus.h"
-#include "country_list.h"
-#include "stdio.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+#include "../lib/virus.h"
+#include "../lib/country_list.h"
 
 int main()
 {

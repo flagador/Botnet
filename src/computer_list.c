@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "computer_list.h"
+#include "../lib/computer_list.h"
 
 extern 
 int liste_existe(computer_list_t * const liste){

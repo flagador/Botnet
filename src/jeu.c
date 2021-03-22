@@ -1,11 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "virus.h"
-#include "upgrade.h"
-#include "jeu.h"
-#include "computer_list.h"
-#include "country_list.h"
+#include "../lib/virus.h"
+#include "../lib/upgrade.h"
+#include "../lib/jeu.h"
+#include "../lib/computer_list.h"
+#include "../lib/country_list.h"
 
 
 

@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "upgrade.h"
+
+#include "../lib/upgrade.h"
 
 
 extern upgrade_t *upgrade_create(char name[], float price, float spr_rate, float rsch_rate){ //cr�� un upgrade

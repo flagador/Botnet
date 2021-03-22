@@ -1,5 +1,6 @@
-#include "random_lib.h"
 #include <stdio.h>
+
+#include "../lib/random_lib.h"
 
 int main(){
     

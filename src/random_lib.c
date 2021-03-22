@@ -2,7 +2,7 @@
 #include <math.h>
 #include <time.h>
 
-#include "random_lib.h"
+#include "../lib/random_lib.h"
 
 extern void init_rand(){
     srand(time(0));
