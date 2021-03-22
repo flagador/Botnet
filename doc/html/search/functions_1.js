@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['computer_5fexist_23',['computer_exist',['../computer_8c.html#a700fd11e6629ad0d66937b31e7bc0389',1,'computer.c']]]
+  ['buy_5fupgrade_50',['buy_upgrade',['../jeu_8c.html#a4b34a7b866f0f17a8edc844527ea92b4',1,'jeu.c']]]
 ];
