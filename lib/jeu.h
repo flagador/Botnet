@@ -1,10 +1,26 @@
+/**
+ * @file jeu.h
+ * @author {Grégoire BELLON, Klemens Galus, Julian LEBOUC}
+ * @brief Définition structure jeu_t , prototypes de fonctions externes
+ * @version 0.1
+ * @date 2021-03-22
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #ifndef _JEU_H_
 #define _JEU_H_
 #include "virus.h"
 #include "upgrade.h"
 
 
-
+/**
+ * @struct jeu_t
+ * @brief Structure contenant un virus, une quantité de bitcoins et un taux de minage
+ * 
+ * 
+ */
 typedef struct
 {
 	virus_t *virus;
