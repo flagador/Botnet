@@ -22,7 +22,6 @@
 #include "../lib/config.h"
 #include "../lib/data_sdl.h"
 
-
 void delay(int number_of_seconds)
 {
     // Converting time into milli_seconds

@@ -1,4 +1,4 @@
-BIN = bin/botnet test/test_random test/test_virus test/test_jeu 
+BIN = bin/botnet test/test_random test/test_virus test/test_jeu test/sdltest
 OBJ= test/test_random.o  bin/computer.o bin/country_list.o bin/botnet.o bin/country.o
 
 .PHONY: test clean doc
@@ -50,7 +50,6 @@ test/test_virus : test/test_virus.o bin/virus.o bin/country_list.o bin/country.o
 
 test/test_virus.o : test/test_virus.c
 	gcc -c test/test_virus.c -o test/test_virus.o
-
 
 test/sdltest : bin/sdlfunc.o test/sdltest.c 
 	gcc bin/sdlfunc.o -o test/sdltest test/sdltest.c `sdl2-config --cflags --libs` -lSDL2_ttf -lSDL2_image
