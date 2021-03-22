@@ -1,4 +1,4 @@
-#include "../lib/data_sdl.h"
+/*#include "../lib/data_sdl.h"
 #include "../lib/country_list.h"
 #include "../lib/virus.h"
 #include "../lib/upgrade.h"
@@ -248,3 +248,4 @@ int shop(SDL_Renderer * Render, SDL_Window * Window){
     }
     return 1;
 }
+*/

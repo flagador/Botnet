@@ -4,6 +4,8 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL.h>   
+#include "../lib/jeu.h"
+#include "../lib/upgrade.h"
 
 
 #define LONG 1080
@@ -12,7 +14,7 @@
 
 int mainMenu();
 void startNewGame();
-int shop(SDL_Renderer * Render, SDL_Window * Window);
+int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *upgrade, upgrade_t *cles_usb, upgrade_t *trojan, upgrade_t *fake_ad);
 //void initRect(SDL_Renderer * render ,SDL_Rect * rect, int x, int y , int w, int h,int r,int g,int b, int alpha);
   void initRect(SDL_Renderer * render ,SDL_Rect * rect, int x, int y , int w, int h,int r,int g,int b, int alpha);
 
