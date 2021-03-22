@@ -75,7 +75,11 @@ void choix(country_list_t * cl, jeu_t * jeu, upgrade_t * upgrade, upgrade_t * cl
     } 
 }
 
-
+/**
+ * @brief Main 
+ * 
+ * @return int 
+ */
 
 int main()
 {
@@ -103,7 +107,7 @@ int main()
     country_list_t * cl = creer_country_list();
 
     cl->liste[0]->compromised_pcs_cpt = 10;
-    while(game_state(cl)==0)
+    while(game_state(jeu, cl)==0)
     {
         printf("-----Thunes----- : %f \n", jeu->btc);
         choix(cl, jeu, upgrade, cles_usb, trojan, fake_ad);
@@ -111,8 +115,10 @@ int main()
         mine_btc_world(jeu, cl);
         
     }
-    if(game_state(cl)==1){
+    if(game_state(jeu, cl)==1){
         printf("Vous avez gagné,wow !");
+    } else {
+        printf("Vous avez perdu,mince !");
     }
 
 

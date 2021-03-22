@@ -128,7 +128,7 @@ static void spread_country(virus_t *virus, country_t *c)
 }
 
 /**
- * @brief Etendre le botnet au monte
+ * @brief Etendre le botnet au monde
  * 
  * @param virus Virus à étendre
  * @param cl Liste de pays dans lequel le virus s'étend
