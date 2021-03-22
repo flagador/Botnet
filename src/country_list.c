@@ -1,6 +1,6 @@
-#include "country_list.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "../lib/country_list.h"
 
 extern void afficher_country_list(const country_list_t *c)
 {

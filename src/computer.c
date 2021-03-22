@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
-#include "computer.h"
+#include "../lib/computer.h"
 
 
 extern int computer_exist( computer_t * const computer)

@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "upgrade.h"
+
+#include "../lib/upgrade.h"
 
 
 extern upgrade_t *upgrade_create(char name[], float price, float spr_rate, float rsch_rate){ //cr�� un upgrade
@@ -34,7 +35,7 @@ static void upgrade_destroy(upgrade_t **upgrade){ //d�truie le upgrade
     (*upgrade)=NULL;
 }
 
-static void upgrade_display(upgrade_t *upgrade){ //affiche les donn�es du upgrade
+extern void upgrade_display(upgrade_t *upgrade){ //affiche les donn�es du upgrade
     if(upgrade!=NULL){
         printf("Nom du upgrade : %s \n", upgrade->name);
         printf("Prix : %f \n", upgrade->price);

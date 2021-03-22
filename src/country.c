@@ -1,7 +1,9 @@
-#include "country.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "string.h"
+#include <string.h>
+
+#include "../lib/random_lib.h"
+#include "../lib/country.h"
 
 extern country_t *creer_country(char *name, int power_indicator, int id)
 {
@@ -19,6 +21,8 @@ extern country_t *creer_country(char *name, int power_indicator, int id)
 	country->healthy_pcs_cpt = 0;
 	country->compromised_pcs_cpt = 0;
 
+	country->healthy_pcs_cpt = loi_normale_int(power_indicator * 100000, (power_indicator * 100000)/5);
+
 	return country;
 }
 
@@ -33,15 +37,15 @@ extern void detruire_country(country_t **c)
 
 extern void afficher_country(country_t *c)
 {
-	printf("Nom : %s | PI : %i  | HP : %i  | CP : %i | ID : %i | BO : %i\n", c->name, c->power_indicator, c->healthy_pcs_cpt, c->compromised_pcs_cpt, c->identifiant, c->nb_borders);
-	if (c->nb_borders)
-	{
-		printf("Frontières : \n");
-		for (int i = 0; i < c->nb_borders; i++)
-		{
-			printf("%s\n", c->borders[i]->name);
-		}
-	}
+	printf("Nom : %s | PI : %i  | HP : %lu  | CP : %lu | ID : %i | BO : %i\n", c->name, c->power_indicator, c->healthy_pcs_cpt, c->compromised_pcs_cpt, c->identifiant, c->nb_borders);
+	// if (c->nb_borders)
+	// {
+	// 	printf("Frontières : \n");
+	// 	for (int i = 0; i < c->nb_borders; i++)
+	// 	{
+	// 		printf("%s\n", c->borders[i]->name);
+	// 	}
+	// }
 }
 
 extern void ajouter_borders(country_t *c, country_t **liste_border, int nb_borders)

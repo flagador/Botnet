@@ -449,7 +449,15 @@ MigrationBackup/
 
 # End of https://www.toptal.com/developers/gitignore/api/c,visualstudio,codeblocks,sublimetext
 
-botnet
-test_computer
-test_liste
-test_random
+doc/*
+test/*.o
+test/test_computer
+test/test_liste
+test/test_random
+test/test_virus
+test/test_jeu
+
+#exceptions
+!*/.gitkeep
+
+
