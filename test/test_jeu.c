@@ -87,17 +87,19 @@ int main()
     country_list_t * cl = creer_country_list();
 
     cl->liste[0]->compromised_pcs_cpt = 10;
-    while(game_state(cl)==0)
+   while(game_state(jeu, cl)==0)
     {
+        printf("-----Thunes----- : %f \n", jeu->btc);
         choix(cl, jeu, upgrade, cles_usb, trojan, fake_ad);
-        spread_world(jeu->virus, cl); 
+        spread_world(jeu->virus, cl);
         mine_btc_world(jeu, cl);
-        printf(" * * * * * * * * * * * Thunes : %f \n", jeu->btc);
-        
     }
-    if(game_state(cl)==1){
+    if(game_state(jeu, cl)==1){
         printf("Vous avez gagné,wow !");
+    } else {
+        printf("Vous avez perdu,mince !");
     }
+
 
 
     virus_destroy(&jeu->virus);
