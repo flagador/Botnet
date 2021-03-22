@@ -1,3 +1,14 @@
+/**
+ * @file virus.c
+ * @author {Grégoire BELLON, Klemens Galus, Julian LEBOUC}
+ * @brief Primitives sur l'objet virus_t, fonctions d'infections et de propagation du virus
+ * @version 0.1
+ * @date 2021-03-22
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -6,6 +17,14 @@
 #include "../lib/virus.h"
 #include "../lib/random_lib.h"
 
+/**
+ * @brief Créer un objet virus_t
+ * 
+ * @param name 
+ * @param spr_rate 
+ * @param rsch_rate 
+ * @return virus_t* 
+ */
 extern virus_t *virus_create(char name[], float spr_rate, float rsch_rate)
 {
     virus_t *virus = malloc(sizeof(virus_t));
@@ -21,28 +40,51 @@ extern virus_t *virus_create(char name[], float spr_rate, float rsch_rate)
     return (virus);
 }
 
+/**
+ * @brief Modifies le taux de recherche du virus
+ * 
+ * @param virus 
+ * @param rsch_rate 
+ */
 extern void edit_rsch_rate(virus_t *virus, float rsch_rate)
 {
     virus->research_rate = rsch_rate;
 }
 
+/**
+ * @brief Modifies le taux de propagation du virus
+ * 
+ * @param virus 
+ * @param spr_rate 
+ */
 extern void edit_spr_rate(virus_t *virus, float spr_rate)
 {
     virus->spreading_rate = spr_rate;
 }
 
+/**
+ * @brief Détruit un objet virus_t
+ * 
+ * @param virus 
+ */
 extern void virus_destroy(virus_t **virus)
 {
     free((*virus));
     (*virus) = NULL;
 }
 
+/**
+ * @brief Affiche un objet virus_t
+ * 
+ * @param virus 
+ */
 extern void virus_display(virus_t *virus)
 {
     printf("Nom du virus : %s \n", virus->name);
     printf("Taux de propagation : %f \n", virus->spreading_rate);
     printf("Taux de recherche : %f \n", virus->research_rate);
 }
+
 
 static void infect(unsigned long int nb, country_t *c)
 {

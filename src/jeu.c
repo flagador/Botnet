@@ -96,6 +96,13 @@ extern void mine_btc_world(jeu_t *jeu, country_list_t * list){
     } 
 }
 
+/**
+ * @brief La fonction game_state calcule la proportion de pc infectés / pc sains et retourne 0 si la partie continue, 1 si la partie est gagnée, -1 si elle est perdue
+ * 
+ * @param list 
+ * @param jeu 
+ * @return int 
+ */
 extern int game_state(country_list_t * list, jeu_t *jeu){ // vérifies si on a infecté 51% des ordinateurs du monde
     float healthy_pcs=0;
     float compromised_pcs=0;
