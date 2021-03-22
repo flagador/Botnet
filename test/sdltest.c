@@ -49,12 +49,13 @@ int mainMenu(){
     if(font == NULL){
         printf("Aie \n");
     }
-    SDL_Surface * sQuit = TTF_RenderText_Blended(font, "QUITTER", white);
-    SDL_Texture * tQuit = SDL_CreateTextureFromSurface(pRenderer, sQuit);
-    SDL_Surface * sStart = TTF_RenderText_Blended(font, "JOUER", white);
-    SDL_Texture * tStart = SDL_CreateTextureFromSurface(pRenderer, sStart);
-    SDL_Surface * sCharge = TTF_RenderText_Blended(font, "CHARGER", white);
-    SDL_Texture * tCharge = SDL_CreateTextureFromSurface(pRenderer, sCharge);
+    /*SDL_Surface * sQuit = NULL;
+    SDL_Texture * tQuit = NULL;
+    SDL_Surface * sStart = NULL;
+    SDL_Texture * tStart = NULL;
+    SDL_Surface * sCharge = NULL;
+    SDL_Texture * tCharge = NULL;
+    initText(sStart, tStart, font, pRenderer, white, "JOUER");*/
     while (isOpen)
     {
         while (SDL_PollEvent(&events))
@@ -88,25 +89,14 @@ int mainMenu(){
         initRect(pRenderer, &pcharge, 390,380,300,100, 255,0,0);
         initRect(pRenderer, &pquit, 465,555,150,50, 255,0,0);
 
-        SDL_RenderCopy(pRenderer, tQuit, NULL, &pquit);
-        SDL_RenderCopy(pRenderer, tStart, NULL, &pstart);
-        SDL_RenderCopy(pRenderer, tCharge, NULL, &pcharge);
+        showText(pRenderer, &pstart, "JOUER", font, &white);
+        showText(pRenderer, &pquit, "QUITTER", font, &white);
+        showText(pRenderer, &pcharge, "CHARGER", font, &white);
 
 
-/*
-        initText(pRenderer, pQuit, tQuit, white, "QUITTER", font);
-        initText(pRenderer, pcharge, tCharge, white, "CHARGER", font);
-        initText(pRenderer, pstart, tStart,white, "JOUER", font);
-*/
         SDL_RenderPresent(pRenderer);
     
     }
-    SDL_DestroyTexture(tQuit);
-    SDL_FreeSurface(sQuit);
-    SDL_DestroyTexture(tStart);
-    SDL_FreeSurface(sStart);
-    SDL_DestroyTexture(tCharge);
-    SDL_FreeSurface(sCharge);
     TTF_CloseFont(font);
     SDL_DestroyRenderer(pRenderer);
     SDL_DestroyWindow(pWindow);
@@ -244,20 +234,29 @@ int shop(SDL_Renderer * Render, SDL_Window * Window){
     }
     return 1;
 }
-void showText(SDL_Renderer * render, SDL_Rect rect, SDL_Texture * text){
-    SDL_Rect message_rect;
-    message_rect.x = rect.x;
-    message_rect.y = rect.y;
-    message_rect.w = rect.w;
-    message_rect.h = rect.h;
+void showText(SDL_Renderer * render, SDL_Rect * rect, const char *text, TTF_Font * font, SDL_Color *color){
+    SDL_Surface *surface;
+    SDL_Texture *texture;
 
-    SDL_RenderCopy(render, text, NULL , &message_rect);
-}
-void initText(SDL_Renderer * render, SDL_Surface * surface, SDL_Texture * texture ,SDL_Color color, char * mess, TTF_Font * font){
-    surface = TTF_RenderText_Blended(font, mess, color);
+    surface = TTF_RenderText_Solid(font, text, *color);
     texture = SDL_CreateTextureFromSurface(render, surface);
 
+    SDL_Rect message_rect;
+    message_rect.x = rect->x;
+    message_rect.y = rect->y;
+    message_rect.w = rect->w;
+    message_rect.h = rect->h;
+    SDL_FreeSurface(surface);
+    SDL_RenderCopy(render, texture, NULL , &message_rect);
+    SDL_DestroyTexture(texture);
 }
+
+
+void initText(SDL_Surface * surface, SDL_Texture * texture, TTF_Font * font, SDL_Renderer * render, SDL_Color color ,char * text){
+    surface = TTF_RenderText_Blended(font , text, color);
+    texture = SDL_CreateTextureFromSurface(render, surface);
+}
+
 void initRect(SDL_Renderer * render ,SDL_Rect * rect, int x, int y , int w, int h, int r,int g,int b){
     rect->x = x;
     rect->y = y;
