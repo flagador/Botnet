@@ -1,3 +1,9 @@
+/**
+ * \file botnet.c
+ *  \brief Le fichier botnet.c est le fichier principal, il utilise tous les autres pour éxecuter une partie.
+ *  \author {Grégoire BELLON, Klemens Galus, Julian LEBOUC}
+*/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -8,6 +14,7 @@
 #include "../lib/jeu.h"
 #include "../lib/computer_list.h"
 #include "../lib/country_list.h"
+
 
 void delay(int number_of_seconds) 
 { 
@@ -22,6 +29,11 @@ void delay(int number_of_seconds)
         ; 
 } 
 
+/**
+ * \fn void afficher_pays(country_list_t * cl)
+ * Permet d'afficher la liste de tous les pays, utilise la fonction afficher_country
+ * @param cl {Pointeur sur une structure de liste des pays}
+*/
 void afficher_pays(country_list_t * cl){
     for(int i=0; i<18; i++){
         afficher_country(cl->liste[i]);
