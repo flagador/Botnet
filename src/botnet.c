@@ -18,6 +18,8 @@
 #include "../lib/jeu.h"
 #include "../lib/computer_list.h"
 #include "../lib/country_list.h"
+#include "../lib/config.h"
+
 
 
 void delay(int number_of_seconds) 
@@ -80,7 +82,7 @@ void choix(country_list_t * cl, jeu_t * jeu, upgrade_t * upgrade, upgrade_t * cl
 int main()
 {
 
-    virus_t *virus = virus_create("kaboub", 1, 1);
+    virus_t *virus = virus_create("kaboub", DEFAULT_SPREADING_RATE, DEFAULT_RESEARCH_RATE);
     virus_display(virus);
     long double *proportion;
 
@@ -90,7 +92,7 @@ int main()
     upgrade_t *fake_ad = upgrade_create("fake ad", 150, 1.0, 1.0);
     //upgrade_display(upgrade);
 
-    jeu_t *jeu = jeu_create(virus, 200.5);
+    jeu_t *jeu = jeu_create(virus, DEFAULT_BITCOIN);
     virus_display(jeu->virus);
 
    /* printf("Thunes : %f \n", jeu->btc);
@@ -102,7 +104,7 @@ int main()
 
     country_list_t * cl = creer_country_list();
 
-    cl->liste[0]->compromised_pcs_cpt = 10;
+    cl->liste[0]->compromised_pcs_cpt = DEFAULT_BOTNET_SIZE;
     while(game_state(cl,jeu)==0)
     {
         choix(cl, jeu, upgrade, cles_usb, trojan, fake_ad);
