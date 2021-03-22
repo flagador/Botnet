@@ -66,6 +66,7 @@ int main()
 
     virus_t *virus = virus_create("kaboub", 1, 1);
     virus_display(virus);
+    long double *proportion;
 
     upgrade_t *upgrade = upgrade_create("phishing", 30.0, 0.2, 0.2);
     upgrade_t *cles_usb = upgrade_create("clés usb", 15, 0.1, 0.3);
@@ -92,6 +93,7 @@ int main()
         spread_world(jeu->virus, cl); 
         mine_btc_world(jeu, cl);
         printf(" * * * * * * * * * * * Thunes : %f \n", jeu->btc);
+        printf("\n \n Proportion pc infectes %Lf \n \n", *proportion);
         
     }
     if(game_state(cl,jeu)==1){

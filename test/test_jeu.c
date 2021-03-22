@@ -66,6 +66,7 @@ int main()
 
     virus_t *virus = virus_create("kaboub", 1, 1);
     virus_display(virus);
+    long double * proportion;
 
     upgrade_t *upgrade = upgrade_create("phishing", 30.0, 0.2, 0.2);
     upgrade_t *cles_usb = upgrade_create("clés usb", 15, 0.1, 0.3);
