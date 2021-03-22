@@ -8,4 +8,4 @@ int shop(SDL_Renderer * Render, SDL_Window * Window);
 void initRect(SDL_Renderer * render ,SDL_Rect * rect, int x, int y , int w, int h,int r,int g,int b);
 void initText(SDL_Renderer * render, SDL_Rect rect, SDL_Color color, char * mess, TTF_Font * font);
 int isOnButton(SDL_Rect rect);
-
+void DrawCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY, int32_t radius);

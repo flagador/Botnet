@@ -1,7 +1,9 @@
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_image.h>
 #include <SDL2/SDL.h>   
 #include "data-sdl.h"
 #include <unistd.h>
+#include <stdio.h>
 
 int main(int argc, char* argv[])
 {
@@ -10,7 +12,6 @@ int main(int argc, char* argv[])
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", SDL_GetError());
         return EXIT_FAILURE;
     }
-
     SDL_Window* pWindow = NULL;    
     SDL_Renderer* pRenderer = NULL;
 
@@ -100,6 +101,9 @@ int mainMenu(SDL_Renderer * pRenderer, SDL_Window * pWindow){
 }
 
 void startNewGame(){
+    int flags = IMG_INIT_JPG|IMG_INIT_PNG;
+    if(IMG_Init(flags))
+        printf("GOOD INIT\n");
     SDL_Window* pWindow = NULL ;     
     SDL_Renderer* pRenderer = NULL;
 
@@ -109,12 +113,20 @@ void startNewGame(){
         SDL_Quit();         
     }
 
-    SDL_Rect pBottom, pbg, pboutique,prpour, prr;
+    SDL_Texture *pMap = NULL;
+    pMap = IMG_LoadTexture(pRenderer, "/home/klemens/Bureau/Projet-L2/Botnet/imgs/map.png");
+
+    SDL_Rect pBottom, pbg, pboutique, prpour, prr, prpoub, prb, ptestslider, pRecMap;
     SDL_Event events;
     int isOpen = 1 ;
     int ret = 0;
 
-    int i = 20;
+    int i = 20 , j = 35;
+
+    pRecMap.x = 100;
+    pRecMap.y = 50;
+    pRecMap.w = 1080/1.3;
+    pRecMap.h = 580/1.3;
     while (isOpen)
     {
         while (SDL_PollEvent(&events))
@@ -130,19 +142,34 @@ void startNewGame(){
                         printf("SHOP \n");
                         shop(pRenderer, pWindow);
                     }
+                    if(isOnButton(ptestslider)){
+
+                    }
                 break;
             }
         }
     initRect(pRenderer, &pbg, 0,0,LONG,HAUT, 0,137,255);
+    SDL_RenderCopy(pRenderer, pMap, NULL, &pRecMap);
+    
     initRect(pRenderer, &pBottom, 0,HAUT-180,LONG,200, 91,91,91);
+
     initRect(pRenderer, &prpour,20 ,HAUT-180+30, 200 , 20 , 255,155,155);
     initRect(pRenderer, &prr,20 ,HAUT-180+30, 2*i , 20 , 240,13,13);
+
+    initRect(pRenderer, &prpoub,20 ,HAUT-180+70, 200 , 20 , 155,155,255);
+    initRect(pRenderer, &prb,20 ,HAUT-180+70, 2*j , 20 , 13,13,240);
+
+    initRect(pRenderer, &ptestslider,20 ,HAUT-180+120, 200 , 20 , 155,155,255);
+
+    
+
     initRect(pRenderer, &pboutique, 1080-100, 720-100, 50,50, 0,0,0);
     SDL_RenderPresent(pRenderer);
     }
-
+    SDL_DestroyTexture(pMap);
     SDL_DestroyRenderer(pRenderer);
     SDL_DestroyWindow(pWindow);
+    IMG_Quit();
     SDL_Quit();
 }
 
