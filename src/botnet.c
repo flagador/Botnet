@@ -18,8 +18,6 @@
 #include "../lib/jeu.h"
 #include "../lib/computer_list.h"
 #include "../lib/country_list.h"
-#include "../lib/config.h"
-
 
 
 void delay(int number_of_seconds) 
@@ -77,12 +75,16 @@ void choix(country_list_t * cl, jeu_t * jeu, upgrade_t * upgrade, upgrade_t * cl
     } 
 }
 
-
+/**
+ * @brief Main 
+ * 
+ * @return int 
+ */
 
 int main()
 {
 
-    virus_t *virus = virus_create("kaboub", DEFAULT_SPREADING_RATE, DEFAULT_RESEARCH_RATE);
+    virus_t *virus = virus_create("kaboub", 1, 1);
     virus_display(virus);
     long double *proportion;
 
@@ -92,7 +94,7 @@ int main()
     upgrade_t *fake_ad = upgrade_create("fake ad", 150, 1.0, 1.0);
     //upgrade_display(upgrade);
 
-    jeu_t *jeu = jeu_create(virus, DEFAULT_BITCOIN);
+    jeu_t *jeu = jeu_create(virus, 200.5);
     virus_display(jeu->virus);
 
    /* printf("Thunes : %f \n", jeu->btc);
@@ -105,7 +107,7 @@ int main()
     country_list_t * cl = creer_country_list();
 
     cl->liste[0]->compromised_pcs_cpt = 10;
-    while(game_state(cl)==0)
+    while(game_state(jeu, cl)==0)
     {
         printf("-----Thunes----- : %f \n", jeu->btc);
         choix(cl, jeu, upgrade, cles_usb, trojan, fake_ad);
@@ -113,8 +115,10 @@ int main()
         mine_btc_world(jeu, cl);
         
     }
-    if(game_state(cl)==1){
+    if(game_state(jeu, cl)==1){
         printf("Vous avez gagné,wow !");
+    } else {
+        printf("Vous avez perdu,mince !");
     }
 
 

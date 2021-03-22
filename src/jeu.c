@@ -16,6 +16,7 @@
 #include "../lib/jeu.h"
 #include "../lib/computer_list.h"
 #include "../lib/country_list.h"
+#include "../lib/random_lib.h"
 #include "../lib/config.h"
 
 /**
@@ -96,6 +97,10 @@ extern void mine_btc_world(jeu_t *jeu, country_list_t * list){
     } 
 }
 
+int search_virus(jeu_t * jeu, country_list_t * list){
+    return (test_bernoulli(compromised_healthy_proportion(list) * 0.05 * jeu->mining_rate * jeu->virus->research_rate));
+}
+
 /**
  * @brief La fonction game_state calcule la proportion de pc infectés / pc sains et retourne 0 si la partie continue, 1 si la partie est gagnée, -1 si elle est perdue
  * 
@@ -103,13 +108,13 @@ extern void mine_btc_world(jeu_t *jeu, country_list_t * list){
  * @param jeu 
  * @return int 
  */
-extern int game_state(country_list_t * list){ // vérifies si on a infecté 51% des ordinateurs du monde
+extern int game_state(jeu_t * jeu, country_list_t * list){ // vérifies si on a infecté 51% des ordinateurs du monde
     float proportion = compromised_healthy_proportion(list);
     if(proportion>=WIN_PROPORTION){
         return(1);
-    } /*else if(){
+    } else if(search_virus(jeu, list)){
         return(-1);
-    }*/ else{
+    } else{
         return(0);
     }
 }
