@@ -1,3 +1,13 @@
+/**
+ * @file botnet.c
+ * @author {Grégoire BELLON, Klemens Galus, Julian LEBOUC}
+ * @brief Le fichier botnet.c est le fichier principal, il utilise tous les autres pour éxecuter une partie.
+ * @version 0.1
+ * @date 2021-03-22
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -8,6 +18,9 @@
 #include "../lib/jeu.h"
 #include "../lib/computer_list.h"
 #include "../lib/country_list.h"
+#include "../lib/config.h"
+
+
 
 void delay(int number_of_seconds) 
 { 
@@ -22,11 +35,16 @@ void delay(int number_of_seconds)
         ; 
 } 
 
+/**
+ * @brief Permet d'afficher la liste de tous les pays, utilise la fonction afficher_country
+ * @param cl {Pointeur sur une structure de liste des pays}
+*/
 void afficher_pays(country_list_t * cl){
     for(int i=0; i<18; i++){
         afficher_country(cl->liste[i]);
     }
 }
+
 
 void choix(country_list_t * cl, jeu_t * jeu, upgrade_t * upgrade, upgrade_t * cles_usb, upgrade_t * trojan, upgrade_t * fake_ad){
     printf(" 1 \n");
@@ -64,7 +82,7 @@ void choix(country_list_t * cl, jeu_t * jeu, upgrade_t * upgrade, upgrade_t * cl
 int main()
 {
 
-    virus_t *virus = virus_create("kaboub", 1, 1);
+    virus_t *virus = virus_create("kaboub", DEFAULT_SPREADING_RATE, DEFAULT_RESEARCH_RATE);
     virus_display(virus);
     long double *proportion;
 
@@ -74,7 +92,7 @@ int main()
     upgrade_t *fake_ad = upgrade_create("fake ad", 150, 1.0, 1.0);
     //upgrade_display(upgrade);
 
-    jeu_t *jeu = jeu_create(virus, 200.5);
+    jeu_t *jeu = jeu_create(virus, DEFAULT_BITCOIN);
     virus_display(jeu->virus);
 
    /* printf("Thunes : %f \n", jeu->btc);
@@ -87,16 +105,15 @@ int main()
     country_list_t * cl = creer_country_list();
 
     cl->liste[0]->compromised_pcs_cpt = 10;
-    while(game_state(cl,jeu)==0)
+    while(game_state(cl)==0)
     {
+        printf("-----Thunes----- : %f \n", jeu->btc);
         choix(cl, jeu, upgrade, cles_usb, trojan, fake_ad);
         spread_world(jeu->virus, cl); 
         mine_btc_world(jeu, cl);
-        printf(" * * * * * * * * * * * Thunes : %f \n", jeu->btc);
-        printf("\n \n Proportion pc infectes %Lf \n \n", *proportion);
         
     }
-    if(game_state(cl,jeu)==1){
+    if(game_state(cl)==1){
         printf("Vous avez gagné,wow !");
     }
 

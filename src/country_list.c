@@ -2,6 +2,17 @@
 #include <stdlib.h>
 #include "../lib/country_list.h"
 
+/**
+ * \file country_list.c
+ *  \brief Liste de pays, et opérations (créateur, destructeur) qui y sont associés.
+ *  \author {Grégoire BELLON, Klemens Galus, Julian LEBOUC}
+*/
+
+/**
+ * @brief Affiche les pays au même format que country.afficher_country
+ * 
+ * @param c {Pointeur de liste de pays}
+ */
 extern void afficher_country_list(const country_list_t *c)
 {
 
@@ -11,6 +22,11 @@ extern void afficher_country_list(const country_list_t *c)
 	}
 }
 
+/**
+ * @brief Destructeur de country_list
+ * 
+ * @param c {Pointeur de liste de pays}
+ */
 extern void detruire_country_list(country_list_t **c)
 {
 	for (int i = 0; i < (*c)->nb; i++)
@@ -21,10 +37,11 @@ extern void detruire_country_list(country_list_t **c)
 	*c = NULL;
 }
 
+//Compte les frontières grâce au fichier texte "borders"
 int compter_borders(int id_country)
 {
 	FILE *fichier;
-	fichier = fopen("datas/borders", "r");
+	fichier = fopen("../datas/borders", "r");
 
 	int id_country_found, id_border;
 	char tete;
@@ -58,10 +75,11 @@ int compter_borders(int id_country)
 	}
 }
 
+//initialise les borders de c grâce au fichier texte borders
 void set_borders(country_list_t *c)
 {
 	FILE *fichier;
-	fichier = fopen("datas/borders", "r");
+	fichier = fopen("../datas/borders", "r");
 	int border, country, tete, nb_borders, i;
 	//pour tout le fichier
 	tete = fscanf(fichier, "%i :", &country);
@@ -111,11 +129,16 @@ int compter_lignes(char *n_fichier)
 	return cpt;
 }
 
+/**
+ * @brief Créateur de la country_list, à partir du fichier data/countrylist
+ * 
+ * @return country_list_t* 
+ */
 extern country_list_t *creer_country_list()
 {
 	printf("Création de country list...\n");
 
-	int country_nb = compter_lignes("./datas/countrylist") + 1;
+	int country_nb = compter_lignes("../datas/countrylist") + 1;
 
 	printf("Lignes comptées ! (%i)\n", country_nb);
 
@@ -125,7 +148,7 @@ extern country_list_t *creer_country_list()
 
 	FILE *fichier;
 
-	fichier = fopen("./datas/countrylist", "r");
+	fichier = fopen("../datas/countrylist", "r");
 
 	int i = 0;
 	int read;
@@ -152,4 +175,26 @@ extern country_list_t *creer_country_list()
 	set_borders(country_list);
 
 	return country_list;
+}
+
+extern float count_compromised_pcs(country_list_t * list){
+    float compromised_pcs=0;
+    for(int i=0; i<list->nb; i++){
+        compromised_pcs+=list->liste[i]->compromised_pcs_cpt;
+    }
+	return compromised_pcs;
+}
+
+extern float count_healthy_pcs(country_list_t * list){
+    float healthy_pcs=0;
+    for(int i=0; i<list->nb; i++){
+        healthy_pcs+=list->liste[i]->healthy_pcs_cpt;
+    }
+	return healthy_pcs;
+}
+
+extern float compromised_healthy_proportion(country_list_t * list){
+	float cp_pcs = count_compromised_pcs(list);
+	float ht_pcs = count_healthy_pcs(list);
+	return(cp_pcs/(cp_pcs+ht_pcs));
 }

@@ -1,8 +1,24 @@
+/**
+ * @file computer_list.c
+ * @author {Grégoire BELLON, Klemens Galus, Julian LEBOUC}
+ * @brief Definie les fonction primitives pour le type computer_list_t
+ * @version 0.1
+ * @date 2021-03-22
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include "../lib/computer_list.h"
 
+/**
+ * @brief Retourne vrai si la computer_list_t passée en paramètre éxiste
+ * 
+ * @param liste 
+ * @return int 
+ */
 extern 
 int liste_existe(computer_list_t * const liste){
     if(liste == NULL)
@@ -10,6 +26,12 @@ int liste_existe(computer_list_t * const liste){
     return 1;
 }
 
+/**
+ * @brief Créer et retourne une computer_list_t
+ * 
+ * @param nb 
+ * @return computer_list_t* 
+ */
 extern 
 computer_list_t * liste_creer(const int nb){
     computer_list_t * liste;
@@ -31,6 +53,11 @@ computer_list_t * liste_creer(const int nb){
     return (liste);
 }
 
+/**
+ * @brief Détruit la computer_list_t passée en paramètre
+ * 
+ * @param liste 
+ */
 extern
 void liste_destroy(computer_list_t ** liste){
     free((*liste)->liste);
