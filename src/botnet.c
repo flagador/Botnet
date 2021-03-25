@@ -240,22 +240,22 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *upgr
                     if(isOnButton(pReturn))
                         isOpen = 0;
                     else if(isOnButton(pItem0)){
-                        printf("Buyed Item 0 \n");
+                        printf("Bought Item 0 \n");
                         buy_upgrade(jeu, upgrade);
                         isOpen = 0;
                     }
                     else if(isOnButton(pItem1)){
-                        printf("Buyed Item 1 \n");
+                        printf("Bought Item 1 \n");
                         buy_upgrade(jeu, cles_usb);
                         isOpen = 0;
                     }
                     else if(isOnButton(pItem2)){
-                        printf("Buyed Item 2 \n");
+                        printf("Bought Item 2 \n");
                         buy_upgrade(jeu, trojan);
                         isOpen = 0;
                     }
                     else if(isOnButton(pItem3)){
-                        printf("Buyed Item 3 \n");
+                        printf("Bought Item 3 \n");
                         buy_upgrade(jeu, fake_ad);
                         isOpen = 0;
                     }
