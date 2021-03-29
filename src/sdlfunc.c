@@ -39,7 +39,13 @@ void initRect(SDL_Renderer * render ,SDL_Rect * rect, int x, int y , int w, int 
 int isOnButton(SDL_Rect rect){
     int x,y;
     SDL_GetMouseState(&x, &y);
-    if( (x > rect.x && x < (rect.x+rect.w)) && (y > rect.y && y < (rect.y+rect.h)) )
+    printf("x = %i , y = %i \n", x,y);
+    if( (x > rect.x && x < (rect.x+rect.w)) && (y > rect.y && y < (rect.y+rect.h)))
         return 1;
     return 0;
 }
+/*
+SDL_RenderDrawCircle(SDL_Renderer * render, SDL_Rect * rect, int r,int g,int b, int alpha);
+
+SDL_RenderFillCircle(SDL_Renderer * renderer, int x, int y, int radius);
+*/

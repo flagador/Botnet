@@ -11,6 +11,14 @@
 #define LONG 1080
 #define HAUT 720
 
+typedef struct hitbox_s hitbox_t;
+struct hitbox_s{ 
+  int x;
+  int y;
+  int w;
+  int h;
+};
+
 
 int mainMenu();
 void startNewGame();
@@ -20,7 +28,7 @@ int nameVirus(SDL_Renderer * Render, SDL_Window * Window, char ** textaa);
   void initRect(SDL_Renderer * render ,SDL_Rect * rect, int x, int y , int w, int h,int r,int g,int b, int alpha);
 
 int isOnButton(SDL_Rect rect);
-void DrawCircle(SDL_Renderer * renderer, int32_t centreX, int32_t centreY, int32_t radius);
+
 void showText(SDL_Renderer * render, SDL_Rect * rect, const char *text, TTF_Font * font, SDL_Color *color);
 
 #endif

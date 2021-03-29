@@ -21,6 +21,33 @@
 #include "../lib/country_list.h"
 #include "../lib/config.h"
 #include "../lib/data_sdl.h"
+
+
+hitbox_t hitRussie = {606, 110,200,68};
+hitbox_t hitChine = {706, 199,60,60};
+hitbox_t hitOuest = {484, 140 ,60 ,80};
+hitbox_t hitEst = {548,158,60,32};
+hitbox_t hitAffriqueNord = {471,232,120,65};
+hitbox_t hitAffriqueSud = {531,340,70,60};
+hitbox_t hitAffriqueCentre = {518,299,72,41};
+hitbox_t hitMoyOrient = {591,216,70,62};
+hitbox_t hitInde = {663,247,32,44};
+hitbox_t hitAmeriqueNord = {189,130,175,129};
+hitbox_t hitBresil = {372,354,60,70};
+hitbox_t hitOceanie = {781,364,90,70};
+hitbox_t hitCoreeSud = {782,218, 2, 2};
+hitbox_t hitCoreeNord = {782,220, 2, 2};
+hitbox_t hitAmeriqueCentre = {271,261,76,50};
+
+hitbox_t hitAmeriqueSud = {0,0,0,0};
+hitbox_t hitAsie = {0,0,0,0};
+hitbox_t hitJapon = {0,0,0,0};
+
+
+
+
+
+
 void delay(int number_of_seconds)
 {
     // Converting time into milli_seconds
@@ -357,6 +384,7 @@ void startNewGame(){
     pBitcoin = IMG_LoadTexture(pRenderer, "../asset/bitcoin.png");
 
     SDL_Rect pnext,pBottom,pbg, pmoney,pboutique, prpour, prr, prpoub, prb, pRecMap, pRecBit;
+    SDL_Rect Russie, AmeriqueCentre,CoreeSud, CoreeNord, Oceanie,Bresil,AmeriqueNord,Inde,Chine, PaysOuest, PaysEst , AffriqueNord , MoyOrient,AffriqueSud, AffriqueCentre;
     SDL_Event events;
     int isOpen = 1 ;
     int ret = 0;
@@ -412,6 +440,26 @@ void startNewGame(){
 
     initRect(pRenderer, &pboutique, 1080-100, 720-100, 50,50, 0,0,0,255);
     initRect(pRenderer, &pnext, 1080-200, 720-100, 50,50, 0,0,0,255);
+
+    initRect(pRenderer, &Russie, 606,110,200,68, 100,0,0,255);
+    initRect(pRenderer, &Chine, 706,199,60,60, 100,0,0,255);
+    initRect(pRenderer, &PaysOuest, 484,140 ,60,80, 100,0,0,255);
+    initRect(pRenderer, &PaysEst, 548,158 ,60,32, 100,0,0,255);
+    initRect(pRenderer, &AffriqueNord, 471,232 ,120,65, 100,0,0,255);
+    initRect(pRenderer, &AffriqueSud, 531,340,70,60, 100,0,0,255);
+    initRect(pRenderer, &AffriqueCentre, 518,299,72,41, 100,0,0,255);
+    initRect(pRenderer, &MoyOrient, 591,216,70,62, 100,0,0,255);
+    initRect(pRenderer, &Inde, 663,247,32,44, 100,0,0,255);
+    initRect(pRenderer, &AmeriqueNord, 189,130,175,129, 100,0,0,255);
+    initRect(pRenderer, &Bresil  , 372,354,60,70 , 100,0,0,255);
+    initRect(pRenderer, &Oceanie, 781,364,90,70, 100,0,0,255);
+    initRect(pRenderer, &CoreeNord, 778,215, 7, 7, 100,0,0,255);
+    initRect(pRenderer, &CoreeSud, 779,222, 7, 7, 100,0,0,255);
+    initRect(pRenderer, &AmeriqueCentre, 271,261,76,50 , 100,0,0,255);
+
+
+
+
 
     SDL_RenderPresent(pRenderer);
     }
