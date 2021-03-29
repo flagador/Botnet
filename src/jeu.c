@@ -36,6 +36,8 @@ extern jeu_t *jeu_create(virus_t *vir, float btc)
 
     jeu->mining_rate=DEFAULT_MINING_RATE;
 
+    jeu->virus_research=0;
+
     return (jeu);
 }
 
@@ -98,7 +100,10 @@ extern void mine_btc_world(jeu_t *jeu, country_list_t * list){
 }
 
 int search_virus(jeu_t * jeu, country_list_t * list){
-    return (test_bernoulli(compromised_healthy_proportion(list) * 0.005 * jeu->mining_rate * jeu->virus->research_rate));
+    if(test_bernoulli(compromised_healthy_proportion(list)* 0.5* jeu->mining_rate * jeu->virus->research_rate)==1){
+        jeu->virus_research+=0.01;
+    }
+    return(jeu->virus_research>=1);
 }
 
 /**

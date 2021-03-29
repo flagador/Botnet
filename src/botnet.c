@@ -378,9 +378,10 @@ void startNewGame(){
     pRecBit.w = 20;
     pRecBit.h = 20;
     unsigned long int time_ref =  (unsigned long int)time(NULL);
-    while (isOpen && game_state(jeu, cl)==0)
+    int game_st = game_state(jeu, cl);
+    while (isOpen && game_st==0)
         {
-        
+        printf(" Avancée recherche virus %f \n", jeu->virus_research);
             while (SDL_PollEvent(&events))
             {
                 switch (events.type)
@@ -401,7 +402,8 @@ void startNewGame(){
                     break;
                 }
             }
-        if((unsigned long int)time(NULL) - time_ref > 1){
+        if((unsigned long int)time(NULL) - time_ref >= 1){
+            game_st = game_state(jeu, cl);
             spend_day(jeu, cl);
             time_ref=(unsigned long int)time(NULL);
         }
@@ -425,7 +427,7 @@ void startNewGame(){
 
         SDL_RenderPresent(pRenderer);
     }
-    if(game_state(jeu, cl)==1){
+    if(game_st==1){
         printf("Vous avez gagné,wow !");
         SDL_Quit();
     } else {
