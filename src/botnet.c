@@ -13,6 +13,7 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
+#include <time.h>
 
 #include "../lib/virus.h"
 #include "../lib/upgrade.h"
@@ -280,6 +281,10 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *upgr
     return 1;
 }
 
+void spend_day(jeu_t * jeu, country_list_t * cl){
+    spread_world(jeu->virus, cl);
+    mine_btc_world(jeu, cl);
+}
 
 void startNewGame(){
     char *VirusName = calloc(MAX_LEN, sizeof(char *));
@@ -349,7 +354,7 @@ void startNewGame(){
 
     cl->liste[0]->compromised_pcs_cpt = 10;
 
-
+    
     SDL_Texture *pMap = NULL;
     pMap = IMG_LoadTexture(pRenderer, "../asset/map.png");
 
@@ -372,49 +377,62 @@ void startNewGame(){
     pRecBit.y = HAUT-180+120;
     pRecBit.w = 20;
     pRecBit.h = 20;
-
-    while (isOpen)
-    {
-        while (SDL_PollEvent(&events))
+    unsigned long int time_ref =  (unsigned long int)time(NULL);
+    while (isOpen && game_state(jeu, cl)==0)
         {
-            switch (events.type)
+        
+            while (SDL_PollEvent(&events))
             {
-            case SDL_QUIT:
-                isOpen = 0;
-                break;
-            case SDL_MOUSEBUTTONDOWN:
-                if(events.button.button == SDL_BUTTON_LEFT){
-                    if(isOnButton(pboutique)){
-                        printf("SHOP \n");
-                        shop(pRenderer, pWindow, jeu, upgrade, cles_usb, trojan, fake_ad);
-                    }else if(isOnButton(pnext)){
-                        spread_world(jeu->virus, cl);
-                        mine_btc_world(jeu, cl);
+                switch (events.type)
+                {
+                case SDL_QUIT:
+                    isOpen = 0;
+                    break;
+                case SDL_MOUSEBUTTONDOWN:
+                    if(events.button.button == SDL_BUTTON_LEFT){
+                        if(isOnButton(pboutique)){
+                            printf("SHOP \n");
+                            shop(pRenderer, pWindow, jeu, upgrade, cles_usb, trojan, fake_ad);
+                        }/*else if(isOnButton(pnext)){
+                            spread_world(jeu->virus, cl);
+                            mine_btc_world(jeu, cl);
+                        }*/
                     }
+                    break;
                 }
-                break;
             }
+        if((unsigned long int)time(NULL) - time_ref > 1){
+            spend_day(jeu, cl);
+            time_ref=(unsigned long int)time(NULL);
         }
-    initRect(pRenderer, &pbg, 0,0,LONG,HAUT, 0,137,255,255);
-    SDL_RenderCopy(pRenderer, pMap, NULL, &pRecMap);
-    
-    initRect(pRenderer, &pBottom, 0,HAUT-180,LONG,200, 91,91,91,255);
+        initRect(pRenderer, &pbg, 0,0,LONG,HAUT, 0,137,255,255);
+        SDL_RenderCopy(pRenderer, pMap, NULL, &pRecMap);
+        
+        initRect(pRenderer, &pBottom, 0,HAUT-180,LONG,200, 91,91,91,255);
 
-    initRect(pRenderer, &prpour,20 ,HAUT-180+30, 200 , 20 , 255,155,155,255);
-    initRect(pRenderer, &prr,20 ,HAUT-180+30, 2*((int)(compromised_healthy_proportion(cl)*100)) , 20 , 240,13,13,255);
-    initRect(pRenderer, &prpoub,20 ,HAUT-180+70, 200 , 20 , 155,155,255,255);
-    initRect(pRenderer, &prb,20 ,HAUT-180+70, 2*j , 20 , 13,13,240,255);
+        initRect(pRenderer, &prpour,20 ,HAUT-180+30, 200 , 20 , 255,155,155,255);
+        initRect(pRenderer, &prr,20 ,HAUT-180+30, 2*((int)(compromised_healthy_proportion(cl)*100)) , 20 , 240,13,13,255);
+        initRect(pRenderer, &prpoub,20 ,HAUT-180+70, 200 , 20 , 155,155,255,255);
+        initRect(pRenderer, &prb,20 ,HAUT-180+70, 2*j , 20 , 13,13,240,255);
 
-    snprintf(buffer , 10, "%.2f", jeu->btc);
-    initRect(pRenderer, &pmoney, 20, HAUT-180+120, 50, 20,  91,91,91, 255);
-    showText(pRenderer, &pmoney, buffer, font, &white);
-    SDL_RenderCopy(pRenderer, pBitcoin, NULL, &pRecBit);
+        snprintf(buffer , 10, "%.2f", jeu->btc);
+        initRect(pRenderer, &pmoney, 20, HAUT-180+120, 50, 20,  91,91,91, 255);
+        showText(pRenderer, &pmoney, buffer, font, &white);
+        SDL_RenderCopy(pRenderer, pBitcoin, NULL, &pRecBit);
 
-    initRect(pRenderer, &pboutique, 1080-100, 720-100, 50,50, 0,0,0,255);
-    initRect(pRenderer, &pnext, 1080-200, 720-100, 50,50, 0,0,0,255);
+        initRect(pRenderer, &pboutique, 1080-100, 720-100, 50,50, 0,0,0,255);
+        initRect(pRenderer, &pnext, 1080-200, 720-100, 50,50, 0,0,0,255);
 
-    SDL_RenderPresent(pRenderer);
+        SDL_RenderPresent(pRenderer);
     }
+    if(game_state(jeu, cl)==1){
+        printf("Vous avez gagné,wow !");
+        SDL_Quit();
+    } else {
+        printf("Vous avez perdu,mince !");
+        SDL_Quit();
+    }
+
     SDL_DestroyTexture(pMap);
     SDL_DestroyRenderer(pRenderer);
     SDL_DestroyWindow(pWindow);
@@ -422,6 +440,8 @@ void startNewGame(){
     TTF_Quit();
     IMG_Quit();
     SDL_Quit();
+    virus_destroy(&jeu->virus);
+    detruire_country_list(&cl);
 }
     /*
     while(game_state(jeu, cl)==0)
