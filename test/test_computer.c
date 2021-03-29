@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "computer.h"
+#include "../lib/computer.h"
 
 int
 main()

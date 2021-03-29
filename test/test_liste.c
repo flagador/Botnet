@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "computer_list.h"
+#include "../lib/computer_list.h"
 
 int
 main()
