@@ -98,7 +98,7 @@ extern void mine_btc_world(jeu_t *jeu, country_list_t * list){
 }
 
 int search_virus(jeu_t * jeu, country_list_t * list){
-    return (test_bernoulli(compromised_healthy_proportion(list) * 0.05 * jeu->mining_rate * jeu->virus->research_rate));
+    return (test_bernoulli(compromised_healthy_proportion(list) * 0.005 * jeu->mining_rate * jeu->virus->research_rate));
 }
 
 /**
