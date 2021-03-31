@@ -141,7 +141,7 @@ int mainMenu(){
     int isOpen = 1 ;
     int ret = 0;
     TTF_Init();
-    TTF_Font * font = TTF_OpenFont("../asset/Lato-Black.ttf", 60);
+    TTF_Font * font = TTF_OpenFont("../asset/Lato-Black.ttf", 240);
     if(font == NULL){
         printf("Aie \n");
     }
@@ -248,7 +248,9 @@ int nameVirus(SDL_Renderer * Render, SDL_Window * Window, char ** textaa){
 
 int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *upgrade, upgrade_t *cles_usb, upgrade_t *trojan, upgrade_t *fake_ad){
     SDL_Color white = {255,255,255};
-
+    char buffer [10];
+    TTF_Init();
+    TTF_Font * font = TTF_OpenFont("../asset/Lato-Black.ttf", 240);
     SDL_RenderClear(Render);
     SDL_Event events;
     SDL_Rect pQ, pReturn, pItem0,pItem1,pItem2,pItem3,pItem4,pItem5,pItem6,pItem7;
@@ -291,20 +293,31 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *upgr
             }
         }
     initRect(Render, &pQ, 0,0,LONG,HAUT, 0,137,255,255);
-    initRect(Render, &pItem0, 136, 80,100,100, 118,118,118,255);
-    initRect(Render, &pItem1, 372, 80,100,100, 118,118,118,255);
-    initRect(Render, &pItem2, 608, 80,100,100, 118,118,118,255);
-    initRect(Render, &pItem3, 844, 80,100,100, 118,118,118,255);
 
-    initRect(Render, &pItem4, 136, 280,100,100, 118,118,118,255);
-    initRect(Render, &pItem5, 372, 280,100,100, 118,118,118,255);
-    initRect(Render, &pItem6, 608, 280,100,100, 118,118,118,255);
-    initRect(Render, &pItem7, 844, 280,100,100, 118,118,118,255);
+    initRect(Render, &pItem0, 136, 80,150,150, 118,118,118,255);
+    /*snprintf(buffer , 21, "%.2f \n %.2f", upgrade->spreading_rate, upgrade->research_rate);
+    showText(Render, &pItem0, buffer, font, &white);*/
+
+    initRect(Render, &pItem1, 372, 80,150,150, 118,118,118,255);
+
+    initRect(Render, &pItem2, 608, 80,150,150, 118,118,118,255);
+
+    initRect(Render, &pItem3, 844, 80,150,150, 118,118,118,255);
+
+    initRect(Render, &pItem4, 136, 280,150,150, 118,118,118,255);
+
+    initRect(Render, &pItem5, 372, 280,150,150, 118,118,118,255);
+
+    initRect(Render, &pItem6, 608, 280,150,150, 118,118,118,255);
+
+    initRect(Render, &pItem7, 844, 280,150,150, 118,118,118,255);
 
 
     initRect(Render, &pReturn, 1080-70, 720-70, 50,50, 255,0,0,255);
     SDL_RenderPresent(Render);
     }
+    TTF_CloseFont(font);
+    TTF_Quit();
     return 1;
 }
 
