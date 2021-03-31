@@ -335,10 +335,10 @@ void startNewGame(){
     //virus_display(virus);
     long double *proportion;
 
-    upgrade_t *upgrade = upgrade_create("phishing", 30.0, 0.2, 0.2);
-    upgrade_t *cles_usb = upgrade_create("clés usb", 15, 0.1, 0.3);
-    upgrade_t *trojan = upgrade_create("trojan", 100.0, 0.5, 0.3);
-    upgrade_t *fake_ad = upgrade_create("fake ad", 150, 1.0, 1.0);
+    upgrade_t *upgrade = upgrade_create("phishing", 200, 0.05, 0.1);
+    upgrade_t *cles_usb = upgrade_create("clés usb", 500, 0.1, 0.1);
+    upgrade_t *trojan = upgrade_create("trojan", 1000, 0.3, 0.4);
+    upgrade_t *fake_ad = upgrade_create("fake ad", 10000, 0.0, -0.1);
     //upgrade_display(upgrade);
 
     jeu_t *jeu = jeu_create(virus, 200.5);
@@ -445,25 +445,6 @@ void startNewGame(){
     virus_destroy(&jeu->virus);
     detruire_country_list(&cl);
 }
-    /*
-    while(game_state(jeu, cl)==0)
-    {
-        printf("-----Thunes----- : %f \n", jeu->btc);
-        choix(cl, jeu, upgrade, cles_usb, trojan, fake_ad);
-        spread_world(jeu->virus, cl);
-        mine_btc_world(jeu, cl);
-    }
-    if(game_state(jeu, cl)==1){
-        printf("Vous avez gagné,wow !");
-    } else {
-        printf("Vous avez perdu,mince !");
-    }
-
-    virus_destroy(&jeu->virus);
-    detruire_country_list(&cl);
-
-    return 0;
-    */
 
 int main()
 {
