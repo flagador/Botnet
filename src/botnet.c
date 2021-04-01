@@ -295,8 +295,6 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *upgr
     initRect(Render, &pQ, 0,0,LONG,HAUT, 0,137,255,255);
 
     initRect(Render, &pItem0, 136, 80,150,150, 118,118,118,255);
-    /*snprintf(buffer , 21, "%.2f \n %.2f", upgrade->spreading_rate, upgrade->research_rate);
-    showText(Render, &pItem0, buffer, font, &white);*/
 
     initRect(Render, &pItem1, 372, 80,150,150, 118,118,118,255);
 
@@ -316,8 +314,7 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *upgr
     initRect(Render, &pReturn, 1080-70, 720-70, 50,50, 255,0,0,255);
     SDL_RenderPresent(Render);
     }
-    TTF_CloseFont(font);
-    TTF_Quit();
+
     return 1;
 }
 

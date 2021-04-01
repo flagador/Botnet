@@ -31,4 +31,6 @@ int isOnButton(SDL_Rect rect);
 
 void showText(SDL_Renderer * render, SDL_Rect * rect, const char *text, TTF_Font * font, SDL_Color *color);
 
+void showSmallerText(SDL_Renderer * render, SDL_Rect * rect, const char *text, TTF_Font * font, SDL_Color *color);
+
 #endif
