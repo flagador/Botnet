@@ -246,11 +246,9 @@ int nameVirus(SDL_Renderer * Render, SDL_Window * Window, char ** textaa){
 }
 
 
-int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *upgrade, upgrade_t *cles_usb, upgrade_t *trojan, upgrade_t *fake_ad){
+int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *upgrade, upgrade_t *cles_usb, upgrade_t *trojan, upgrade_t *fake_ad, TTF_Font * font){
     SDL_Color white = {255,255,255};
     char buffer [10];
-    TTF_Init();
-    TTF_Font * font = TTF_OpenFont("../asset/Lato-Black.ttf", 240);
     SDL_RenderClear(Render);
     SDL_Event events;
     SDL_Rect pQ, pReturn, pItem0,pItem1,pItem2,pItem3,pItem4,pItem5,pItem6,pItem7;
@@ -295,12 +293,20 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *upgr
     initRect(Render, &pQ, 0,0,LONG,HAUT, 0,137,255,255);
 
     initRect(Render, &pItem0, 136, 80,150,150, 118,118,118,255);
+    snprintf(buffer , 50, "Prix:%.2f", upgrade->price);
+    showSmallerText(Render, &pItem0, buffer, font, &white);
 
     initRect(Render, &pItem1, 372, 80,150,150, 118,118,118,255);
+    snprintf(buffer , 10, "Prix:%.2f", cles_usb->price);
+    showSmallerText(Render, &pItem1, buffer, font, &white);
 
     initRect(Render, &pItem2, 608, 80,150,150, 118,118,118,255);
+    snprintf(buffer , 10, "Prix:%.2f", trojan->price);
+    showSmallerText(Render, &pItem2, buffer, font, &white);
 
     initRect(Render, &pItem3, 844, 80,150,150, 118,118,118,255);
+    snprintf(buffer , 10, "Prix:%.2f", fake_ad->price);
+    showSmallerText(Render, &pItem3, buffer, font, &white);
 
     initRect(Render, &pItem4, 136, 280,150,150, 118,118,118,255);
 
@@ -430,7 +436,7 @@ void startNewGame(){
                     if(events.button.button == SDL_BUTTON_LEFT){
                         if(isOnButton(pboutique)){
                             printf("SHOP \n");
-                            shop(pRenderer, pWindow, jeu, upgrade, cles_usb, trojan, fake_ad);
+                            shop(pRenderer, pWindow, jeu, upgrade, cles_usb, trojan, fake_ad, font);
                         }/*else if(isOnButton(pnext)){
                             spread_world(jeu->virus, cl);
                             mine_btc_world(jeu, cl);
