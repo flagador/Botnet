@@ -6,8 +6,8 @@ OBJ= test/test_random.o  bin/computer.o bin/country_list.o bin/botnet.o bin/coun
 bin/ : 
 	mkdir -p bin
 
-bin/botnet: bin/sdlfunc.o bin/botnet.o bin/jeu.o bin/virus.o bin/upgrade.o bin/country_list.o bin/computer_list.o bin/country.o bin/random_lib.o bin/
-	gcc bin/botnet.o bin/jeu.o bin/virus.o bin/upgrade.o bin/country_list.o bin/computer_list.o bin/country.o bin/random_lib.o -o bin/botnet -lm `sdl2-config --cflags --libs` -lSDL2_ttf -lSDL2_image
+bin/botnet: bin/sdlfunc.o bin/sdlfunc.o bin/botnet.o bin/jeu.o bin/virus.o bin/upgrade.o bin/country_list.o bin/computer_list.o bin/country.o bin/random_lib.o bin/
+	gcc bin/sdlfunc.o bin/botnet.o bin/jeu.o bin/virus.o bin/upgrade.o bin/country_list.o bin/computer_list.o bin/country.o bin/random_lib.o -o bin/botnet -lm `sdl2-config --cflags --libs` -lSDL2_ttf -lSDL2_image
 
 bin/botnet.o : src/botnet.c lib/country_list.h bin/
 	gcc -c src/botnet.c -o ./bin/botnet.o

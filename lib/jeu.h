@@ -26,6 +26,7 @@ typedef struct
 	virus_t *virus;
     float btc;
     float mining_rate;
+    float virus_research;
 } jeu_t ;
 
 extern jeu_t * jeu_create(virus_t *virus, float btc);
