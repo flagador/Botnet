@@ -60,8 +60,100 @@ int isOnButton(SDL_Rect rect){
         return 1;
     return 0;
 }
-/*
-SDL_RenderDrawCircle(SDL_Renderer * render, SDL_Rect * rect, int r,int g,int b, int alpha);
 
-SDL_RenderFillCircle(SDL_Renderer * renderer, int x, int y, int radius);
-*/
+int SDL_RenderDrawCircle(SDL_Renderer * renderer, int x, int y, int radius){
+    int offsetx, offsety, d;
+    int status;
+
+
+    offsetx = 0;
+    offsety = radius;
+    d = radius -1;
+    status = 0;
+
+    while (offsety >= offsetx) {
+        status += SDL_RenderDrawPoint(renderer, x + offsetx, y + offsety);
+        status += SDL_RenderDrawPoint(renderer, x + offsety, y + offsetx);
+        status += SDL_RenderDrawPoint(renderer, x - offsetx, y + offsety);
+        status += SDL_RenderDrawPoint(renderer, x - offsety, y + offsetx);
+        status += SDL_RenderDrawPoint(renderer, x + offsetx, y - offsety);
+        status += SDL_RenderDrawPoint(renderer, x + offsety, y - offsetx);
+        status += SDL_RenderDrawPoint(renderer, x - offsetx, y - offsety);
+        status += SDL_RenderDrawPoint(renderer, x - offsety, y - offsetx);
+
+        if (status < 0) {
+            status = -1;
+            break;
+        }
+
+        if (d >= 2*offsetx) {
+            d -= 2*offsetx + 1;
+            offsetx +=1;
+        }
+        else if (d < 2 * (radius - offsety)) {
+            d += 2 * offsety - 1;
+            offsety -= 1;
+        }
+        else {
+            d += 2 * (offsety - offsetx - 1);
+            offsety -= 1;
+            offsetx += 1;
+        }
+    }
+
+    return status;
+}
+
+int SDL_RenderFillCircle(SDL_Renderer * renderer, int x, int y, int radius){
+    int offsetx, offsety, d;
+    int status;
+
+
+    offsetx = 0;
+    offsety = radius;
+    d = radius -1;
+    status = 0;
+
+    while (offsety >= offsetx) {
+
+        status += SDL_RenderDrawLine(renderer, x - offsety, y + offsetx,x + offsety, y + offsetx);
+        status += SDL_RenderDrawLine(renderer, x - offsetx, y + offsety,x + offsetx, y + offsety);
+        status += SDL_RenderDrawLine(renderer, x - offsetx, y - offsety,x + offsetx, y - offsety);
+        status += SDL_RenderDrawLine(renderer, x - offsety, y - offsetx,x + offsety, y - offsetx);
+
+        if (status < 0) {
+            status = -1;
+            break;
+        }
+
+        if (d >= 2*offsetx) {
+            d -= 2*offsetx + 1;
+            offsetx +=1;
+        }
+        else if (d < 2 * (radius - offsety)) {
+            d += 2 * offsety - 1;
+            offsety -= 1;
+        }
+        else {
+            d += 2 * (offsety - offsetx - 1);
+            offsety -= 1;
+            offsetx += 1;
+        }
+    }
+
+    return status;
+}
+
+void drawCountryPoint(SDL_Renderer * renderer, country_list_t * cl ,hitbox_t hitRussie,hitbox_t hitAmeriqueCentre, hitbox_t hitCoreeSud, hitbox_t hitCoreeNord, hitbox_t hitOceanie, hitbox_t hitBresil, hitbox_t hitAmeriqueNord, hitbox_t hitInde, hitbox_t hitChine , hitbox_t hitOuest, hitbox_t hitEst, hitbox_t hitAffriqueNord, hitbox_t hitMoyOrient, hitbox_t hitAffriqueSud, hitbox_t hitAffriqueCentre){
+    int buff;
+    int i, rX, rY;
+    //Russie
+    buff = 30;//cl->liste[2]->compromised_pcs_cpt*100 / (cl->liste[2]->healthy_pcs_cpt + cl->liste[2]->compromised_pcs_cpt);
+    for(i = 0 ; i<buff ; i++){
+        //rX = rand()%((hitRussie.x+hitRussie.w) - hitRussie.x ) + (hitRussie.x+hitRussie.w);
+        //rY = rand()%((hitRussie.y+hitRussie.h) - hitRussie.y ) + (hitRussie.y+hitRussie.h);
+        //printf("rX -> %d, rY -> %d \n", rX, rY);
+        SDL_RenderFillCircle(renderer, hitRussie.x + hitRussie.w, hitRussie.y, 5);
+        SDL_RenderDrawCircle(renderer, hitRussie.x + hitRussie.w, hitRussie.y, 5);
+    }
+}

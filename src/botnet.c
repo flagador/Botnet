@@ -195,14 +195,17 @@ int mainMenu(){
     return ret;
 }
 
-int nameVirus(SDL_Renderer * Render, SDL_Window * Window, char ** textaa){
+int nameVirus(SDL_Renderer * Render, SDL_Window * Window, char ** textaa, TTF_Font * font){
     size_t len = 0;
     size_t l = 0;
     size_t lcp = 0;
     SDL_Color white = {255,255,255};
+    SDL_Color black = {0,0,0};
+
     SDL_RenderClear(Render);
     SDL_Event events;
-    SDL_Rect pQ;
+    SDL_Rect pQ, inputB, inputT;
+    char buffer [50];
     int isOpen = 1;
     SDL_StartTextInput();
     while (isOpen)
@@ -217,7 +220,7 @@ int nameVirus(SDL_Renderer * Render, SDL_Window * Window, char ** textaa){
                 break;
             case SDL_MOUSEBUTTONDOWN:
                 if(events.button.button == SDL_BUTTON_LEFT)
-                    
+                    isOnButton(pQ);
                 break;
             case SDL_TEXTINPUT:
                 l = strlen(events.text.text);
@@ -231,7 +234,7 @@ int nameVirus(SDL_Renderer * Render, SDL_Window * Window, char ** textaa){
                         textaa[0][len -1] = 0;
                         len--;
                         printf("%s \n", *textaa);
-                    }else if(events.key.keysym.sym == SDLK_RETURN && len){
+                    }else if( (events.key.keysym.sym == SDLK_RETURN && len) || (events.key.keysym.sym == SDLK_KP_ENTER && len) ){
                         printf("text : %s \n", *textaa);
                         SDL_StopTextInput();
                         isOpen = 0;
@@ -240,6 +243,12 @@ int nameVirus(SDL_Renderer * Render, SDL_Window * Window, char ** textaa){
             }
         }
     initRect(Render, &pQ, 0,0,LONG,HAUT, 0,137,255,255);
+
+    initRect(Render,  &inputB, (LONG/2)- 300,100,600,40, 255,255,255,255);
+    initRect(Render,  &inputT, (LONG/2)- 300,100,30*len,40, 255,255,255,255);
+
+    snprintf(buffer , 50, "%s", *textaa);
+    showText(Render, &inputT, buffer, font, &black);
     SDL_RenderPresent(Render);
     }
     return 1;
@@ -373,7 +382,7 @@ void startNewGame(){
 
     TTF_Font * font = TTF_OpenFont("../asset/Lato-Black.ttf", 60);
     
-    nameVirus(pRenderer, pWindow, &VirusName);
+    nameVirus(pRenderer, pWindow, &VirusName, font);
     printf("%s \n", VirusName);
     char buffer [10];
     int result;
@@ -419,7 +428,7 @@ void startNewGame(){
 
     country_list_t *cl = creer_country_list();
 
-    cl->liste[0]->compromised_pcs_cpt = 10;
+    cl->liste[DEFAULT_INFECTED_COUNTRY]->compromised_pcs_cpt = DEFAULT_BOTNET_SIZE;
 
     
     SDL_Texture *pMap = NULL;
@@ -474,6 +483,8 @@ void startNewGame(){
             game_st = game_state(jeu, cl);
             spend_day(jeu, cl);
             time_ref=(unsigned long int)time(NULL);
+
+            printf("Infection %f  // Recherche %f  \n", compromised_healthy_proportion(cl)*100, jeu->virus_research*100);
         }
         initRect(pRenderer, &pbg, 0,0,LONG,HAUT, 0,137,255,255);
         SDL_RenderCopy(pRenderer, pMap, NULL, &pRecMap);
@@ -492,7 +503,7 @@ void startNewGame(){
 
         initRect(pRenderer, &pboutique, 1080-100, 720-100, 50,50, 0,0,0,255);
         initRect(pRenderer, &pnext, 1080-200, 720-100, 50,50, 0,0,0,255);
-
+    /*
     initRect(pRenderer, &Russie, 606,110,200,68, 100,0,0,255);
     initRect(pRenderer, &Chine, 706,199,60,60, 100,0,0,255);
     initRect(pRenderer, &PaysOuest, 484,140 ,60,80, 100,0,0,255);
@@ -508,7 +519,9 @@ void startNewGame(){
     initRect(pRenderer, &CoreeNord, 778,215, 7, 7, 100,0,0,255);
     initRect(pRenderer, &CoreeSud, 779,222, 7, 7, 100,0,0,255);
     initRect(pRenderer, &AmeriqueCentre, 271,261,76,50 , 100,0,0,255);
+    */
 
+    drawCountryPoint(pRenderer,cl, hitRussie, hitAmeriqueCentre,  hitCoreeSud,  hitCoreeNord,  hitOceanie,  hitBresil,  hitAmeriqueNord,  hitInde,  hitChine ,  hitOuest,  hitEst,  hitAffriqueNord,  hitMoyOrient,  hitAffriqueSud,  hitAffriqueCentre);
 
 
 
