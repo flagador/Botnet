@@ -36,6 +36,8 @@ extern jeu_t *jeu_create(virus_t *vir, float btc)
 
     jeu->mining_rate=DEFAULT_MINING_RATE;
 
+    jeu->virus_research=0;
+
     return (jeu);
 }
 
@@ -48,14 +50,18 @@ extern jeu_t *jeu_create(virus_t *vir, float btc)
 extern void buy_upgrade(jeu_t *jeu, upgrade_t *upgrade)
 { //achat d'un upgrade
 
-    if (jeu->btc >= upgrade->price)
+    if(jeu->virus->research_rate+upgrade->research_rate<0){
+        printf("Impossible d'acheter cet objet");
+    }
+    else if (jeu->btc >= upgrade->price)
     {
         jeu->btc = jeu->btc - upgrade->price; //enleve le prix de l'upgrade � notre argent
 
         jeu->virus->spreading_rate += upgrade->spreading_rate;
 
         jeu->virus->research_rate += upgrade->research_rate;
-        //upgrade_destroy(&upgrade);
+        
+        upgrade_edit_price(upgrade, upgrade->price*2);
     }
     else
     {
@@ -98,7 +104,10 @@ extern void mine_btc_world(jeu_t *jeu, country_list_t * list){
 }
 
 int search_virus(jeu_t * jeu, country_list_t * list){
-    return (test_bernoulli(compromised_healthy_proportion(list) * 0.005 * jeu->mining_rate * jeu->virus->research_rate));
+    if(test_bernoulli(compromised_healthy_proportion(list)* jeu->mining_rate * jeu->virus->research_rate)==1){
+        jeu->virus_research+=0.01;
+    }
+    return(jeu->virus_research>=1);
 }
 
 /**

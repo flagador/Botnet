@@ -246,7 +246,7 @@ int nameVirus(SDL_Renderer * Render, SDL_Window * Window, char ** textaa){
 }
 
 
-int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *upgrade, upgrade_t *cles_usb, upgrade_t *trojan, upgrade_t *fake_ad, TTF_Font * font){
+int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *phishing, upgrade_t *cles_usb, upgrade_t *trojan, upgrade_t *fake_ad, upgrade_t *backdoor, upgrade_t *boot_sector, upgrade_t *spyware, upgrade_t *polymorphic, TTF_Font * font){
     SDL_Color white = {255,255,255};
     char buffer [10];
     SDL_RenderClear(Render);
@@ -269,7 +269,7 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *upgr
                         isOpen = 0;
                     else if(isOnButton(pItem0)){
                         printf("Bought Item 0 \n");
-                        buy_upgrade(jeu, upgrade);
+                        buy_upgrade(jeu, phishing);
                         isOpen = 0;
                     }
                     else if(isOnButton(pItem1)){
@@ -287,13 +287,33 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *upgr
                         buy_upgrade(jeu, fake_ad);
                         isOpen = 0;
                     }
+                    else if(isOnButton(pItem4)){
+                        printf("Bought Item 4 \n");
+                        buy_upgrade(jeu, backdoor);
+                        isOpen = 0;
+                    }
+                    else if(isOnButton(pItem5)){
+                        printf("Bought Item 5 \n");
+                        buy_upgrade(jeu, boot_sector);
+                        isOpen = 0;
+                    }
+                    else if(isOnButton(pItem6)){
+                        printf("Bought Item 6 \n");
+                        buy_upgrade(jeu, spyware);
+                        isOpen = 0;
+                    }
+                    else if(isOnButton(pItem7)){
+                        printf("Bought Item 7 \n");
+                        buy_upgrade(jeu, polymorphic);
+                        isOpen = 0;
+                    }
                 break;
             }
         }
     initRect(Render, &pQ, 0,0,LONG,HAUT, 0,137,255,255);
 
     initRect(Render, &pItem0, 136, 80,150,150, 118,118,118,255);
-    snprintf(buffer , 50, "Prix:%.2f", upgrade->price);
+    snprintf(buffer , 50, "Prix:%.2f", phishing->price);
     showSmallerText(Render, &pItem0, buffer, font, &white);
 
     initRect(Render, &pItem1, 372, 80,150,150, 118,118,118,255);
@@ -378,10 +398,14 @@ void startNewGame(){
     //virus_display(virus);
     long double *proportion;
 
-    upgrade_t *upgrade = upgrade_create("phishing", 30.0, 0.2, 0.2);
-    upgrade_t *cles_usb = upgrade_create("clés usb", 15, 0.1, 0.3);
-    upgrade_t *trojan = upgrade_create("trojan", 100.0, 0.5, 0.3);
-    upgrade_t *fake_ad = upgrade_create("fake ad", 150, 1.0, 1.0);
+    upgrade_t *phishing = upgrade_create("phishing", 200, 0.01, 0.03);
+    upgrade_t *cles_usb = upgrade_create("clés usb", 500, 0.01, 0.02);
+    upgrade_t *trojan = upgrade_create("trojan", 1000, 0.03, 0.04);
+    upgrade_t *fake_ad = upgrade_create("fake ad", 10000, 0.0, -0.01);
+    upgrade_t *backdoor = upgrade_create("backdoor", 20000, 0.1, 0.3);
+    upgrade_t *boot_sector = upgrade_create("boot sector", 50000, 0.1, 0.2);
+    upgrade_t *spyware = upgrade_create("spyware", 100000, 0.3, 0.4);
+    upgrade_t *polymorphic = upgrade_create("polymorphic virus", 500000, 0.0, -0.1);
     //upgrade_display(upgrade);
 
     jeu_t *jeu = jeu_create(virus, 200.5);
@@ -422,9 +446,10 @@ void startNewGame(){
     pRecBit.w = 20;
     pRecBit.h = 20;
     unsigned long int time_ref =  (unsigned long int)time(NULL);
-    while (isOpen && game_state(jeu, cl)==0)
+    int game_st = game_state(jeu, cl);
+    while (isOpen && game_st==0)
         {
-        
+        //printf(" Avancée recherche virus %f \n", jeu->virus_research);
             while (SDL_PollEvent(&events))
             {
                 switch (events.type)
@@ -436,7 +461,7 @@ void startNewGame(){
                     if(events.button.button == SDL_BUTTON_LEFT){
                         if(isOnButton(pboutique)){
                             printf("SHOP \n");
-                            shop(pRenderer, pWindow, jeu, upgrade, cles_usb, trojan, fake_ad, font);
+                            shop(pRenderer, pWindow, jeu, phishing, cles_usb, trojan, fake_ad, backdoor, boot_sector, spyware, polymorphic, font);
                         }/*else if(isOnButton(pnext)){
                             spread_world(jeu->virus, cl);
                             mine_btc_world(jeu, cl);
@@ -445,7 +470,8 @@ void startNewGame(){
                     break;
                 }
             }
-        if((unsigned long int)time(NULL) - time_ref > 1){
+        if((unsigned long int)time(NULL) - time_ref >= 1){
+            game_st = game_state(jeu, cl);
             spend_day(jeu, cl);
             time_ref=(unsigned long int)time(NULL);
         }
@@ -489,7 +515,7 @@ void startNewGame(){
 
     SDL_RenderPresent(pRenderer);
     }
-    if(game_state(jeu, cl)==1){
+    if(game_st==1){
         printf("Vous avez gagné,wow !");
         SDL_Quit();
     } else {
@@ -507,25 +533,6 @@ void startNewGame(){
     virus_destroy(&jeu->virus);
     detruire_country_list(&cl);
 }
-    /*
-    while(game_state(jeu, cl)==0)
-    {
-        printf("-----Thunes----- : %f \n", jeu->btc);
-        choix(cl, jeu, upgrade, cles_usb, trojan, fake_ad);
-        spread_world(jeu->virus, cl);
-        mine_btc_world(jeu, cl);
-    }
-    if(game_state(jeu, cl)==1){
-        printf("Vous avez gagné,wow !");
-    } else {
-        printf("Vous avez perdu,mince !");
-    }
-
-    virus_destroy(&jeu->virus);
-    detruire_country_list(&cl);
-
-    return 0;
-    */
 
 int main()
 {
