@@ -248,7 +248,7 @@ int nameVirus(SDL_Renderer * Render, SDL_Window * Window, char ** textaa){
 
 int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *phishing, upgrade_t *cles_usb, upgrade_t *trojan, upgrade_t *fake_ad, upgrade_t *backdoor, upgrade_t *boot_sector, upgrade_t *spyware, upgrade_t *polymorphic, TTF_Font * font){
     SDL_Color white = {255,255,255};
-    char buffer [10];
+    char buffer [50];
     SDL_RenderClear(Render);
     SDL_Event events;
     SDL_Rect pQ, pReturn, pItem0,pItem1,pItem2,pItem3,pItem4,pItem5,pItem6,pItem7;
@@ -317,15 +317,15 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *phis
     showSmallerText(Render, &pItem0, buffer, font, &white);
 
     initRect(Render, &pItem1, 372, 80,150,150, 118,118,118,255);
-    snprintf(buffer , 10, "Prix:%.2f", cles_usb->price);
+    snprintf(buffer , 50, "Prix:%.2f", cles_usb->price);
     showSmallerText(Render, &pItem1, buffer, font, &white);
 
     initRect(Render, &pItem2, 608, 80,150,150, 118,118,118,255);
-    snprintf(buffer , 10, "Prix:%.2f", trojan->price);
+    snprintf(buffer , 50, "Prix:%.2f", trojan->price);
     showSmallerText(Render, &pItem2, buffer, font, &white);
 
     initRect(Render, &pItem3, 844, 80,150,150, 118,118,118,255);
-    snprintf(buffer , 10, "Prix:%.2f", fake_ad->price);
+    snprintf(buffer , 50, "Prix:%.2f", fake_ad->price);
     showSmallerText(Render, &pItem3, buffer, font, &white);
 
     initRect(Render, &pItem4, 136, 280,150,150, 118,118,118,255);
@@ -483,7 +483,7 @@ void startNewGame(){
         initRect(pRenderer, &prpour,20 ,HAUT-180+30, 200 , 20 , 255,155,155,255);
         initRect(pRenderer, &prr,20 ,HAUT-180+30, 2*((int)(compromised_healthy_proportion(cl)*100)) , 20 , 240,13,13,255);
         initRect(pRenderer, &prpoub,20 ,HAUT-180+70, 200 , 20 , 155,155,255,255);
-        initRect(pRenderer, &prb,20 ,HAUT-180+70, 2*j , 20 , 13,13,240,255);
+        initRect(pRenderer, &prb,20 ,HAUT-180+70, 2*((int)(jeu->virus_research*100)) , 20 , 13,13,240,255);
 
         snprintf(buffer , 10, "%.2f", jeu->btc);
         initRect(pRenderer, &pmoney, 20, HAUT-180+120, 50, 20,  91,91,91, 255);
@@ -518,7 +518,7 @@ void startNewGame(){
     if(game_st==1){
         printf("Vous avez gagné,wow !");
         SDL_Quit();
-    } else {
+    } else if(game_st==-1){
         printf("Vous avez perdu,mince !");
         SDL_Quit();
     }
