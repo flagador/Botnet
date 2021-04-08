@@ -384,7 +384,7 @@ void startNewGame(){
         SDL_Quit();         
     }
     TTF_Init();
-
+    SDL_SetRenderDrawBlendMode(pRenderer, SDL_BLENDMODE_BLEND);
     TTF_Font * font = TTF_OpenFont("../asset/Lato-Black.ttf", 60);
     
     nameVirus(pRenderer, pWindow, &VirusName, font);
@@ -442,7 +442,7 @@ void startNewGame(){
     SDL_Texture *pBitcoin = NULL;
     pBitcoin = IMG_LoadTexture(pRenderer, "../asset/bitcoin.png");
 
-    SDL_Rect pnext,pBottom,pbg, pmoney,pboutique, prpour, prr, prpoub, prb, pRecMap, pRecBit;
+    SDL_Rect pSelectHit,pRateSlider, pBottom,pbg, pmoney,pboutique, prpour, prr, prpoub, prb, pRecMap, pRecBit;
     SDL_Rect Russie, AmeriqueCentre,CoreeSud, CoreeNord, Oceanie,Bresil,AmeriqueNord,Inde,Chine, PaysOuest, PaysEst , AffriqueNord , MoyOrient,AffriqueSud, AffriqueCentre;
     SDL_Event events;
     int isOpen = 1 ;
@@ -476,10 +476,11 @@ void startNewGame(){
                         if(isOnButton(pboutique)){
                             printf("SHOP \n");
                             shop(pRenderer, pWindow, jeu, phishing, cles_usb, trojan, fake_ad, backdoor, boot_sector, spyware, polymorphic, font);
-                        }/*else if(isOnButton(pnext)){
-                            spread_world(jeu->virus, cl);
-                            mine_btc_world(jeu, cl);
-                        }*/
+                        }else if(isOnButton(pRateSlider)){
+                            int xS, yS;
+                            SDL_GetMouseState(&xS, &yS);
+                            edit_mining_rate(jeu, (xS-250)/200.0);
+                        }
                     }
                     break;
                 }
@@ -489,7 +490,6 @@ void startNewGame(){
             spend_day(jeu, cl);
             time_ref=(unsigned long int)time(NULL);
 
-            printf("Infection %f  // Recherche %f  \n", compromised_healthy_proportion(cl)*100, jeu->virus_research*100);
         }
         initRect(pRenderer, &pbg, 0,0,LONG,HAUT, 0,137,255,255);
         SDL_RenderCopy(pRenderer, pMap, NULL, &pRecMap);
@@ -501,13 +501,17 @@ void startNewGame(){
         initRect(pRenderer, &prpoub,20 ,HAUT-180+70, 200 , 20 , 155,155,255,255);
         initRect(pRenderer, &prb,20 ,HAUT-180+70, 2*((int)(jeu->virus_research*100)) , 20 , 13,13,240,255);
 
+        initRect(pRenderer, &pRateSlider,250 ,HAUT-180+35, 200 , 10 , 255,255,255,255);
+        SDL_SetRenderDrawColor(pRenderer,20,20,20,255);
+        SDL_RenderDrawCircle(pRenderer, 250+(200*jeu->mining_rate), HAUT-180+40,20);
+        SDL_RenderFillCircle(pRenderer, 250+(200*jeu->mining_rate), HAUT-180+40,20);
+
         snprintf(buffer , 10, "%.2f", jeu->btc);
         initRect(pRenderer, &pmoney, 20, HAUT-180+120, 50, 20,  91,91,91, 255);
         showText(pRenderer, &pmoney, buffer, font, &white);
         SDL_RenderCopy(pRenderer, pBitcoin, NULL, &pRecBit);
 
         initRect(pRenderer, &pboutique, 1080-100, 720-100, 50,50, 0,0,0,255);
-        initRect(pRenderer, &pnext, 1080-200, 720-100, 50,50, 0,0,0,255);
     /*
     initRect(pRenderer, &Russie, 606,110,200,68, 100,0,0,255);
     initRect(pRenderer, &Chine, 706,199,60,60, 100,0,0,255);
@@ -526,19 +530,20 @@ void startNewGame(){
     initRect(pRenderer, &AmeriqueCentre, 271,261,76,50 , 100,0,0,255);
     */
 
-    drawCountryPoint(pRenderer,cl, hitRussie, hitAmeriqueCentre,  hitCoreeSud,  hitCoreeNord,  hitOceanie,  hitBresil,  hitAmeriqueNord,  hitInde,  hitChine ,  hitOuest,  hitEst,  hitAffriqueNord,  hitMoyOrient,  hitAffriqueSud,  hitAffriqueCentre);
+
+        drawCountryPoint(pRenderer,cl, hitRussie, hitAmeriqueCentre,  hitCoreeSud,  hitCoreeNord,  hitOceanie,  hitBresil,  hitAmeriqueNord,  hitInde,  hitChine ,  hitOuest,  hitEst,  hitAffriqueNord,  hitMoyOrient,  hitAffriqueSud,  hitAffriqueCentre);
 
 
 
 
-    SDL_RenderPresent(pRenderer);
-    }
-    if(game_st==1){
-        printf("Vous avez gagné,wow !");
-        SDL_Quit();
-    } else if(game_st==-1){
-        printf("Vous avez perdu,mince !");
-        SDL_Quit();
+        SDL_RenderPresent(pRenderer);
+        }
+        if(game_st==1){
+            printf("Vous avez gagné,wow !");
+            SDL_Quit();
+        } else if(game_st==-1){
+            printf("Vous avez perdu,mince !");
+            SDL_Quit();
     }
 
     SDL_DestroyTexture(pMap);
