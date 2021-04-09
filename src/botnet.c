@@ -262,6 +262,7 @@ int nameVirus(SDL_Renderer * Render, SDL_Window * Window, char ** textaa, TTF_Fo
 
 int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *phishing, upgrade_t *cles_usb, upgrade_t *trojan, upgrade_t *fake_ad, upgrade_t *backdoor, upgrade_t *boot_sector, upgrade_t *spyware, upgrade_t *polymorphic, TTF_Font * font){
     SDL_Color white = {255,255,255};
+    float money;
     char buffer [50];
     SDL_RenderClear(Render);
     SDL_Event events;
@@ -279,47 +280,74 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *phis
                 break;
             case SDL_MOUSEBUTTONDOWN:
                 if(events.button.button == SDL_BUTTON_LEFT)
-                    if(isOnButton(pReturn))
+                    money=jeu->btc;
+                    if(isOnButton(pReturn)){
                         isOpen = 0;
+                        money=0;
+                    }
                     else if(isOnButton(pItem0)){
                         printf("Bought Item 0 \n");
                         buy_upgrade(jeu, phishing);
                         isOpen = 0;
+                        if(jeu->btc==money) {
+                            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Somme insuffisante", "Vous n'avez pas assez de bitcoins pour acheter cet upgrade.",Window);
+                        }
                     }
                     else if(isOnButton(pItem1)){
                         printf("Bought Item 1 \n");
                         buy_upgrade(jeu, cles_usb);
                         isOpen = 0;
+                        if(jeu->btc==money) {
+                            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Somme insuffisante", "Vous n'avez pas assez de bitcoins pour acheter cet upgrade.",Window);
+                        }
                     }
                     else if(isOnButton(pItem2)){
                         printf("Bought Item 2 \n");
                         buy_upgrade(jeu, trojan);
                         isOpen = 0;
+                        if(jeu->btc==money) {
+                            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Somme insuffisante", "Vous n'avez pas assez de bitcoins pour acheter cet upgrade.",Window);
+                        }
                     }
                     else if(isOnButton(pItem3)){
                         printf("Bought Item 3 \n");
                         buy_upgrade(jeu, fake_ad);
                         isOpen = 0;
+                        if(jeu->btc==money) {
+                            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Somme insuffisante", "Vous n'avez pas assez de bitcoins pour acheter cet upgrade.",Window);
+                        }
                     }
                     else if(isOnButton(pItem4)){
                         printf("Bought Item 4 \n");
                         buy_upgrade(jeu, backdoor);
                         isOpen = 0;
+                        if(jeu->btc==money) {
+                            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Somme insuffisante", "Vous n'avez pas assez de bitcoins pour acheter cet upgrade.",Window);
+                        }
                     }
                     else if(isOnButton(pItem5)){
                         printf("Bought Item 5 \n");
                         buy_upgrade(jeu, boot_sector);
                         isOpen = 0;
+                        if(jeu->btc==money) {
+                            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Somme insuffisante", "Vous n'avez pas assez de bitcoins pour acheter cet upgrade.",Window);
+                        }
                     }
                     else if(isOnButton(pItem6)){
                         printf("Bought Item 6 \n");
                         buy_upgrade(jeu, spyware);
                         isOpen = 0;
+                        if(jeu->btc==money) {
+                            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Somme insuffisante", "Vous n'avez pas assez de bitcoins pour acheter cet upgrade.",Window);
+                        }
                     }
                     else if(isOnButton(pItem7)){
                         printf("Bought Item 7 \n");
                         buy_upgrade(jeu, polymorphic);
                         isOpen = 0;
+                        if(jeu->btc==money) {
+                            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Somme insuffisante", "Vous n'avez pas assez de bitcoins pour acheter cet upgrade.",Window);
+                        }
                     }
                 break;
             }
