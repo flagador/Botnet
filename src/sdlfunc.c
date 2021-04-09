@@ -19,7 +19,7 @@ void showText(SDL_Renderer * render, SDL_Rect * rect, const char *text, TTF_Font
     SDL_RenderCopy(render, texture, NULL , &message_rect);
     SDL_DestroyTexture(texture);
 }
-void showSmallerText(SDL_Renderer * render, SDL_Rect * rect, const char *text, TTF_Font * font, SDL_Color *color){
+void showSmallerText(SDL_Renderer * render, SDL_Rect * rect, const char *text, TTF_Font * font, SDL_Color *color, int y){
     SDL_Surface *surface;
     SDL_Texture *texture;
 
@@ -28,8 +28,8 @@ void showSmallerText(SDL_Renderer * render, SDL_Rect * rect, const char *text, T
 
     SDL_Rect message_rect;
     message_rect.x = rect->x;
-    message_rect.y = rect->y;
-    message_rect.w = rect->w/2;
+    message_rect.y = y;
+    message_rect.w = rect->w;
     message_rect.h = rect->h/4;
     SDL_FreeSurface(surface);
     SDL_RenderCopy(render, texture, NULL , &message_rect);

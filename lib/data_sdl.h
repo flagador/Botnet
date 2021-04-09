@@ -31,7 +31,7 @@ int isOnButton(SDL_Rect rect);
 
 void showText(SDL_Renderer * render, SDL_Rect * rect, const char *text, TTF_Font * font, SDL_Color *color);
 
-void showSmallerText(SDL_Renderer * render, SDL_Rect * rect, const char *text, TTF_Font * font, SDL_Color *color);
+void showSmallerText(SDL_Renderer * render, SDL_Rect * rect, const char *text, TTF_Font * font, SDL_Color *color, int y);
 int SDL_RenderFillCircle(SDL_Renderer * renderer, int x, int y, int radius);
 int SDL_RenderDrawCircle(SDL_Renderer * renderer, int x, int y, int radius);
 void drawCountryPoint(SDL_Renderer * renderer,country_list_t * cl ,hitbox_t hitRussie,hitbox_t hitAmeriqueCentre, hitbox_t hitCoreeSud, hitbox_t hitCoreeNord, hitbox_t hitOceanie, hitbox_t hitBresil, hitbox_t hitAmeriqueNord, hitbox_t hitInde, hitbox_t hitChine , hitbox_t hitOuest, hitbox_t hitEst, hitbox_t hitAffriqueNord, hitbox_t hitMoyOrient, hitbox_t hitAffriqueSud, hitbox_t hitAffriqueCentre);

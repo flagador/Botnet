@@ -327,28 +327,84 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *phis
     initRect(Render, &pQ, 0,0,LONG,HAUT, 0,137,255,255);
 
     initRect(Render, &pItem0, 136, 80,150,150, 118,118,118,255);
+    snprintf(buffer , 50, "%s", phishing->name);
+    showSmallerText(Render, &pItem0, buffer, font, &white, pItem0.y);
     snprintf(buffer , 50, "Prix:%.2f", phishing->price);
-    showSmallerText(Render, &pItem0, buffer, font, &white);
+    showSmallerText(Render, &pItem0, buffer, font, &white, pItem0.y+30);
+    snprintf(buffer , 50, "Propagation:%.2f", phishing->spreading_rate);
+    showSmallerText(Render, &pItem0, buffer, font, &white, pItem0.y+60);
+    snprintf(buffer , 50, "Recherche:%.2f", phishing->research_rate);
+    showSmallerText(Render, &pItem0, buffer, font, &white, pItem0.y+90);
 
     initRect(Render, &pItem1, 372, 80,150,150, 118,118,118,255);
+    snprintf(buffer , 50, "%s", cles_usb->name);
+    showSmallerText(Render, &pItem1, buffer, font, &white, pItem1.y);
     snprintf(buffer , 50, "Prix:%.2f", cles_usb->price);
-    showSmallerText(Render, &pItem1, buffer, font, &white);
+    showSmallerText(Render, &pItem1, buffer, font, &white, pItem1.y+30);
+    snprintf(buffer , 50, "Propagation:%.2f", cles_usb->spreading_rate);
+    showSmallerText(Render, &pItem1, buffer, font, &white, pItem1.y+60);
+    snprintf(buffer , 50, "Recherche:%.2f", cles_usb->research_rate);
+    showSmallerText(Render, &pItem1, buffer, font, &white, pItem1.y+90);
 
     initRect(Render, &pItem2, 608, 80,150,150, 118,118,118,255);
+    snprintf(buffer , 50, "%s", trojan->name);
+    showSmallerText(Render, &pItem2, buffer, font, &white, pItem2.y);
     snprintf(buffer , 50, "Prix:%.2f", trojan->price);
-    showSmallerText(Render, &pItem2, buffer, font, &white);
+    showSmallerText(Render, &pItem2, buffer, font, &white, pItem2.y+30);
+    snprintf(buffer , 50, "Propagation:%.2f", trojan->spreading_rate);
+    showSmallerText(Render, &pItem2, buffer, font, &white, pItem2.y+60);
+    snprintf(buffer , 50, "Recherche:%.2f", trojan->research_rate);
+    showSmallerText(Render, &pItem2, buffer, font, &white, pItem2.y+90);
 
     initRect(Render, &pItem3, 844, 80,150,150, 118,118,118,255);
+    snprintf(buffer , 50, "%s", fake_ad->name);
+    showSmallerText(Render, &pItem3, buffer, font, &white, pItem3.y);
     snprintf(buffer , 50, "Prix:%.2f", fake_ad->price);
-    showSmallerText(Render, &pItem3, buffer, font, &white);
+    showSmallerText(Render, &pItem3, buffer, font, &white, pItem3.y+30);
+    snprintf(buffer , 50, "Propagation:%.2f", fake_ad->spreading_rate);
+    showSmallerText(Render, &pItem3, buffer, font, &white, pItem3.y+60);
+    snprintf(buffer , 50, "Recherche:%.2f", fake_ad->research_rate);
+    showSmallerText(Render, &pItem3, buffer, font, &white, pItem3.y+90);
 
     initRect(Render, &pItem4, 136, 280,150,150, 118,118,118,255);
+    snprintf(buffer , 50, "%s", backdoor->name);
+    showSmallerText(Render, &pItem4, buffer, font, &white, pItem4.y);
+    snprintf(buffer , 50, "Prix:%.2f", backdoor->price);
+    showSmallerText(Render, &pItem4, buffer, font, &white, pItem4.y+30);
+    snprintf(buffer , 50, "Propagation:%.2f", backdoor->spreading_rate);
+    showSmallerText(Render, &pItem4, buffer, font, &white, pItem4.y+60);
+    snprintf(buffer , 50, "Recherche:%.2f", backdoor->research_rate);
+    showSmallerText(Render, &pItem4, buffer, font, &white, pItem4.y+90);
 
     initRect(Render, &pItem5, 372, 280,150,150, 118,118,118,255);
+    snprintf(buffer , 50, "%s", boot_sector->name);
+    showSmallerText(Render, &pItem5, buffer, font, &white, pItem5.y);
+    snprintf(buffer , 50, "Prix:%.2f", boot_sector->price);
+    showSmallerText(Render, &pItem5, buffer, font, &white, pItem5.y+30);
+    snprintf(buffer , 50, "Propagation:%.2f", boot_sector->spreading_rate);
+    showSmallerText(Render, &pItem5, buffer, font, &white, pItem5.y+60);
+    snprintf(buffer , 50, "Recherche:%.2f", boot_sector->research_rate);
+    showSmallerText(Render, &pItem5, buffer, font, &white, pItem5.y+90);
 
     initRect(Render, &pItem6, 608, 280,150,150, 118,118,118,255);
+    snprintf(buffer , 50, "%s", spyware->name);
+    showSmallerText(Render, &pItem6, buffer, font, &white, pItem6.y);
+    snprintf(buffer , 50, "Prix:%.2f", spyware->price);
+    showSmallerText(Render, &pItem6, buffer, font, &white, pItem6.y+30);
+    snprintf(buffer , 50, "Propagation:%.2f", spyware->spreading_rate);
+    showSmallerText(Render, &pItem6, buffer, font, &white, pItem6.y+60);
+    snprintf(buffer , 50, "Recherche:%.2f", spyware->research_rate);
+    showSmallerText(Render, &pItem6, buffer, font, &white, pItem6.y+90);
 
     initRect(Render, &pItem7, 844, 280,150,150, 118,118,118,255);
+    snprintf(buffer , 50, "%s", polymorphic->name);
+    showSmallerText(Render, &pItem7, buffer, font, &white, pItem7.y);
+    snprintf(buffer , 50, "Prix:%.2f", polymorphic->price);
+    showSmallerText(Render, &pItem7, buffer, font, &white, pItem7.y+30);
+    snprintf(buffer , 50, "Propagation:%.2f", polymorphic->spreading_rate);
+    showSmallerText(Render, &pItem7, buffer, font, &white, pItem7.y+60);
+    snprintf(buffer , 50, "Recherche:%.2f", polymorphic->research_rate);
+    showSmallerText(Render, &pItem7, buffer, font, &white, pItem7.y+90);
 
 
     initRect(Render, &pReturn, 1080-70, 720-70, 50,50, 255,0,0,255);
@@ -364,6 +420,7 @@ void spend_day(jeu_t * jeu, country_list_t * cl){
 }
 
 void startNewGame(){
+    int not_infected_countries[18]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17};
     char *VirusName = calloc(MAX_LEN, sizeof(char *));
     /*
 
@@ -488,6 +545,17 @@ void startNewGame(){
         if((unsigned long int)time(NULL) - time_ref >= 1){
             game_st = game_state(jeu, cl);
             spend_day(jeu, cl);
+            for(int i=0; i<18; i++){
+                if(not_infected_countries[i]!=-1){
+                    if(cl->liste[i]->compromised_pcs_cpt>0){
+                        not_infected_countries[i]=-1;
+                        char str[80];
+                        strcpy(str, cl->liste[i]->name);
+                        strcat(str, " a été infecté");
+                        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Nouvelle infection", str,pWindow);
+                    }
+                }
+            }
             time_ref=(unsigned long int)time(NULL);
 
         }
