@@ -34,5 +34,5 @@ void showText(SDL_Renderer * render, SDL_Rect * rect, const char *text, TTF_Font
 void showSmallerText(SDL_Renderer * render, SDL_Rect * rect, const char *text, TTF_Font * font, SDL_Color *color, int y);
 int SDL_RenderFillCircle(SDL_Renderer * renderer, int x, int y, int radius);
 int SDL_RenderDrawCircle(SDL_Renderer * renderer, int x, int y, int radius);
-void drawCountryPoint(SDL_Renderer * renderer,country_list_t * cl ,hitbox_t hitRussie,hitbox_t hitAmeriqueCentre, hitbox_t hitCoreeSud, hitbox_t hitCoreeNord, hitbox_t hitOceanie, hitbox_t hitBresil, hitbox_t hitAmeriqueNord, hitbox_t hitInde, hitbox_t hitChine , hitbox_t hitOuest, hitbox_t hitEst, hitbox_t hitAffriqueNord, hitbox_t hitMoyOrient, hitbox_t hitAffriqueSud, hitbox_t hitAffriqueCentre);
+void drawCountryPoint(country_list_t *cl, SDL_Texture * mapAffC,SDL_Texture * mapAffN,SDL_Texture * mapAffS,SDL_Texture * mapAmeriqueC,SDL_Texture * mapAmeriqueN,SDL_Texture * mapAmeriqueS,SDL_Texture * mapAsie,SDL_Texture * mapBresil,SDL_Texture * mapChine,SDL_Texture * mapCoreN,SDL_Texture * mapCoreS,SDL_Texture * mapEurEs,SDL_Texture * mapEurOu,SDL_Texture * mapInde,SDL_Texture * mapJapon,SDL_Texture * mapMoyO,SDL_Texture * mapOceanie,SDL_Texture * mapRussie);
 #endif

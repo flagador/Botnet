@@ -498,7 +498,7 @@ void startNewGame(){
     long double *proportion;
 
     upgrade_t *phishing = upgrade_create("phishing", 200, 0.01, 0.03);
-    upgrade_t *cles_usb = upgrade_create("clés usb", 500, 0.01, 0.02);
+    upgrade_t *cles_usb = upgrade_create("cles usb", 500, 0.01, 0.02);
     upgrade_t *trojan = upgrade_create("trojan", 1000, 0.03, 0.04);
     upgrade_t *fake_ad = upgrade_create("fake ad", 10000, 0.0, -0.01);
     upgrade_t *backdoor = upgrade_create("backdoor", 20000, 0.1, 0.3);
@@ -526,6 +526,32 @@ void startNewGame(){
 
     SDL_Texture *pBitcoin = NULL;
     pBitcoin = IMG_LoadTexture(pRenderer, "../asset/bitcoin.png");
+
+    /*
+    Textures des points sur la map 1 par pays
+    */
+    SDL_Texture *mapAffC, *mapAffN, *mapAffS, *mapAmeriqueC, *mapAmeriqueN, *mapAmeriqueS,
+    *mapAsie, *mapBresil, *mapChine, *mapCoreN, *mapCoreS, *mapEurEs, *mapEurOu, *mapInde,
+    *mapJapon, *mapMoyO, *mapOceanie, *mapRussie;
+
+    mapAffC = IMG_LoadTexture(pRenderer, "../asset/map/mapAffC.png");
+    mapAffN = IMG_LoadTexture(pRenderer, "../asset/map/mapAffN.png");
+    mapAffS = IMG_LoadTexture(pRenderer, "../asset/map/mapAffS.png");
+    mapAmeriqueC = IMG_LoadTexture(pRenderer, "../asset/map/mapAmeriqueC.png");
+    mapAmeriqueN = IMG_LoadTexture(pRenderer, "../asset/map/mapAmeriqueN.png");
+    mapAmeriqueS = IMG_LoadTexture(pRenderer, "../asset/map/mapAmeriqueS.png");
+    mapAsie = IMG_LoadTexture(pRenderer, "../asset/map/mapAsie.png");
+    mapBresil = IMG_LoadTexture(pRenderer, "../asset/map/mapBresil.png");
+    mapChine = IMG_LoadTexture(pRenderer, "../asset/map/mapChine.png");
+    mapCoreN = IMG_LoadTexture(pRenderer, "../asset/map/mapCoreN.png");
+    mapCoreS = IMG_LoadTexture(pRenderer, "../asset/map/mapCoreS.png");
+    mapEurEs = IMG_LoadTexture(pRenderer, "../asset/map/mapEurEs.png");
+    mapEurOu = IMG_LoadTexture(pRenderer, "../asset/map/mapEurOu.png");
+    mapInde = IMG_LoadTexture(pRenderer, "../asset/map/mapInde.png");
+    mapJapon = IMG_LoadTexture(pRenderer, "../asset/map/mapJapon.png");
+    mapMoyO = IMG_LoadTexture(pRenderer, "../asset/map/mapMoyO.png");
+    mapOceanie = IMG_LoadTexture(pRenderer, "../asset/map/mapOceanie.png");
+    mapRussie = IMG_LoadTexture(pRenderer, "../asset/map/mapRussie.png");
 
     SDL_Rect pSelectHit,pRateSlider, pBottom,pbg, pmoney,pboutique, prpour, prr, prpoub, prb, pRecMap, pRecBit;
     SDL_Rect Russie, AmeriqueCentre,CoreeSud, CoreeNord, Oceanie,Bresil,AmeriqueNord,Inde,Chine, PaysOuest, PaysEst , AffriqueNord , MoyOrient,AffriqueSud, AffriqueCentre;
@@ -588,7 +614,26 @@ void startNewGame(){
 
         }
         initRect(pRenderer, &pbg, 0,0,LONG,HAUT, 0,137,255,255);
+
         SDL_RenderCopy(pRenderer, pMap, NULL, &pRecMap);
+        SDL_RenderCopy(pRenderer, mapAffC, NULL, &pRecMap);
+        SDL_RenderCopy(pRenderer, mapAffN, NULL, &pRecMap);
+        SDL_RenderCopy(pRenderer, mapAffS, NULL, &pRecMap);
+        SDL_RenderCopy(pRenderer, mapAmeriqueC, NULL, &pRecMap);
+        SDL_RenderCopy(pRenderer, mapAmeriqueN, NULL, &pRecMap);
+        SDL_RenderCopy(pRenderer, mapAmeriqueS, NULL, &pRecMap);
+        SDL_RenderCopy(pRenderer, mapAsie, NULL, &pRecMap);
+        SDL_RenderCopy(pRenderer, mapBresil, NULL, &pRecMap);
+        SDL_RenderCopy(pRenderer, mapChine, NULL, &pRecMap);
+        SDL_RenderCopy(pRenderer, mapCoreN, NULL, &pRecMap);
+        SDL_RenderCopy(pRenderer, mapCoreS, NULL, &pRecMap);
+        SDL_RenderCopy(pRenderer, mapEurEs, NULL, &pRecMap);
+        SDL_RenderCopy(pRenderer, mapEurOu, NULL, &pRecMap);
+        SDL_RenderCopy(pRenderer, mapInde, NULL, &pRecMap);
+        SDL_RenderCopy(pRenderer, mapJapon, NULL, &pRecMap);
+        SDL_RenderCopy(pRenderer, mapMoyO, NULL, &pRecMap);
+        SDL_RenderCopy(pRenderer, mapRussie, NULL, &pRecMap);
+        SDL_RenderCopy(pRenderer, mapOceanie, NULL, &pRecMap);
         
         initRect(pRenderer, &pBottom, 0,HAUT-180,LONG,200, 91,91,91,255);
 
@@ -608,26 +653,9 @@ void startNewGame(){
         SDL_RenderCopy(pRenderer, pBitcoin, NULL, &pRecBit);
 
         initRect(pRenderer, &pboutique, 1080-100, 720-100, 50,50, 0,0,0,255);
-    /*
-    initRect(pRenderer, &Russie, 606,110,200,68, 100,0,0,255);
-    initRect(pRenderer, &Chine, 706,199,60,60, 100,0,0,255);
-    initRect(pRenderer, &PaysOuest, 484,140 ,60,80, 100,0,0,255);
-    initRect(pRenderer, &PaysEst, 548,158 ,60,32, 100,0,0,255);
-    initRect(pRenderer, &AffriqueNord, 471,232 ,120,65, 100,0,0,255);
-    initRect(pRenderer, &AffriqueSud, 531,340,70,60, 100,0,0,255);
-    initRect(pRenderer, &AffriqueCentre, 518,299,72,41, 100,0,0,255);
-    initRect(pRenderer, &MoyOrient, 591,216,70,62, 100,0,0,255);
-    initRect(pRenderer, &Inde, 663,247,32,44, 100,0,0,255);
-    initRect(pRenderer, &AmeriqueNord, 189,130,175,129, 100,0,0,255);
-    initRect(pRenderer, &Bresil  , 372,354,60,70 , 100,0,0,255);
-    initRect(pRenderer, &Oceanie, 781,364,90,70, 100,0,0,255);
-    initRect(pRenderer, &CoreeNord, 778,215, 7, 7, 100,0,0,255);
-    initRect(pRenderer, &CoreeSud, 779,222, 7, 7, 100,0,0,255);
-    initRect(pRenderer, &AmeriqueCentre, 271,261,76,50 , 100,0,0,255);
-    */
 
 
-        drawCountryPoint(pRenderer,cl, hitRussie, hitAmeriqueCentre,  hitCoreeSud,  hitCoreeNord,  hitOceanie,  hitBresil,  hitAmeriqueNord,  hitInde,  hitChine ,  hitOuest,  hitEst,  hitAffriqueNord,  hitMoyOrient,  hitAffriqueSud,  hitAffriqueCentre);
+        drawCountryPoint(cl,mapAffC, mapAffN, mapAffS, mapAmeriqueC, mapAmeriqueN, mapAmeriqueS, mapAsie, mapBresil, mapChine, mapCoreN, mapCoreS, mapEurEs, mapEurOu, mapInde, mapJapon, mapMoyO, mapOceanie, mapRussie);
 
 
 

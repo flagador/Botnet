@@ -144,16 +144,23 @@ int SDL_RenderFillCircle(SDL_Renderer * renderer, int x, int y, int radius){
     return status;
 }
 
-void drawCountryPoint(SDL_Renderer * renderer, country_list_t * cl ,hitbox_t hitRussie,hitbox_t hitAmeriqueCentre, hitbox_t hitCoreeSud, hitbox_t hitCoreeNord, hitbox_t hitOceanie, hitbox_t hitBresil, hitbox_t hitAmeriqueNord, hitbox_t hitInde, hitbox_t hitChine , hitbox_t hitOuest, hitbox_t hitEst, hitbox_t hitAffriqueNord, hitbox_t hitMoyOrient, hitbox_t hitAffriqueSud, hitbox_t hitAffriqueCentre){
-    int buff;
-    int i, rX, rY;
-    //Russie
-    buff = 30;//cl->liste[2]->compromised_pcs_cpt*100 / (cl->liste[2]->healthy_pcs_cpt + cl->liste[2]->compromised_pcs_cpt);
-    for(i = 0 ; i<buff ; i++){
-        //rX = rand()%((hitRussie.x+hitRussie.w) - hitRussie.x ) + (hitRussie.x+hitRussie.w);
-        //rY = rand()%((hitRussie.y+hitRussie.h) - hitRussie.y ) + (hitRussie.y+hitRussie.h);
-        //printf("rX -> %d, rY -> %d \n", rX, rY);
-        SDL_RenderFillCircle(renderer, hitRussie.x + hitRussie.w, hitRussie.y, 5);
-        SDL_RenderDrawCircle(renderer, hitRussie.x + hitRussie.w, hitRussie.y, 5);
-    }
+void drawCountryPoint(country_list_t *cl,SDL_Texture * mapAffC,SDL_Texture * mapAffN,SDL_Texture * mapAffS,SDL_Texture * mapAmeriqueC,SDL_Texture * mapAmeriqueN,SDL_Texture * mapAmeriqueS,SDL_Texture * mapAsie,SDL_Texture * mapBresil,SDL_Texture * mapChine,SDL_Texture * mapCoreN,SDL_Texture * mapCoreS,SDL_Texture * mapEurEs,SDL_Texture * mapEurOu,SDL_Texture * mapInde,SDL_Texture * mapJapon,SDL_Texture * mapMoyO,SDL_Texture * mapOceanie,SDL_Texture * mapRussie){
+    SDL_SetTextureAlphaMod(mapAffC, cl->liste[5]->compromised_pcs_cpt*255 / (cl->liste[5]->healthy_pcs_cpt + cl->liste[5]->compromised_pcs_cpt));        
+    SDL_SetTextureAlphaMod(mapAffN, cl->liste[3]->compromised_pcs_cpt*255 / (cl->liste[3]->healthy_pcs_cpt + cl->liste[3]->compromised_pcs_cpt)); 
+    SDL_SetTextureAlphaMod(mapAffS, cl->liste[4]->compromised_pcs_cpt*255 / (cl->liste[4]->healthy_pcs_cpt + cl->liste[4]->compromised_pcs_cpt)); 
+    SDL_SetTextureAlphaMod(mapAmeriqueC, cl->liste[15]->compromised_pcs_cpt*255 / (cl->liste[15]->healthy_pcs_cpt + cl->liste[15]->compromised_pcs_cpt)); 
+    SDL_SetTextureAlphaMod(mapAmeriqueN, cl->liste[16]->compromised_pcs_cpt*255 / (cl->liste[16]->healthy_pcs_cpt + cl->liste[16]->compromised_pcs_cpt)); 
+    SDL_SetTextureAlphaMod(mapAmeriqueS, cl->liste[14]->compromised_pcs_cpt*255 / (cl->liste[14]->healthy_pcs_cpt + cl->liste[14]->compromised_pcs_cpt)); 
+    SDL_SetTextureAlphaMod(mapAsie, cl->liste[10]->compromised_pcs_cpt*255 / (cl->liste[10]->healthy_pcs_cpt + cl->liste[10]->compromised_pcs_cpt)); 
+    SDL_SetTextureAlphaMod(mapBresil, cl->liste[13]->compromised_pcs_cpt*255 / (cl->liste[13]->healthy_pcs_cpt + cl->liste[13]->compromised_pcs_cpt)); 
+    SDL_SetTextureAlphaMod(mapChine, cl->liste[8]->compromised_pcs_cpt*255 / (cl->liste[8]->healthy_pcs_cpt + cl->liste[8]->compromised_pcs_cpt)); 
+    SDL_SetTextureAlphaMod(mapCoreN, cl->liste[9]->compromised_pcs_cpt*255 / (cl->liste[9]->healthy_pcs_cpt + cl->liste[9]->compromised_pcs_cpt)); 
+    SDL_SetTextureAlphaMod(mapCoreS, cl->liste[17]->compromised_pcs_cpt*255 / (cl->liste[17]->healthy_pcs_cpt + cl->liste[17]->compromised_pcs_cpt)); 
+    SDL_SetTextureAlphaMod(mapEurEs, cl->liste[1]->compromised_pcs_cpt*255 / (cl->liste[1]->healthy_pcs_cpt + cl->liste[1]->compromised_pcs_cpt)); 
+    SDL_SetTextureAlphaMod(mapEurOu, cl->liste[0]->compromised_pcs_cpt*255 / (cl->liste[0]->healthy_pcs_cpt + cl->liste[0]->compromised_pcs_cpt)); 
+    SDL_SetTextureAlphaMod(mapInde, cl->liste[7]->compromised_pcs_cpt*255 / (cl->liste[7]->healthy_pcs_cpt + cl->liste[7]->compromised_pcs_cpt)); 
+    SDL_SetTextureAlphaMod(mapJapon, cl->liste[11]->compromised_pcs_cpt*255 / (cl->liste[11]->healthy_pcs_cpt + cl->liste[11]->compromised_pcs_cpt)); 
+    SDL_SetTextureAlphaMod(mapMoyO, cl->liste[6]->compromised_pcs_cpt*255 / (cl->liste[6]->healthy_pcs_cpt + cl->liste[6]->compromised_pcs_cpt)); 
+    SDL_SetTextureAlphaMod(mapOceanie, cl->liste[12]->compromised_pcs_cpt*255 / (cl->liste[12]->healthy_pcs_cpt + cl->liste[12]->compromised_pcs_cpt)); 
+    SDL_SetTextureAlphaMod(mapRussie, cl->liste[2]->compromised_pcs_cpt*255 / (cl->liste[2]->healthy_pcs_cpt + cl->liste[2]->compromised_pcs_cpt)); 
 }
