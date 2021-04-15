@@ -10,6 +10,7 @@
  */
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
@@ -250,9 +251,10 @@ int nameVirus(SDL_Renderer * Render, SDL_Window * Window, char ** textaa, TTF_Fo
 
     initRect(Render,  &inputB, (LONG/2)- 300,100,600,40, 255,255,255,255);
     initRect(Render,  &inputT, (LONG/2)- 300,100,30*len,40, 255,255,255,255);
-    initRect(Render, &titre, (LONG/2)-150, 160,300, 60   ,255,255,255,255);
+    initRect(Render, &titre, (LONG/2)-150, 30,300, 60 ,0,137,255,255);
     initRect(Render, &valider, (LONG/2)-110,160 ,220,70 ,255,255,255,255);
     showText(Render, &valider, "VALIDER", font, &black);
+    showText(Render, &titre, "NOMMER VOTRE VIRUS", font, &black);
     snprintf(buffer , 50, "%s", *textaa);
     showText(Render, &inputT, buffer, font, &black);
     SDL_RenderPresent(Render);
@@ -266,6 +268,8 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *phis
     float money;
     char buffer [50];
     SDL_RenderClear(Render);
+    SDL_Texture *pCroix;
+    pCroix = IMG_LoadTexture(Render, "../asset/Croix.png");
     SDL_Event events;
     SDL_Rect pQ, pReturn, pItem0,pItem1,pItem2,pItem3,pItem4,pItem5,pItem6,pItem7;
     int isOpen = 1;
@@ -436,9 +440,12 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *phis
     showSmallerText(Render, &pItem7, buffer, font, &white, pItem7.y+90);
 
 
-    initRect(Render, &pReturn, 1080-70, 720-70, 50,50, 255,0,0,255);
+    initRect(Render, &pReturn, 1080-70, 720-70, 45,45, 255,0,0,0);   
+    SDL_RenderCopy(Render, pCroix, NULL, &pReturn);
+
     SDL_RenderPresent(Render);
     }
+    SDL_DestroyTexture(pCroix);
 
     return 1;
 }
@@ -553,12 +560,29 @@ void startNewGame(){
     mapMoyO = IMG_LoadTexture(pRenderer, "../asset/map/mapMoyO.png");
     mapOceanie = IMG_LoadTexture(pRenderer, "../asset/map/mapOceanie.png");
     mapRussie = IMG_LoadTexture(pRenderer, "../asset/map/mapRussie.png");
+    
 
-    SDL_Rect pSelectHit,pRateSlider, pBottom,pbg, pmoney,pboutique, prpour, prr, prpoub, prb, pRecMap, pRecBit;
+    /*
+
+    LOGO
+
+    */
+    SDL_Texture *pRecherche, *pInfect, *pAboutique;
+    pRecherche = IMG_LoadTexture(pRenderer, "../asset/Recherche.png");
+    pInfect = IMG_LoadTexture(pRenderer, "../asset/Infect.png");
+    pAboutique = IMG_LoadTexture(pRenderer, "../asset/Shop.png");
+    SDL_Rect pLoInfect,pLoRecherche,pSelectHit,pRateSlider, pBottom,pbg, pmoney,pboutique, prpour, prr, prpoub, prb, pRecMap, pRecBit;
     SDL_Rect Russie, AmeriqueCentre,CoreeSud, CoreeNord, Oceanie,Bresil,AmeriqueNord,Inde,Chine, PaysOuest, PaysEst , AffriqueNord , MoyOrient,AffriqueSud, AffriqueCentre;
     SDL_Event events;
     int isOpen = 1 ;
     int ret = 0;
+
+
+    SDL_Surface * test = IMG_Load("../asset/map.png");
+    SDL_Texture * testt = SDL_CreateTextureFromSurface(pRenderer, test);
+
+
+
 
     int i = 20 , j = 35;
 
@@ -591,7 +615,7 @@ void startNewGame(){
                         }else if(isOnButton(pRateSlider)){
                             int xS, yS;
                             SDL_GetMouseState(&xS, &yS);
-                            edit_mining_rate(jeu, (xS-250)/200.0);
+                            edit_mining_rate(jeu, (xS-350)/200.0);
                         }
                     }
                     break;
@@ -643,22 +667,26 @@ void startNewGame(){
         initRect(pRenderer, &prpoub,20 ,HAUT-180+70, 200 , 20 , 155,155,255,255);
         initRect(pRenderer, &prb,20 ,HAUT-180+70, 2*((int)(jeu->virus_research*100)) , 20 , 13,13,240,255);
 
-        initRect(pRenderer, &pRateSlider,250 ,HAUT-180+35, 200 , 10 , 255,255,255,255);
+        initRect(pRenderer, &pRateSlider,350 ,HAUT-180+35, 200 , 10 , 255,255,255,255);
         SDL_SetRenderDrawColor(pRenderer,20,20,20,255);
-        SDL_RenderDrawCircle(pRenderer, 250+(200*jeu->mining_rate), HAUT-180+40,20);
-        SDL_RenderFillCircle(pRenderer, 250+(200*jeu->mining_rate), HAUT-180+40,20);
+        SDL_RenderDrawCircle(pRenderer, 350+(200*jeu->mining_rate), HAUT-180+40,20);
+        SDL_RenderFillCircle(pRenderer, 350+(200*jeu->mining_rate), HAUT-180+40,20);
 
         snprintf(buffer , 10, "%.2f", jeu->btc);
         initRect(pRenderer, &pmoney, 20, HAUT-180+120, 50, 20,  91,91,91, 255);
         showText(pRenderer, &pmoney, buffer, font, &white);
         SDL_RenderCopy(pRenderer, pBitcoin, NULL, &pRecBit);
 
-        initRect(pRenderer, &pboutique, 1080-100, 720-100, 50,50, 0,0,0,255);
+        initRect(pRenderer, &pboutique, 1080-100, 720-100, 37,37, 0,0,0,0);
+        SDL_RenderCopy(pRenderer, pAboutique, NULL, &pboutique);
 
 
         drawCountryPoint(cl,mapAffC, mapAffN, mapAffS, mapAmeriqueC, mapAmeriqueN, mapAmeriqueS, mapAsie, mapBresil, mapChine, mapCoreN, mapCoreS, mapEurEs, mapEurOu, mapInde, mapJapon, mapMoyO, mapOceanie, mapRussie);
 
-
+        initRect(pRenderer, &pLoRecherche, 230, HAUT-180+25,30,35 ,255,255,255,0 );
+        SDL_RenderCopy(pRenderer, pRecherche, NULL, &pLoInfect);
+        initRect(pRenderer, &pLoInfect,230 ,HAUT-180+65, 30 , 33 , 155,155,255,0);
+        SDL_RenderCopy(pRenderer, pInfect, NULL, &pLoRecherche);
 
 
         SDL_RenderPresent(pRenderer);
