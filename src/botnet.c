@@ -204,7 +204,7 @@ int nameVirus(SDL_Renderer * Render, SDL_Window * Window, char ** textaa, TTF_Fo
 
     SDL_RenderClear(Render);
     SDL_Event events;
-    SDL_Rect pQ, inputB, inputT, valider;
+    SDL_Rect pQ, inputB, inputT, valider, titre;
     char buffer [50];
     int isOpen = 1;
     SDL_StartTextInput();
@@ -250,8 +250,9 @@ int nameVirus(SDL_Renderer * Render, SDL_Window * Window, char ** textaa, TTF_Fo
 
     initRect(Render,  &inputB, (LONG/2)- 300,100,600,40, 255,255,255,255);
     initRect(Render,  &inputT, (LONG/2)- 300,100,30*len,40, 255,255,255,255);
-
+    initRect(Render, &titre, (LONG/2)-150, 160,300, 60   ,255,255,255,255);
     initRect(Render, &valider, (LONG/2)-110,160 ,220,70 ,255,255,255,255);
+    showText(Render, &valider, "VALIDER", font, &black);
     snprintf(buffer , 50, "%s", *textaa);
     showText(Render, &inputT, buffer, font, &black);
     SDL_RenderPresent(Render);
