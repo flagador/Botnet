@@ -663,9 +663,11 @@ void startNewGame(){
         SDL_RenderPresent(pRenderer);
         }
         if(game_st==1){
+            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Victoire", "Vous avez gagné la partie ! :)",pWindow);
             printf("Vous avez gagné,wow !");
             SDL_Quit();
         } else if(game_st==-1){
+            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Défaite", "Vous avez perdu la partie ! :(",pWindow);
             printf("Vous avez perdu,mince !");
             SDL_Quit();
     }
