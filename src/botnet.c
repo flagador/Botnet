@@ -306,6 +306,7 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *phis
                     if(isOnButton(pReturn)){
                         isOpen = 0;
                         money=0;
+                        play(Select, 300);
                     }
                     else if(isOnButton(pItem0)){
                         printf("Bought Item 0 \n");
