@@ -24,7 +24,7 @@
 #include "../lib/config.h"
 #include "../lib/data_sdl.h"
 
-
+/*
 hitbox_t hitRussie = {606, 110,200,68};
 hitbox_t hitChine = {706, 199,60,60};
 hitbox_t hitOuest = {484, 140 ,60 ,80};
@@ -44,6 +44,7 @@ hitbox_t hitAmeriqueCentre = {271,261,76,50};
 hitbox_t hitAmeriqueSud = {0,0,0,0};
 hitbox_t hitAsie = {0,0,0,0};
 hitbox_t hitJapon = {0,0,0,0};
+*/
 
 
 
@@ -119,10 +120,15 @@ void choix(country_list_t *cl, jeu_t *jeu, upgrade_t *upgrade, upgrade_t *cles_u
  * 
  * @return int 
  */
+void play(Mix_Chunk *a, int time){
+    printf("%d \n",Mix_PlayChannel(-1, a,0));
+    delay(time);
+}
 int mainMenu(){
     SDL_Color white = {255,255,255};
+    Mix_Chunk *Select = NULL;
 
-    if (SDL_Init(SDL_INIT_VIDEO) < 0)
+    if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0)
     {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", SDL_GetError());
         return EXIT_FAILURE;
@@ -138,11 +144,16 @@ int mainMenu(){
         return EXIT_FAILURE;
     }
 
-    
+    if( Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 ) == -1 ){
+        printf("AUDIO FAILLED TO LAUNCH \n");
+		return -1; 
+    }
+    Select = Mix_LoadWAV("../asset/select.wav");
     int isOpen = 1 ;
     int ret = 0;
     TTF_Init();
     TTF_Font * font = TTF_OpenFont("../asset/Lato-Black.ttf", 240);
+    
     if(font == NULL){
         printf("Aie \n");
     }
@@ -157,15 +168,19 @@ int mainMenu(){
                 break;
             case SDL_MOUSEBUTTONDOWN:
                 if(events.button.button == SDL_BUTTON_LEFT)
-                    if(isOnButton(pquit))
+                    if(isOnButton(pquit)){
                         isOpen = 0;
+                        play(Select, 200);
+                    }
                     if(isOnButton(pstart)){
                         isOpen = 0;
                         ret = 1;
+                        play(Select, 200);
                         }
                     if(isOnButton(pcharge)){
                         isOpen = 0;
                         ret = 2;
+                        play(Select, 200);
                     }
                 break;
             }
@@ -190,7 +205,8 @@ int mainMenu(){
     TTF_CloseFont(font);
     SDL_DestroyRenderer(pRenderer);
     SDL_DestroyWindow(pWindow);
-
+    Mix_FreeChunk(Select);
+    Mix_CloseAudio();
     TTF_Quit();
     SDL_Quit();
     return ret;
@@ -263,7 +279,7 @@ int nameVirus(SDL_Renderer * Render, SDL_Window * Window, char ** textaa, TTF_Fo
 }
 
 
-int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *phishing, upgrade_t *cles_usb, upgrade_t *trojan, upgrade_t *fake_ad, upgrade_t *backdoor, upgrade_t *boot_sector, upgrade_t *spyware, upgrade_t *polymorphic, TTF_Font * font){
+int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *phishing, upgrade_t *cles_usb, upgrade_t *trojan, upgrade_t *fake_ad, upgrade_t *backdoor, upgrade_t *boot_sector, upgrade_t *spyware, upgrade_t *polymorphic, TTF_Font * font, Mix_Chunk *Select,Mix_Chunk *Error){
     SDL_Color white = {255,255,255};
     float money;
     char buffer [50];
@@ -273,6 +289,7 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *phis
     SDL_Event events;
     SDL_Rect pQ, pReturn, pItem0,pItem1,pItem2,pItem3,pItem4,pItem5,pItem6,pItem7;
     int isOpen = 1;
+
     while (isOpen)
     {
         while (SDL_PollEvent(&events))
@@ -295,7 +312,10 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *phis
                         buy_upgrade(jeu, phishing);
                         isOpen = 0;
                         if(jeu->btc==money) {
+                            play(Error, 300);
                             SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Somme insuffisante", "Vous n'avez pas assez de bitcoins pour acheter cet upgrade.",Window);
+                        }else{
+                            play(Select, 300);
                         }
                     }
                     else if(isOnButton(pItem1)){
@@ -303,7 +323,10 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *phis
                         buy_upgrade(jeu, cles_usb);
                         isOpen = 0;
                         if(jeu->btc==money) {
+                            play(Error, 300);
                             SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Somme insuffisante", "Vous n'avez pas assez de bitcoins pour acheter cet upgrade.",Window);
+                        }else{
+                            play(Select, 300);
                         }
                     }
                     else if(isOnButton(pItem2)){
@@ -311,7 +334,10 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *phis
                         buy_upgrade(jeu, trojan);
                         isOpen = 0;
                         if(jeu->btc==money) {
+                            play(Error, 300);
                             SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Somme insuffisante", "Vous n'avez pas assez de bitcoins pour acheter cet upgrade.",Window);
+                        }else{
+                            play(Select, 300);
                         }
                     }
                     else if(isOnButton(pItem3)){
@@ -319,7 +345,10 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *phis
                         buy_upgrade(jeu, fake_ad);
                         isOpen = 0;
                         if(jeu->btc==money) {
+                            play(Error, 300);
                             SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Somme insuffisante", "Vous n'avez pas assez de bitcoins pour acheter cet upgrade.",Window);
+                        }else{
+                            play(Select, 300);
                         }
                     }
                     else if(isOnButton(pItem4)){
@@ -327,7 +356,10 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *phis
                         buy_upgrade(jeu, backdoor);
                         isOpen = 0;
                         if(jeu->btc==money) {
+                            play(Error, 300);
                             SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Somme insuffisante", "Vous n'avez pas assez de bitcoins pour acheter cet upgrade.",Window);
+                        }else{
+                            play(Select, 300);
                         }
                     }
                     else if(isOnButton(pItem5)){
@@ -335,7 +367,10 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *phis
                         buy_upgrade(jeu, boot_sector);
                         isOpen = 0;
                         if(jeu->btc==money) {
+                            play(Error, 300);
                             SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Somme insuffisante", "Vous n'avez pas assez de bitcoins pour acheter cet upgrade.",Window);
+                        }else{
+                            play(Select, 300);
                         }
                     }
                     else if(isOnButton(pItem6)){
@@ -343,7 +378,10 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *phis
                         buy_upgrade(jeu, spyware);
                         isOpen = 0;
                         if(jeu->btc==money) {
+                            play(Error, 300);
                             SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Somme insuffisante", "Vous n'avez pas assez de bitcoins pour acheter cet upgrade.",Window);
+                        }else{
+                            play(Select, 300);
                         }
                     }
                     else if(isOnButton(pItem7)){
@@ -351,7 +389,10 @@ int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *phis
                         buy_upgrade(jeu, polymorphic);
                         isOpen = 0;
                         if(jeu->btc==money) {
+                            play(Error, 300);
                             SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Somme insuffisante", "Vous n'avez pas assez de bitcoins pour acheter cet upgrade.",Window);
+                        }else{
+                            play(Select, 300);
                         }
                     }
                 break;
@@ -476,6 +517,17 @@ void startNewGame(){
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", SDL_GetError());        
         SDL_Quit();         
     }
+
+    if( Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 ) == -1 ){
+        printf("AUDIO FAILLED TO LAUNCH \n");
+    }
+    Mix_Chunk *Select = NULL, *Error = NULL, *Gagner = NULL, *Perdu = NULL;
+    Select = Mix_LoadWAV("../asset/select.wav");
+    Error = Mix_LoadWAV("../asset/error.wav");
+    Gagner = Mix_LoadWAV("../asset/victoire.wav");
+    Perdu = Mix_LoadWAV("../asset/defaite.wav");
+
+
     TTF_Init();
     SDL_SetRenderDrawBlendMode(pRenderer, SDL_BLENDMODE_BLEND);
     TTF_Font * font = TTF_OpenFont("../asset/Lato-Black.ttf", 60);
@@ -582,8 +634,6 @@ void startNewGame(){
     SDL_Texture * testt = SDL_CreateTextureFromSurface(pRenderer, test);
 
 
-
-
     int i = 20 , j = 35;
 
     pRecMap.x = 100;
@@ -611,7 +661,8 @@ void startNewGame(){
                     if(events.button.button == SDL_BUTTON_LEFT){
                         if(isOnButton(pboutique)){
                             printf("SHOP \n");
-                            shop(pRenderer, pWindow, jeu, phishing, cles_usb, trojan, fake_ad, backdoor, boot_sector, spyware, polymorphic, font);
+                            play(Select, 200);
+                            shop(pRenderer, pWindow, jeu, phishing, cles_usb, trojan, fake_ad, backdoor, boot_sector, spyware, polymorphic, font, Select, Error);
                         }else if(isOnButton(pRateSlider)){
                             int xS, yS;
                             SDL_GetMouseState(&xS, &yS);
@@ -694,10 +745,13 @@ void startNewGame(){
         if(game_st==1){
             SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Victoire", "Vous avez gagné la partie ! :)",pWindow);
             printf("Vous avez gagné,wow !");
+            play(Gagner, 500);
+
             SDL_Quit();
         } else if(game_st==-1){
             SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,"Défaite", "Vous avez perdu la partie ! :(",pWindow);
             printf("Vous avez perdu,mince !");
+            play(Perdu, 500);
             SDL_Quit();
     }
 
@@ -707,9 +761,12 @@ void startNewGame(){
     TTF_CloseFont(font);
     TTF_Quit();
     IMG_Quit();
+    Mix_FreeChunk(Select);
+    Mix_CloseAudio();
     SDL_Quit();
     virus_destroy(&jeu->virus);
     detruire_country_list(&cl);
+    
 }
 
 int main()

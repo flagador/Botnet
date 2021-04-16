@@ -55,7 +55,7 @@ void initRect(SDL_Renderer * render ,SDL_Rect * rect, int x, int y , int w, int 
 int isOnButton(SDL_Rect rect){
     int x,y;
     SDL_GetMouseState(&x, &y);
-    printf("x = %i , y = %i \n", x,y);
+    //printf("x = %i , y = %i \n", x,y);
     if( (x > rect.x && x < (rect.x+rect.w)) && (y > rect.y && y < (rect.y+rect.h)))
         return 1;
     return 0;
