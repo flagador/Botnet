@@ -513,8 +513,7 @@ int main()
     case 1:
         startNewGame();
         break;
-    case 2:
-        a = a;
+    case 2: //CHARGEMENT D'UNE PARTIE (coming soon)
         break;
     }
     return EXIT_SUCCESS;
