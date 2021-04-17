@@ -585,7 +585,6 @@ void startNewGame(int new){
     if(new==0){
         load_country_list(cl);
         load_jeu(jeu);
-        load_virus(jeu->virus);
     }
     SDL_Texture *pMap = NULL;
     pMap = IMG_LoadTexture(pRenderer, "../asset/map.png");
@@ -663,7 +662,7 @@ void startNewGame(int new){
                 case SDL_QUIT:
                     save_country_list(cl);
                     save_jeu(jeu);
-                    save_virus(jeu->virus);
+                    
                     isOpen = 0;
                     break;
                 case SDL_MOUSEBUTTONDOWN:

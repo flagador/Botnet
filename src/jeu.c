@@ -47,6 +47,7 @@ extern void save_jeu(jeu_t *jeu){
 	fprintf(fichier,"%f %f", jeu->btc, jeu->virus_research);
 	fclose(fichier);
 	printf("Sauvegarde du jeu");
+    save_virus(jeu->virus);
 }
 
 extern void load_jeu(jeu_t *jeu){
@@ -55,6 +56,7 @@ extern void load_jeu(jeu_t *jeu){
 	fscanf(fichier,"%f %f", &jeu->btc, &jeu->virus_research);
 	fclose(fichier);
 	printf("Chargement du jeu");
+    load_virus(jeu->virus);
 }
 
 /**
