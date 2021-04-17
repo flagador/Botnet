@@ -13,3 +13,5 @@
 #define BITCOIN_MINING_COEFFICIENT 0.05
 
 #define MAX_LEN 20 //Taille MAX du nom du virus
+
+extern int compter_lignes(char *n_fichier);

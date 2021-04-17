@@ -6,7 +6,7 @@
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL.h>   
 #include "../lib/jeu.h"
-#include "../lib/upgrade.h"
+#include "../lib/upgrade_list.h"
 
 
 #define LONG 1080
@@ -23,7 +23,7 @@ struct hitbox_s{
 
 int mainMenu();
 void startNewGame();
-int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_t *phishing, upgrade_t *cles_usb, upgrade_t *trojan, upgrade_t *fake_ad, upgrade_t *backdoor, upgrade_t *boot_sector, upgrade_t *spyware, upgrade_t *polymorphic, TTF_Font * font, Mix_Chunk *Select,Mix_Chunk *Error);
+int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_list_t * up_list, TTF_Font * font, Mix_Chunk *Select,Mix_Chunk *Error);
 int nameVirus(SDL_Renderer * Render, SDL_Window * Window, char ** textaa, TTF_Font * font);
 //void initRect(SDL_Renderer * render ,SDL_Rect * rect, int x, int y , int w, int h,int r,int g,int b, int alpha);
   void initRect(SDL_Renderer * render ,SDL_Rect * rect, int x, int y , int w, int h,int r,int g,int b, int alpha);
