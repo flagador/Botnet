@@ -75,7 +75,7 @@ extern void buy_upgrade(jeu_t *jeu, upgrade_t *upgrade)
  * @param jeu 
  * @param rate 
  */
-void edit_mining_rate(jeu_t * jeu, float rate){ // modifie le taux de minage
+extern void edit_mining_rate(jeu_t * jeu, float rate){ // modifie le taux de minage
     jeu->mining_rate=rate;
 }
 
