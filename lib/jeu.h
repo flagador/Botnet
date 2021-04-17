@@ -30,6 +30,8 @@ typedef struct
 } jeu_t ;
 
 extern jeu_t * jeu_create(virus_t *virus, float btc);
+extern void save_jeu(jeu_t *jeu);
+extern void load_jeu(jeu_t *jeu);
 extern void buy_upgrade(jeu_t *jeu, upgrade_t *upgrade);
 extern void mine_btc_country(jeu_t *jeu, country_t * country);
 extern void mine_btc_world(jeu_t *jeu, country_list_t *list);

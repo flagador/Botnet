@@ -535,9 +535,8 @@ void spend_day(jeu_t *jeu, country_list_t *cl)
     mine_btc_world(jeu, cl);
 }
 
-void startNewGame()
-{
-    int not_infected_countries[18] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17};
+void startNewGame(int new){
+    int not_infected_countries[18]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17};
     char *VirusName = calloc(MAX_LEN, sizeof(char *));
     /*
 
@@ -617,9 +616,14 @@ void startNewGame()
     printf("Thunes : %f \n", jeu->btc);*/
 
     country_list_t *cl = creer_country_list();
+    
 
     cl->liste[DEFAULT_INFECTED_COUNTRY]->compromised_pcs_cpt = DEFAULT_BOTNET_SIZE;
-
+    
+    if(new==0){
+        load_country_list(cl);
+        load_jeu(jeu);
+    }
     SDL_Texture *pMap = NULL;
     pMap = IMG_LoadTexture(pRenderer, "../asset/map.png");
 
@@ -691,22 +695,21 @@ void startNewGame()
             switch (events.type)
             {
             case SDL_QUIT:
+                save_country_list(cl);
+                save_jeu(jeu);
                 isOpen = 0;
                 break;
             case SDL_MOUSEBUTTONDOWN:
                 if (events.button.button == SDL_BUTTON_LEFT)
                 {
-                    if (isOnButton(pboutique))
-                    {
-                        printf("SHOP \n");
+                    if(isOnButton(pboutique)){
+                         printf("SHOP \n");
                         play(Select, 200);
                         shop(pRenderer, pWindow, jeu, phishing, cles_usb, trojan, fake_ad, backdoor, boot_sector, spyware, polymorphic, font, Select, Error);
-                    }
-                    else if (isOnButton(pRateSlider))
-                    {
-                        int xS, yS;
+                    }else if(isOnButton(pRateSlider)){
+                         int xS, yS;
                         SDL_GetMouseState(&xS, &yS);
-                        edit_mining_rate(jeu, (xS - 350) / 200.0);
+                        edit_mining_rate(jeu, (xS-350)/200.0);
                     }
                 }
                 break;
@@ -827,18 +830,17 @@ int main()
     free(buf);
 
     int a = mainMenu();
-    printf("a %i\n", a);
-    switch (a)
-    {
-    case 0:
-        printf("QUIT ! \n");
-        break;
-    case 1:
-        startNewGame();
-        break;
-    case 2:
-        //CHARGEMENT
-        break;
+    printf("a %i\n",a);
+    switch(a){
+        case 0:
+            printf("QUIT ! \n");
+            break;
+        case 1:
+            startNewGame(1);
+            break;
+        case 2:
+            startNewGame(0);
+            break;
     }
     return EXIT_SUCCESS;
 }
