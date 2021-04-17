@@ -24,28 +24,6 @@
 #include "../lib/config.h"
 #include "../lib/data_sdl.h"
 
-/*
-hitbox_t hitRussie = {606, 110,200,68};
-hitbox_t hitChine = {706, 199,60,60};
-hitbox_t hitOuest = {484, 140 ,60 ,80};
-hitbox_t hitEst = {548,158,60,32};
-hitbox_t hitAffriqueNord = {471,232,120,65};
-hitbox_t hitAffriqueSud = {531,340,70,60};
-hitbox_t hitAffriqueCentre = {518,299,72,41};
-hitbox_t hitMoyOrient = {591,216,70,62};
-hitbox_t hitInde = {663,247,32,44};
-hitbox_t hitAmeriqueNord = {189,130,175,129};
-hitbox_t hitBresil = {372,354,60,70};
-hitbox_t hitOceanie = {781,364,90,70};
-hitbox_t hitCoreeSud = {782,218, 2, 2};
-hitbox_t hitCoreeNord = {782,220, 2, 2};
-hitbox_t hitAmeriqueCentre = {271,261,76,50};
-
-hitbox_t hitAmeriqueSud = {0,0,0,0};
-hitbox_t hitAsie = {0,0,0,0};
-hitbox_t hitJapon = {0,0,0,0};
-*/
-
 void delay(int number_of_seconds)
 {
     // Converting time into milli_seconds
@@ -71,46 +49,6 @@ void afficher_pays(country_list_t *cl)
     }
 }
 
-void choix(country_list_t *cl, jeu_t *jeu, upgrade_t *upgrade, upgrade_t *cles_usb, upgrade_t *trojan, upgrade_t *fake_ad)
-{
-    printf(" 1 \n");
-    upgrade_display(upgrade);
-    printf(" 2 \n");
-    upgrade_display(cles_usb);
-    printf(" 3 \n");
-    upgrade_display(trojan);
-    printf(" 4 \n");
-    upgrade_display(fake_ad);
-    printf(" 5 : Afficher pays \n");
-    printf(" 6 : Ne rien faire \n");
-
-    int choix;
-    printf("Quel choix voulez vous faire ?");
-    scanf("%i", &choix);
-    switch (choix)
-    {
-    case 1:
-        buy_upgrade(jeu, upgrade);
-        break;
-    case 2:
-        buy_upgrade(jeu, cles_usb);
-        break;
-    case 3:
-        buy_upgrade(jeu, trojan);
-        break;
-    case 4:
-        buy_upgrade(jeu, fake_ad);
-        break;
-    case 5:
-        afficher_pays(cl);
-        break;
-    case 6:
-        exit;
-    default:
-        printf("pouet pouet");
-    }
-}
-
 /**
  * @brief Main 
  * 
@@ -121,13 +59,11 @@ void play(Mix_Chunk *a, int time)
     printf("%d \n", Mix_PlayChannel(-1, a, 0));
     delay(time);
 }
-int mainMenu()
-{
+
+int mainMenu(){
     SDL_Color white = {255, 255, 255};
     Mix_Chunk *Select = NULL;
-
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
-    {
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0){
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", SDL_GetError());
         return EXIT_FAILURE;
     }
@@ -135,15 +71,12 @@ int mainMenu()
     SDL_Renderer *pRenderer = NULL;
     SDL_Rect pstart, pcharge, pquit;
     SDL_Event events;
-    if (SDL_CreateWindowAndRenderer(LONG, HAUT, SDL_WINDOW_SHOWN, &pWindow, &pRenderer) < 0)
-    {
+    if (SDL_CreateWindowAndRenderer(LONG, HAUT, SDL_WINDOW_SHOWN, &pWindow, &pRenderer) < 0){
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", SDL_GetError());
         SDL_Quit();
         return EXIT_FAILURE;
     }
-
-    if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
-    {
+    if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1){
         printf("AUDIO FAILLED TO LAUNCH \n");
         return -1;
     }
@@ -152,10 +85,8 @@ int mainMenu()
     int ret = 0;
     TTF_Init();
     TTF_Font *font = TTF_OpenFont("../asset/Lato-Black.ttf", 240);
-
-    if (font == NULL)
-    {
-        printf("Aie \n");
+    if (font == NULL){
+        printf("Error can't load font \n");
     }
     while (isOpen)
     {
@@ -283,14 +214,13 @@ int nameVirus(SDL_Renderer *Render, SDL_Window *Window, char **textaa, TTF_Font 
     return 1;
 }
 
-int shop(SDL_Renderer *Render, SDL_Window *Window, jeu_t *jeu, upgrade_t *phishing, upgrade_t *cles_usb, upgrade_t *trojan, upgrade_t *fake_ad, upgrade_t *backdoor, upgrade_t *boot_sector, upgrade_t *spyware, upgrade_t *polymorphic, TTF_Font *font, Mix_Chunk *Select, Mix_Chunk *Error)
+int shop(SDL_Renderer *Render, SDL_Window *Window,texture_list_t * texturesButton, jeu_t *jeu, upgrade_t *phishing, upgrade_t *cles_usb, upgrade_t *trojan, upgrade_t *fake_ad, upgrade_t *backdoor, upgrade_t *boot_sector, upgrade_t *spyware, upgrade_t *polymorphic, TTF_Font *font, Mix_Chunk *Select, Mix_Chunk *Error)
 {
     SDL_Color white = {255, 255, 255};
     float money;
     char buffer[50];
     SDL_RenderClear(Render);
-    SDL_Texture *pCroix;
-    pCroix = IMG_LoadTexture(Render, "../asset/Croix.png");
+
     SDL_Event events;
     SDL_Rect pQ, pReturn, pItem0, pItem1, pItem2, pItem3, pItem4, pItem5, pItem6, pItem7;
     int isOpen = 1;
@@ -520,11 +450,10 @@ int shop(SDL_Renderer *Render, SDL_Window *Window, jeu_t *jeu, upgrade_t *phishi
         showSmallerText(Render, &pItem7, buffer, font, &white, pItem7.y + 90);
 
         initRect(Render, &pReturn, 1080 - 70, 720 - 70, 45, 45, 255, 0, 0, 0);
-        SDL_RenderCopy(Render, pCroix, NULL, &pReturn);
+        SDL_RenderCopy(Render, texturesButton->textures[0], NULL, &pReturn);
 
         SDL_RenderPresent(Render);
     }
-    SDL_DestroyTexture(pCroix);
 
     return 1;
 }
@@ -620,47 +549,17 @@ void startNewGame()
 
     cl->liste[DEFAULT_INFECTED_COUNTRY]->compromised_pcs_cpt = DEFAULT_BOTNET_SIZE;
 
-    SDL_Texture *pMap = NULL;
-    pMap = IMG_LoadTexture(pRenderer, "../asset/map.png");
-
-    SDL_Texture *pBitcoin = NULL;
-    pBitcoin = IMG_LoadTexture(pRenderer, "../asset/bitcoin.png");
-
     /*
     Textures des points sur la map 1 par pays
     */
-    SDL_Texture *mapAffC, *mapAffN, *mapAffS, *mapAmeriqueC, *mapAmeriqueN, *mapAmeriqueS,
-        *mapAsie, *mapBresil, *mapChine, *mapCoreN, *mapCoreS, *mapEurEs, *mapEurOu, *mapInde,
-        *mapJapon, *mapMoyO, *mapOceanie, *mapRussie;
-
-    mapAffC = IMG_LoadTexture(pRenderer, "../asset/map/mapAffC.png");
-    mapAffN = IMG_LoadTexture(pRenderer, "../asset/map/mapAffN.png");
-    mapAffS = IMG_LoadTexture(pRenderer, "../asset/map/mapAffS.png");
-    mapAmeriqueC = IMG_LoadTexture(pRenderer, "../asset/map/mapAmeriqueC.png");
-    mapAmeriqueN = IMG_LoadTexture(pRenderer, "../asset/map/mapAmeriqueN.png");
-    mapAmeriqueS = IMG_LoadTexture(pRenderer, "../asset/map/mapAmeriqueS.png");
-    mapAsie = IMG_LoadTexture(pRenderer, "../asset/map/mapAsie.png");
-    mapBresil = IMG_LoadTexture(pRenderer, "../asset/map/mapBresil.png");
-    mapChine = IMG_LoadTexture(pRenderer, "../asset/map/mapChine.png");
-    mapCoreN = IMG_LoadTexture(pRenderer, "../asset/map/mapCoreN.png");
-    mapCoreS = IMG_LoadTexture(pRenderer, "../asset/map/mapCoreS.png");
-    mapEurEs = IMG_LoadTexture(pRenderer, "../asset/map/mapEurEs.png");
-    mapEurOu = IMG_LoadTexture(pRenderer, "../asset/map/mapEurOu.png");
-    mapInde = IMG_LoadTexture(pRenderer, "../asset/map/mapInde.png");
-    mapJapon = IMG_LoadTexture(pRenderer, "../asset/map/mapJapon.png");
-    mapMoyO = IMG_LoadTexture(pRenderer, "../asset/map/mapMoyO.png");
-    mapOceanie = IMG_LoadTexture(pRenderer, "../asset/map/mapOceanie.png");
-    mapRussie = IMG_LoadTexture(pRenderer, "../asset/map/mapRussie.png");
-
+    texture_list_t * texturesMap = creer_texture_list(pRenderer ,"../datas/texturesMap");
+    texture_list_t * texturesButton = creer_texture_list(pRenderer ,"../datas/texturesButton");
     /*
 
     LOGO
 
     */
-    SDL_Texture *pRecherche, *pInfect, *pAboutique;
-    pRecherche = IMG_LoadTexture(pRenderer, "../asset/Recherche.png");
-    pInfect = IMG_LoadTexture(pRenderer, "../asset/Infect.png");
-    pAboutique = IMG_LoadTexture(pRenderer, "../asset/Shop.png");
+    
     SDL_Rect pLoInfect, pLoRecherche, pSelectHit, pRateSlider, pBottom, pbg, pmoney, pboutique, prpour, prr, prpoub, prb, pRecMap, pRecBit;
     SDL_Rect Russie, AmeriqueCentre, CoreeSud, CoreeNord, Oceanie, Bresil, AmeriqueNord, Inde, Chine, PaysOuest, PaysEst, AffriqueNord, MoyOrient, AffriqueSud, AffriqueCentre;
     SDL_Event events;
@@ -700,7 +599,7 @@ void startNewGame()
                     {
                         printf("SHOP \n");
                         play(Select, 200);
-                        shop(pRenderer, pWindow, jeu, phishing, cles_usb, trojan, fake_ad, backdoor, boot_sector, spyware, polymorphic, font, Select, Error);
+                        shop(pRenderer, pWindow,texturesButton ,jeu, phishing, cles_usb, trojan, fake_ad, backdoor, boot_sector, spyware, polymorphic, font, Select, Error);
                     }
                     else if (isOnButton(pRateSlider))
                     {
@@ -733,27 +632,11 @@ void startNewGame()
             time_ref = (unsigned long int)time(NULL);
         }
         initRect(pRenderer, &pbg, 0, 0, LONG, HAUT, 0, 137, 255, 255);
-
-        SDL_RenderCopy(pRenderer, pMap, NULL, &pRecMap);
-        SDL_RenderCopy(pRenderer, mapAffC, NULL, &pRecMap);
-        SDL_RenderCopy(pRenderer, mapAffN, NULL, &pRecMap);
-        SDL_RenderCopy(pRenderer, mapAffS, NULL, &pRecMap);
-        SDL_RenderCopy(pRenderer, mapAmeriqueC, NULL, &pRecMap);
-        SDL_RenderCopy(pRenderer, mapAmeriqueN, NULL, &pRecMap);
-        SDL_RenderCopy(pRenderer, mapAmeriqueS, NULL, &pRecMap);
-        SDL_RenderCopy(pRenderer, mapAsie, NULL, &pRecMap);
-        SDL_RenderCopy(pRenderer, mapBresil, NULL, &pRecMap);
-        SDL_RenderCopy(pRenderer, mapChine, NULL, &pRecMap);
-        SDL_RenderCopy(pRenderer, mapCoreN, NULL, &pRecMap);
-        SDL_RenderCopy(pRenderer, mapCoreS, NULL, &pRecMap);
-        SDL_RenderCopy(pRenderer, mapEurEs, NULL, &pRecMap);
-        SDL_RenderCopy(pRenderer, mapEurOu, NULL, &pRecMap);
-        SDL_RenderCopy(pRenderer, mapInde, NULL, &pRecMap);
-        SDL_RenderCopy(pRenderer, mapJapon, NULL, &pRecMap);
-        SDL_RenderCopy(pRenderer, mapMoyO, NULL, &pRecMap);
-        SDL_RenderCopy(pRenderer, mapRussie, NULL, &pRecMap);
-        SDL_RenderCopy(pRenderer, mapOceanie, NULL, &pRecMap);
-
+        int i;
+        SDL_RenderCopy(pRenderer, texturesButton->textures[4], NULL, &pRecMap);
+        for(i=0; i<texturesMap->nb; i++){
+            SDL_RenderCopy(pRenderer, texturesMap->textures[i], NULL, &pRecMap);
+        }
         initRect(pRenderer, &pBottom, 0, HAUT - 180, LONG, 200, 91, 91, 91, 255);
 
         initRect(pRenderer, &prpour, 20, HAUT - 180 + 30, 200, 20, 255, 155, 155, 255);
@@ -769,17 +652,17 @@ void startNewGame()
         snprintf(buffer, 10, "%.2f", jeu->btc);
         initRect(pRenderer, &pmoney, 20, HAUT - 180 + 120, 50, 20, 91, 91, 91, 255);
         showText(pRenderer, &pmoney, buffer, font, &white);
-        SDL_RenderCopy(pRenderer, pBitcoin, NULL, &pRecBit);
+        SDL_RenderCopy(pRenderer, texturesButton->textures[5], NULL, &pRecBit);
 
         initRect(pRenderer, &pboutique, 1080 - 100, 720 - 100, 37, 37, 0, 0, 0, 0);
-        SDL_RenderCopy(pRenderer, pAboutique, NULL, &pboutique);
+        SDL_RenderCopy(pRenderer, texturesButton->textures[3], NULL, &pboutique);
 
-        drawCountryPoint(cl, mapAffC, mapAffN, mapAffS, mapAmeriqueC, mapAmeriqueN, mapAmeriqueS, mapAsie, mapBresil, mapChine, mapCoreN, mapCoreS, mapEurEs, mapEurOu, mapInde, mapJapon, mapMoyO, mapOceanie, mapRussie);
+        drawCountryPoint(cl, texturesMap);
 
         initRect(pRenderer, &pLoRecherche, 230, HAUT - 180 + 25, 30, 35, 255, 255, 255, 0);
-        SDL_RenderCopy(pRenderer, pRecherche, NULL, &pLoInfect);
+        SDL_RenderCopy(pRenderer, texturesButton->textures[1], NULL, &pLoInfect);
         initRect(pRenderer, &pLoInfect, 230, HAUT - 180 + 65, 30, 33, 155, 155, 255, 0);
-        SDL_RenderCopy(pRenderer, pInfect, NULL, &pLoRecherche);
+        SDL_RenderCopy(pRenderer, texturesButton->textures[2], NULL, &pLoRecherche);
 
         SDL_RenderPresent(pRenderer);
     }
@@ -798,8 +681,6 @@ void startNewGame()
         play(Perdu, 500);
         SDL_Quit();
     }
-
-    SDL_DestroyTexture(pMap);
     SDL_DestroyRenderer(pRenderer);
     SDL_DestroyWindow(pWindow);
     TTF_CloseFont(font);
