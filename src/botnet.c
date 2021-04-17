@@ -250,7 +250,7 @@ int shop(SDL_Renderer *Render, SDL_Window *Window, jeu_t *jeu, upgrade_list_t *u
                     money = 0;
                     play(Select, 300);
                 }
-                else if (isOnButton(pItem0))
+                else if (isOnButton(Items[0]))
                 {
                     printf("Bought Item 0 \n");
                     buy_upgrade(jeu, up_list->liste[0]);
@@ -265,7 +265,7 @@ int shop(SDL_Renderer *Render, SDL_Window *Window, jeu_t *jeu, upgrade_list_t *u
                         play(Select, 300);
                     }
                 }
-                else if (isOnButton(pItem1))
+                else if (isOnButton(Items[1]))
                 {
                     printf("Bought Item 1 \n");
                     buy_upgrade(jeu, up_list->liste[1]);
@@ -280,7 +280,7 @@ int shop(SDL_Renderer *Render, SDL_Window *Window, jeu_t *jeu, upgrade_list_t *u
                         play(Select, 300);
                     }
                 }
-                else if (isOnButton(pItem2))
+                else if (isOnButton(Items[2]))
                 {
                     printf("Bought Item 2 \n");
                     buy_upgrade(jeu, up_list->liste[2]);
@@ -295,7 +295,7 @@ int shop(SDL_Renderer *Render, SDL_Window *Window, jeu_t *jeu, upgrade_list_t *u
                         play(Select, 300);
                     }
                 }
-                else if (isOnButton(pItem3))
+                else if (isOnButton(Items[3]))
                 {
                     printf("Bought Item 3 \n");
                     buy_upgrade(jeu, up_list->liste[3]);
@@ -310,7 +310,7 @@ int shop(SDL_Renderer *Render, SDL_Window *Window, jeu_t *jeu, upgrade_list_t *u
                         play(Select, 300);
                     }
                 }
-                else if (isOnButton(pItem4))
+                else if (isOnButton(Items[4]))
                 {
                     printf("Bought Item 4 \n");
                     buy_upgrade(jeu, up_list->liste[4]);
@@ -325,7 +325,7 @@ int shop(SDL_Renderer *Render, SDL_Window *Window, jeu_t *jeu, upgrade_list_t *u
                         play(Select, 300);
                     }
                 }
-                else if (isOnButton(pItem5))
+                else if (isOnButton(Items[5]))
                 {
                     printf("Bought Item 5 \n");
                     buy_upgrade(jeu, up_list->liste[5]);
@@ -340,7 +340,7 @@ int shop(SDL_Renderer *Render, SDL_Window *Window, jeu_t *jeu, upgrade_list_t *u
                         play(Select, 300);
                     }
                 }
-                else if (isOnButton(pItem6))
+                else if (isOnButton(Items[6]))
                 {
                     printf("Bought Item 6 \n");
                     buy_upgrade(jeu, up_list->liste[6]);
@@ -355,7 +355,7 @@ int shop(SDL_Renderer *Render, SDL_Window *Window, jeu_t *jeu, upgrade_list_t *u
                         play(Select, 300);
                     }
                 }
-                else if (isOnButton(pItem7))
+                else if (isOnButton(Items[7]))
                 {
                     printf("Bought Item 7 \n");
                     buy_upgrade(jeu, up_list->liste[7]);
@@ -529,7 +529,7 @@ void startNewGame(int new)
             case SDL_QUIT:
                 save_country_list(cl);
                 save_jeu(jeu);
-                upgrade_liste_sauv(up_liste, "upgradeSAVE");
+                upgrade_liste_sauv(up_liste, "../datas/upgradeSAVE");
 
                 isOpen = 0;
                 break;
