@@ -18,6 +18,7 @@
 
 #include "../lib/virus.h"
 #include "../lib/upgrade.h"
+#include "../lib/upgrade_list.h"
 #include "../lib/jeu.h"
 #include "../lib/computer_list.h"
 #include "../lib/country_list.h"
@@ -60,10 +61,12 @@ void play(Mix_Chunk *a, int time)
     delay(time);
 }
 
-int mainMenu(){
+int mainMenu()
+{
     SDL_Color white = {255, 255, 255};
     Mix_Chunk *Select = NULL;
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0){
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
+    {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", SDL_GetError());
         return EXIT_FAILURE;
     }
@@ -71,12 +74,14 @@ int mainMenu(){
     SDL_Renderer *pRenderer = NULL;
     SDL_Rect pstart, pcharge, pquit;
     SDL_Event events;
-    if (SDL_CreateWindowAndRenderer(LONG, HAUT, SDL_WINDOW_SHOWN, &pWindow, &pRenderer) < 0){
+    if (SDL_CreateWindowAndRenderer(LONG, HAUT, SDL_WINDOW_SHOWN, &pWindow, &pRenderer) < 0)
+    {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "[DEBUG] > %s", SDL_GetError());
         SDL_Quit();
         return EXIT_FAILURE;
     }
-    if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1){
+    if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
+    {
         printf("AUDIO FAILLED TO LAUNCH \n");
         return -1;
     }
@@ -85,7 +90,8 @@ int mainMenu(){
     int ret = 0;
     TTF_Init();
     TTF_Font *font = TTF_OpenFont("../asset/Lato-Black.ttf", 240);
-    if (font == NULL){
+    if (font == NULL)
+    {
         printf("Error can't load font \n");
     }
     while (isOpen)
@@ -214,7 +220,7 @@ int nameVirus(SDL_Renderer *Render, SDL_Window *Window, char **textaa, TTF_Font 
     return 1;
 }
 
-int shop(SDL_Renderer *Render, SDL_Window *Window,texture_list_t * texturesButton, jeu_t *jeu, upgrade_t *phishing, upgrade_t *cles_usb, upgrade_t *trojan, upgrade_t *fake_ad, upgrade_t *backdoor, upgrade_t *boot_sector, upgrade_t *spyware, upgrade_t *polymorphic, TTF_Font *font, Mix_Chunk *Select, Mix_Chunk *Error)
+int shop(SDL_Renderer *Render, SDL_Window *Window, jeu_t *jeu, upgrade_list_t *up_list, TTF_Font *font, Mix_Chunk *Select, Mix_Chunk *Error)
 {
     SDL_Color white = {255, 255, 255};
     float money;
@@ -247,7 +253,7 @@ int shop(SDL_Renderer *Render, SDL_Window *Window,texture_list_t * texturesButto
                 else if (isOnButton(pItem0))
                 {
                     printf("Bought Item 0 \n");
-                    buy_upgrade(jeu, phishing);
+                    buy_upgrade(jeu, up_list->liste[0]);
                     isOpen = 0;
                     if (jeu->btc == money)
                     {
@@ -262,7 +268,7 @@ int shop(SDL_Renderer *Render, SDL_Window *Window,texture_list_t * texturesButto
                 else if (isOnButton(pItem1))
                 {
                     printf("Bought Item 1 \n");
-                    buy_upgrade(jeu, cles_usb);
+                    buy_upgrade(jeu, up_list->liste[1]);
                     isOpen = 0;
                     if (jeu->btc == money)
                     {
@@ -277,7 +283,7 @@ int shop(SDL_Renderer *Render, SDL_Window *Window,texture_list_t * texturesButto
                 else if (isOnButton(pItem2))
                 {
                     printf("Bought Item 2 \n");
-                    buy_upgrade(jeu, trojan);
+                    buy_upgrade(jeu, up_list->liste[2]);
                     isOpen = 0;
                     if (jeu->btc == money)
                     {
@@ -292,7 +298,7 @@ int shop(SDL_Renderer *Render, SDL_Window *Window,texture_list_t * texturesButto
                 else if (isOnButton(pItem3))
                 {
                     printf("Bought Item 3 \n");
-                    buy_upgrade(jeu, fake_ad);
+                    buy_upgrade(jeu, up_list->liste[3]);
                     isOpen = 0;
                     if (jeu->btc == money)
                     {
@@ -307,7 +313,7 @@ int shop(SDL_Renderer *Render, SDL_Window *Window,texture_list_t * texturesButto
                 else if (isOnButton(pItem4))
                 {
                     printf("Bought Item 4 \n");
-                    buy_upgrade(jeu, backdoor);
+                    buy_upgrade(jeu, up_list->liste[4]);
                     isOpen = 0;
                     if (jeu->btc == money)
                     {
@@ -322,7 +328,7 @@ int shop(SDL_Renderer *Render, SDL_Window *Window,texture_list_t * texturesButto
                 else if (isOnButton(pItem5))
                 {
                     printf("Bought Item 5 \n");
-                    buy_upgrade(jeu, boot_sector);
+                    buy_upgrade(jeu, up_list->liste[5]);
                     isOpen = 0;
                     if (jeu->btc == money)
                     {
@@ -337,7 +343,7 @@ int shop(SDL_Renderer *Render, SDL_Window *Window,texture_list_t * texturesButto
                 else if (isOnButton(pItem6))
                 {
                     printf("Bought Item 6 \n");
-                    buy_upgrade(jeu, spyware);
+                    buy_upgrade(jeu, up_list->liste[6]);
                     isOpen = 0;
                     if (jeu->btc == money)
                     {
@@ -352,7 +358,7 @@ int shop(SDL_Renderer *Render, SDL_Window *Window,texture_list_t * texturesButto
                 else if (isOnButton(pItem7))
                 {
                     printf("Bought Item 7 \n");
-                    buy_upgrade(jeu, polymorphic);
+                    buy_upgrade(jeu, up_list->liste[7]);
                     isOpen = 0;
                     if (jeu->btc == money)
                     {
@@ -464,8 +470,9 @@ void spend_day(jeu_t *jeu, country_list_t *cl)
     mine_btc_world(jeu, cl);
 }
 
-void startNewGame(int new){
-    int not_infected_countries[18]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17};
+void startNewGame(int new)
+{
+    int not_infected_countries[18] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17};
     char *VirusName = calloc(MAX_LEN, sizeof(char *));
     /*
 
@@ -525,14 +532,6 @@ void startNewGame(int new){
     //virus_display(virus);
     long double *proportion;
 
-    upgrade_t *phishing = upgrade_create("phishing", 200, 0.01, 0.03);
-    upgrade_t *cles_usb = upgrade_create("cles usb", 500, 0.01, 0.02);
-    upgrade_t *trojan = upgrade_create("trojan", 1000, 0.03, 0.04);
-    upgrade_t *fake_ad = upgrade_create("fake ad", 10000, 0.0, -0.01);
-    upgrade_t *backdoor = upgrade_create("backdoor", 20000, 0.1, 0.3);
-    upgrade_t *boot_sector = upgrade_create("boot sector", 50000, 0.1, 0.2);
-    upgrade_t *spyware = upgrade_create("spyware", 100000, 0.3, 0.4);
-    upgrade_t *polymorphic = upgrade_create("polymorphic virus", 500000, 0.0, -0.1);
     //upgrade_display(upgrade);
 
     jeu_t *jeu = jeu_create(virus, 200.5);
@@ -545,26 +544,33 @@ void startNewGame(int new){
     printf("Thunes : %f \n", jeu->btc);*/
 
     country_list_t *cl = creer_country_list();
-    
 
     cl->liste[DEFAULT_INFECTED_COUNTRY]->compromised_pcs_cpt = DEFAULT_BOTNET_SIZE;
-    
-    if(new==0){
+
+    upgrade_list_t *up_liste;
+
+    if (new == 0)
+    {
         load_country_list(cl);
         load_jeu(jeu);
+        up_liste = upgrade_liste_charger("../datas/upgradeSAVE");
+    }
+    else
+    {
+        up_liste = upgrade_liste_charger("../datas/upgrade.data");
     }
 
     /*
     Textures des points sur la map 1 par pays
     */
-    texture_list_t * texturesMap = creer_texture_list(pRenderer ,"../datas/texturesMap");
-    texture_list_t * texturesButton = creer_texture_list(pRenderer ,"../datas/texturesButton");
+    texture_list_t *texturesMap = creer_texture_list(pRenderer, "../datas/texturesMap");
+    texture_list_t *texturesButton = creer_texture_list(pRenderer, "../datas/texturesButton");
     /*
 
     LOGO
 
     */
-    
+
     SDL_Rect pLoInfect, pLoRecherche, pSelectHit, pRateSlider, pBottom, pbg, pmoney, pboutique, prpour, prr, prpoub, prb, pRecMap, pRecBit;
     SDL_Rect Russie, AmeriqueCentre, CoreeSud, CoreeNord, Oceanie, Bresil, AmeriqueNord, Inde, Chine, PaysOuest, PaysEst, AffriqueNord, MoyOrient, AffriqueSud, AffriqueCentre;
     SDL_Event events;
@@ -597,23 +603,27 @@ void startNewGame(int new){
             case SDL_QUIT:
                 save_country_list(cl);
                 save_jeu(jeu);
+                upgrade_liste_sauv(up_liste, "upgradeSAVE");
+
                 isOpen = 0;
                 break;
             case SDL_MOUSEBUTTONDOWN:
                 if (events.button.button == SDL_BUTTON_LEFT)
                 {
-                    if(isOnButton(pboutique)){
-                         printf("SHOP \n");
+                    if (isOnButton(pboutique))
+                    {
+                        printf("SHOP \n");
                         play(Select, 200);
-                        shop(pRenderer, pWindow,texturesButton ,jeu, phishing, cles_usb, trojan, fake_ad, backdoor, boot_sector, spyware, polymorphic, font, Select, Error);
+                        shop(pRenderer, pWindow, jeu, up_liste, font, Select, Error);
                     }
                     else if (isOnButton(pRateSlider))
                     {
                         int xS, yS;
                         SDL_GetMouseState(&xS, &yS);
-                        edit_mining_rate(jeu, (xS-350)/200.0);
+                        edit_mining_rate(jeu, (xS - 350) / 200.0);
                     }
                 }
+
                 break;
             }
         }
@@ -640,7 +650,8 @@ void startNewGame(int new){
         initRect(pRenderer, &pbg, 0, 0, LONG, HAUT, 0, 137, 255, 255);
         int i;
         SDL_RenderCopy(pRenderer, texturesButton->textures[4], NULL, &pRecMap);
-        for(i=0; i<texturesMap->nb; i++){
+        for (i = 0; i < texturesMap->nb; i++)
+        {
             SDL_RenderCopy(pRenderer, texturesMap->textures[i], NULL, &pRecMap);
         }
         initRect(pRenderer, &pBottom, 0, HAUT - 180, LONG, 200, 91, 91, 91, 255);
@@ -715,17 +726,18 @@ int main()
     free(buf);
 
     int a = mainMenu();
-    printf("a %i\n",a);
-    switch(a){
-        case 0:
-            printf("QUIT ! \n");
-            break;
-        case 1:
-            startNewGame(1);
-            break;
-        case 2:
-            startNewGame(0);
-            break;
+    printf("a %i\n", a);
+    switch (a)
+    {
+    case 0:
+        printf("QUIT ! \n");
+        break;
+    case 1:
+        startNewGame(1);
+        break;
+    case 2:
+        startNewGame(0);
+        break;
     }
     return EXIT_SUCCESS;
 }
