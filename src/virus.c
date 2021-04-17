@@ -40,6 +40,22 @@ extern virus_t *virus_create(char name[], float spr_rate, float rsch_rate)
     return (virus);
 }
 
+extern void save_virus(virus_t *virus){
+    FILE *fichier;
+	fichier = fopen("../datas/virusSAVE", "w");
+	fprintf(fichier,"%f %f", virus->research_rate, virus->spreading_rate);
+	fclose(fichier);
+	printf("Sauvegarde du virus");
+}
+
+extern void load_virus(virus_t *virus){
+    FILE *fichier;
+	fichier = fopen("../datas/virusSAVE", "r");
+	fscanf(fichier,"%f %f", &virus->research_rate, &virus->spreading_rate);
+	fclose(fichier);
+	printf("Chargement du virus");
+}
+
 /**
  * @brief Modifies le taux de recherche du virus
  * 
