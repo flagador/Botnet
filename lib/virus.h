@@ -26,6 +26,8 @@ typedef struct
 } virus_t ;
 
 extern virus_t * virus_create(char name[], float spr_rate, float rsch_rate);
+extern void save_virus(virus_t *virus);
+extern void load_virus(virus_t *virus);
 extern void edit_rsch_rate(virus_t * virus, float rsch_rate);
  void edit_spr_rate(virus_t * virus, float spr_rate);
 extern void virus_destroy(virus_t **virus);
