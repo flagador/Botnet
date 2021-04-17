@@ -497,7 +497,7 @@ void spend_day(jeu_t * jeu, country_list_t * cl){
     mine_btc_world(jeu, cl);
 }
 
-void startNewGame(){
+void startNewGame(int new){
     int not_infected_countries[18]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17};
     char *VirusName = calloc(MAX_LEN, sizeof(char *));
     /*
@@ -578,10 +578,14 @@ void startNewGame(){
     printf("Thunes : %f \n", jeu->btc);*/
 
     country_list_t *cl = creer_country_list();
+    
 
     cl->liste[DEFAULT_INFECTED_COUNTRY]->compromised_pcs_cpt = DEFAULT_BOTNET_SIZE;
-
     
+    if(new==0){
+        load_country_list(cl);
+        load_jeu(jeu);
+    }
     SDL_Texture *pMap = NULL;
     pMap = IMG_LoadTexture(pRenderer, "../asset/map.png");
 
@@ -656,6 +660,8 @@ void startNewGame(){
                 switch (events.type)
                 {
                 case SDL_QUIT:
+                    save_country_list(cl);
+                    save_jeu(jeu);
                     isOpen = 0;
                     break;
                 case SDL_MOUSEBUTTONDOWN:
@@ -779,10 +785,10 @@ int main()
             printf("QUIT ! \n");
             break;
         case 1:
-            startNewGame();
+            startNewGame(1);
             break;
         case 2:
-            a=a;
+            startNewGame(0);
             break;
     }
     return EXIT_SUCCESS;
