@@ -25,7 +25,7 @@ extern int upgrade_liste_existe(upgrade_list_t *const liste);
 extern int upgrade_liste_destroy(upgrade_list_t ** liste);
 
 extern upgrade_list_t * upgrade_liste_charger(char * nom_file);
-extern int upgrade_liste_sauv(upgrade_list_t * liste);
+extern int upgrade_liste_sauv(upgrade_list_t *liste, char * path);
 
 
 extern void afficher_upgrade_list(const upgrade_list_t * l);

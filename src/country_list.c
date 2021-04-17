@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../lib/country_list.h"
+#include "../lib/config.h"
 
 /**
  * \file country_list.c
@@ -109,25 +110,6 @@ void set_borders(country_list_t *c)
 	}
 }
 
-int compter_lignes(char *n_fichier)
-{
-	FILE *fichier;
-
-	fichier = fopen(n_fichier, "r");
-
-	int cpt = 0;
-	int read;
-	char tete;
-
-	do
-	{
-		tete = fgetc(fichier);
-		if (tete == '\n')
-			cpt++;
-	} while (!feof(fichier));
-
-	return cpt;
-}
 
 /**
  * @brief Créateur de la country_list, à partir du fichier data/countrylist

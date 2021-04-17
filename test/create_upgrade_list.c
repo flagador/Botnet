@@ -1,8 +1,11 @@
 #include "../lib/upgrade_list.h"
 
+#include <stdio.h>
 int main()
 {
     upgrade_list_t * l = upgrade_liste_creer(8);
+
+    printf("upgrade_list créée\n");
 
     upgrade_t *phishing = upgrade_create("phishing", 200, 0.01, 0.03);
     upgrade_t *cles_usb = upgrade_create("cles usb", 500, 0.01, 0.02);
@@ -13,6 +16,9 @@ int main()
     upgrade_t *spyware = upgrade_create("spyware", 100000, 0.3, 0.4);
     upgrade_t *polymorphic = upgrade_create("polymorphic virus", 500000, 0.0, -0.1);
 
+    printf("upgrades créées\n");
+
+
     l->liste[0] = phishing; 
     l->liste[1] = cles_usb; 
     l->liste[2] = trojan; 
@@ -22,6 +28,14 @@ int main()
     l->liste[6] = spyware; 
     l->liste[7] = polymorphic; 
 
-    upgrade_liste_sauv(l);
-    upgrade_liste_destroy(l);
+    printf("upgrades insérées\n");
+
+    printf("upgrade list : \n");
+
+    afficher_upgrade_list(l);
+
+    upgrade_liste_sauv(l, "../datas/upgrade.save"); //changer le nom du fichier si besoin
+    
+
+    upgrade_liste_destroy(&l);
 }

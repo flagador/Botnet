@@ -45,6 +45,12 @@ test/test_random.o : test/test_random.c
 bin/random_lib.o : bin/ src/random_lib.c
 	gcc -c src/random_lib.c -o bin/random_lib.o
 
+bin/upgrade_list.o : bin/ src/upgrade_list.c
+	gcc -c src/upgrade_list.c -o bin/upgrade_list.o
+
+bin/config.o : bin/ src/config.c
+	gcc -c src/config.c -o bin/config.o
+
 test/test_virus : test/test_virus.o bin/virus.o bin/country_list.o bin/country.o bin/computer_list.o bin/random_lib.o
 	gcc test/test_virus.o bin/virus.o bin/country_list.o bin/country.o bin/computer_list.o bin/random_lib.o -o test/test_virus -lm
 
@@ -59,6 +65,18 @@ test/test_jeu : test/test_jeu.o bin/jeu.o bin/virus.o bin/upgrade.o bin/country_
 
 test/test_jeu.o : test/test_jeu.c
 	gcc -c test/test_jeu.c -o test/test_jeu.o
+
+test/create_upgrade_list.o : test/create_upgrade_list.c
+	gcc -c test/create_upgrade_list.c -o test/create_upgrade_list.o
+
+test/load_up_list.o : test/test_load_up_list.c
+	gcc -c test/test_load_up_list.c -o test/test_load_up_list.o
+
+test/create_upgrade_list : bin/config.o test/create_upgrade_list.o bin/upgrade.o bin/upgrade_list.o
+	gcc bin/config.o test/create_upgrade_list.o bin/upgrade.o bin/upgrade_list.o -o test/create_upgrade_list
+
+test/test_load_up_list : bin/config.o test/test_load_up_list.o bin/upgrade.o bin/upgrade_list.o
+	gcc bin/config.o bin/upgrade.o bin/upgrade_list.o test/test_load_up_list.o -o test/test_load_up_list
 
 doc:
 	mkdir -p doc
