@@ -681,6 +681,8 @@ void startNewGame()
         play(Perdu, 500);
         SDL_Quit();
     }
+    destroyTexture(&texturesButton);
+    destroyTexture(&texturesMap);
     SDL_DestroyRenderer(pRenderer);
     SDL_DestroyWindow(pWindow);
     TTF_CloseFont(font);

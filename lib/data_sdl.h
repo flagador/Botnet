@@ -31,5 +31,6 @@ void showSmallerText(SDL_Renderer * render, SDL_Rect * rect, const char *text, T
 int SDL_RenderFillCircle(SDL_Renderer * renderer, int x, int y, int radius);
 int SDL_RenderDrawCircle(SDL_Renderer * renderer, int x, int y, int radius);
 void drawCountryPoint(country_list_t *cl, texture_list_t * textures);
+void destroyTexture(texture_list_t ** texture);
 texture_list_t * creer_texture_list(SDL_Renderer * render, char fichierloc[25]);
 #endif

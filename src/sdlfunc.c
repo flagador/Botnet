@@ -202,3 +202,14 @@ texture_list_t * creer_texture_list(SDL_Renderer * render, char fichierloc[25]){
     fclose(fichier);
     return texture_list;
 }
+
+void destroyTexture(texture_list_t ** texture){
+    int i;
+    for(i = 0; i<(*texture)->nb; i++){
+        SDL_DestroyTexture((*texture)->textures[i]);
+    }
+    free((*texture)->textures);
+    free((*texture));
+
+
+}
