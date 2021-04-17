@@ -220,7 +220,7 @@ int nameVirus(SDL_Renderer *Render, SDL_Window *Window, char **textaa, TTF_Font 
     return 1;
 }
 
-int shop(SDL_Renderer *Render, SDL_Window *Window, jeu_t *jeu, upgrade_list_t *up_list, TTF_Font *font, Mix_Chunk *Select, Mix_Chunk *Error)
+int shop(SDL_Renderer *Render, SDL_Window *Window, jeu_t *jeu, upgrade_list_t *up_list, TTF_Font *font, Mix_Chunk *Select, Mix_Chunk *Error, texture_list_t * texturesButton)
 {
     SDL_Color white = {255, 255, 255};
     float money;
@@ -228,7 +228,7 @@ int shop(SDL_Renderer *Render, SDL_Window *Window, jeu_t *jeu, upgrade_list_t *u
     SDL_RenderClear(Render);
 
     SDL_Event events;
-    SDL_Rect pQ, pReturn, pItem0, pItem1, pItem2, pItem3, pItem4, pItem5, pItem6, pItem7;
+    SDL_Rect pQ, pReturn, pItem0, pItem1, pItem2, pItem3, pItem4, pItem5, pItem6, pItem7, Items[8];
     int isOpen = 1;
 
     while (isOpen)
@@ -373,89 +373,11 @@ int shop(SDL_Renderer *Render, SDL_Window *Window, jeu_t *jeu, upgrade_list_t *u
                 break;
             }
         }
-        initRect(Render, &pQ, 0, 0, LONG, HAUT, 0, 137, 255, 255);
+        initRect(Render, &pQ, 0, 0, LONG, HAUT, 0, 137, 255, 255); //backgroud de couleur BLEU CIEL
+        genererShop(Items, Render, up_list, font);
+        
 
-        initRect(Render, &pItem0, 136, 80, 150, 150, 118, 118, 118, 255);
-        snprintf(buffer, 50, "%s", phishing->name);
-        showSmallerText(Render, &pItem0, buffer, font, &white, pItem0.y);
-        snprintf(buffer, 50, "Prix:%.2f", phishing->price);
-        showSmallerText(Render, &pItem0, buffer, font, &white, pItem0.y + 30);
-        snprintf(buffer, 50, "Propagation:%.2f", phishing->spreading_rate);
-        showSmallerText(Render, &pItem0, buffer, font, &white, pItem0.y + 60);
-        snprintf(buffer, 50, "Recherche:%.2f", phishing->research_rate);
-        showSmallerText(Render, &pItem0, buffer, font, &white, pItem0.y + 90);
-
-        initRect(Render, &pItem1, 372, 80, 150, 150, 118, 118, 118, 255);
-        snprintf(buffer, 50, "%s", cles_usb->name);
-        showSmallerText(Render, &pItem1, buffer, font, &white, pItem1.y);
-        snprintf(buffer, 50, "Prix:%.2f", cles_usb->price);
-        showSmallerText(Render, &pItem1, buffer, font, &white, pItem1.y + 30);
-        snprintf(buffer, 50, "Propagation:%.2f", cles_usb->spreading_rate);
-        showSmallerText(Render, &pItem1, buffer, font, &white, pItem1.y + 60);
-        snprintf(buffer, 50, "Recherche:%.2f", cles_usb->research_rate);
-        showSmallerText(Render, &pItem1, buffer, font, &white, pItem1.y + 90);
-
-        initRect(Render, &pItem2, 608, 80, 150, 150, 118, 118, 118, 255);
-        snprintf(buffer, 50, "%s", trojan->name);
-        showSmallerText(Render, &pItem2, buffer, font, &white, pItem2.y);
-        snprintf(buffer, 50, "Prix:%.2f", trojan->price);
-        showSmallerText(Render, &pItem2, buffer, font, &white, pItem2.y + 30);
-        snprintf(buffer, 50, "Propagation:%.2f", trojan->spreading_rate);
-        showSmallerText(Render, &pItem2, buffer, font, &white, pItem2.y + 60);
-        snprintf(buffer, 50, "Recherche:%.2f", trojan->research_rate);
-        showSmallerText(Render, &pItem2, buffer, font, &white, pItem2.y + 90);
-
-        initRect(Render, &pItem3, 844, 80, 150, 150, 118, 118, 118, 255);
-        snprintf(buffer, 50, "%s", fake_ad->name);
-        showSmallerText(Render, &pItem3, buffer, font, &white, pItem3.y);
-        snprintf(buffer, 50, "Prix:%.2f", fake_ad->price);
-        showSmallerText(Render, &pItem3, buffer, font, &white, pItem3.y + 30);
-        snprintf(buffer, 50, "Propagation:%.2f", fake_ad->spreading_rate);
-        showSmallerText(Render, &pItem3, buffer, font, &white, pItem3.y + 60);
-        snprintf(buffer, 50, "Recherche:%.2f", fake_ad->research_rate);
-        showSmallerText(Render, &pItem3, buffer, font, &white, pItem3.y + 90);
-
-        initRect(Render, &pItem4, 136, 280, 150, 150, 118, 118, 118, 255);
-        snprintf(buffer, 50, "%s", backdoor->name);
-        showSmallerText(Render, &pItem4, buffer, font, &white, pItem4.y);
-        snprintf(buffer, 50, "Prix:%.2f", backdoor->price);
-        showSmallerText(Render, &pItem4, buffer, font, &white, pItem4.y + 30);
-        snprintf(buffer, 50, "Propagation:%.2f", backdoor->spreading_rate);
-        showSmallerText(Render, &pItem4, buffer, font, &white, pItem4.y + 60);
-        snprintf(buffer, 50, "Recherche:%.2f", backdoor->research_rate);
-        showSmallerText(Render, &pItem4, buffer, font, &white, pItem4.y + 90);
-
-        initRect(Render, &pItem5, 372, 280, 150, 150, 118, 118, 118, 255);
-        snprintf(buffer, 50, "%s", boot_sector->name);
-        showSmallerText(Render, &pItem5, buffer, font, &white, pItem5.y);
-        snprintf(buffer, 50, "Prix:%.2f", boot_sector->price);
-        showSmallerText(Render, &pItem5, buffer, font, &white, pItem5.y + 30);
-        snprintf(buffer, 50, "Propagation:%.2f", boot_sector->spreading_rate);
-        showSmallerText(Render, &pItem5, buffer, font, &white, pItem5.y + 60);
-        snprintf(buffer, 50, "Recherche:%.2f", boot_sector->research_rate);
-        showSmallerText(Render, &pItem5, buffer, font, &white, pItem5.y + 90);
-
-        initRect(Render, &pItem6, 608, 280, 150, 150, 118, 118, 118, 255);
-        snprintf(buffer, 50, "%s", spyware->name);
-        showSmallerText(Render, &pItem6, buffer, font, &white, pItem6.y);
-        snprintf(buffer, 50, "Prix:%.2f", spyware->price);
-        showSmallerText(Render, &pItem6, buffer, font, &white, pItem6.y + 30);
-        snprintf(buffer, 50, "Propagation:%.2f", spyware->spreading_rate);
-        showSmallerText(Render, &pItem6, buffer, font, &white, pItem6.y + 60);
-        snprintf(buffer, 50, "Recherche:%.2f", spyware->research_rate);
-        showSmallerText(Render, &pItem6, buffer, font, &white, pItem6.y + 90);
-
-        initRect(Render, &pItem7, 844, 280, 150, 150, 118, 118, 118, 255);
-        snprintf(buffer, 50, "%s", polymorphic->name);
-        showSmallerText(Render, &pItem7, buffer, font, &white, pItem7.y);
-        snprintf(buffer, 50, "Prix:%.2f", polymorphic->price);
-        showSmallerText(Render, &pItem7, buffer, font, &white, pItem7.y + 30);
-        snprintf(buffer, 50, "Propagation:%.2f", polymorphic->spreading_rate);
-        showSmallerText(Render, &pItem7, buffer, font, &white, pItem7.y + 60);
-        snprintf(buffer, 50, "Recherche:%.2f", polymorphic->research_rate);
-        showSmallerText(Render, &pItem7, buffer, font, &white, pItem7.y + 90);
-
-        initRect(Render, &pReturn, 1080 - 70, 720 - 70, 45, 45, 255, 0, 0, 0);
+        initRect(Render, &pReturn, 1080 - 70, 720 - 70, 45, 45, 255, 0, 0, 0); //Button de retour
         SDL_RenderCopy(Render, texturesButton->textures[0], NULL, &pReturn);
 
         SDL_RenderPresent(Render);
@@ -544,10 +466,11 @@ void startNewGame(int new)
     printf("Thunes : %f \n", jeu->btc);*/
 
     country_list_t *cl = creer_country_list();
-
+    
     cl->liste[DEFAULT_INFECTED_COUNTRY]->compromised_pcs_cpt = DEFAULT_BOTNET_SIZE;
 
     upgrade_list_t *up_liste;
+    printf("IMPORT UGRADE \n");
 
     if (new == 0)
     {
@@ -559,12 +482,15 @@ void startNewGame(int new)
     {
         up_liste = upgrade_liste_charger("../datas/upgrade.data");
     }
-
+    afficher_upgrade_list(up_liste);
     /*
     Textures des points sur la map 1 par pays
     */
+    
     texture_list_t *texturesMap = creer_texture_list(pRenderer, "../datas/texturesMap");
     texture_list_t *texturesButton = creer_texture_list(pRenderer, "../datas/texturesButton");
+    printf("TEXTURE IMPORTED \n");
+    
     /*
 
     LOGO
@@ -614,7 +540,7 @@ void startNewGame(int new)
                     {
                         printf("SHOP \n");
                         play(Select, 200);
-                        shop(pRenderer, pWindow, jeu, up_liste, font, Select, Error);
+                        shop(pRenderer, pWindow, jeu, up_liste, font, Select, Error, texturesButton);
                     }
                     else if (isOnButton(pRateSlider))
                     {

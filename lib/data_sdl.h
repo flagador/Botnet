@@ -21,11 +21,8 @@ struct texture_list_s{
 
 int mainMenu();
 void startNewGame();
-<<<<<<< HEAD
-int shop(SDL_Renderer * Render, SDL_Window * Window,texture_list_t *textureButton ,jeu_t *jeu, upgrade_t *phishing, upgrade_t *cles_usb, upgrade_t *trojan, upgrade_t *fake_ad, upgrade_t *backdoor, upgrade_t *boot_sector, upgrade_t *spyware, upgrade_t *polymorphic, TTF_Font * font, Mix_Chunk *Select,Mix_Chunk *Error);
-=======
-int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_list_t * up_list, TTF_Font * font, Mix_Chunk *Select,Mix_Chunk *Error);
->>>>>>> save-game
+void genererShop(SDL_Rect *Items, SDL_Renderer * Render, upgrade_list_t * up_list, TTF_Font *font);
+int shop(SDL_Renderer * Render, SDL_Window * Window, jeu_t *jeu, upgrade_list_t * up_list, TTF_Font * font, Mix_Chunk *Select,Mix_Chunk *Error, texture_list_t * texturesButton);
 int nameVirus(SDL_Renderer * Render, SDL_Window * Window, char ** textaa, TTF_Font * font);
 //void initRect(SDL_Renderer * render ,SDL_Rect * rect, int x, int y , int w, int h,int r,int g,int b, int alpha);
 void initRect(SDL_Renderer * render ,SDL_Rect * rect, int x, int y , int w, int h,int r,int g,int b, int alpha);

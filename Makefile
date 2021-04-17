@@ -6,8 +6,8 @@ OBJ= test/test_random.o  bin/computer.o bin/country_list.o bin/botnet.o bin/coun
 bin/ : 
 	mkdir -p bin
 
-bin/botnet: bin/sdlfunc.o bin/sdlfunc.o bin/botnet.o bin/jeu.o bin/virus.o bin/upgrade.o bin/country_list.o bin/computer_list.o bin/country.o bin/random_lib.o bin/
-	gcc bin/config.o bin/sdlfunc.o bin/botnet.o bin/jeu.o bin/virus.o bin/upgrade.o bin/country_list.o bin/computer_list.o bin/country.o bin/random_lib.o -o bin/botnet -lm `sdl2-config --cflags --libs` -lSDL2_ttf -lSDL2_image -lSDL2_mixer
+bin/botnet: bin/sdlfunc.o bin/sdlfunc.o bin/botnet.o bin/jeu.o bin/virus.o bin/upgrade.o bin/country_list.o bin/computer_list.o bin/country.o bin/random_lib.o bin/config.o bin/upgrade_list.o bin/ 
+	gcc bin/config.o bin/sdlfunc.o bin/botnet.o bin/jeu.o bin/virus.o bin/upgrade.o bin/country_list.o bin/computer_list.o bin/country.o bin/random_lib.o bin/upgrade_list.o -o bin/botnet -lm `sdl2-config --cflags --libs` -lSDL2_ttf -lSDL2_image -lSDL2_mixer
 
 bin/botnet.o : src/botnet.c lib/country_list.h bin/
 	gcc -c src/botnet.c -o ./bin/botnet.o
@@ -57,8 +57,8 @@ test/test_virus : test/test_virus.o bin/virus.o bin/country_list.o bin/country.o
 test/test_virus.o : test/test_virus.c
 	gcc -c test/test_virus.c -o test/test_virus.o
 
-test/sdltest : bin/sdlfunc.o test/sdltest.c 
-	gcc bin/sdlfunc.o -o test/sdltest test/sdltest.c `sdl2-config --cflags --libs` -lSDL2_ttf -lSDL2_image -lSDL2_mixer
+test/sdltest : bin/sdlfunc.o test/sdltest.c bin/config.o 
+	gcc bin/sdlfunc.o bin/config.o -o test/sdltest test/sdltest.c `sdl2-config --cflags --libs` -lSDL2_ttf -lSDL2_image -lSDL2_mixer
 
 test/test_jeu : test/test_jeu.o bin/jeu.o bin/virus.o bin/upgrade.o bin/country_list.o bin/computer_list.o bin/country.o bin/random_lib.o
 	gcc bin/config.o test/test_jeu.o bin/jeu.o bin/virus.o bin/upgrade.o bin/country_list.o bin/computer_list.o bin/country.o bin/random_lib.o -o test/test_jeu -lm
