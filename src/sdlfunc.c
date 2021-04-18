@@ -2,7 +2,7 @@
 #include "../lib/country_list.h"
 #include "../lib/config.h"
 #include <unistd.h>
-#include <stdio.h>
+#include <stdio.h> 
 
 void showText(SDL_Renderer *render, SDL_Rect *rect, const char *text, TTF_Font *font, SDL_Color *color)
 {

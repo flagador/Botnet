@@ -220,6 +220,61 @@ int nameVirus(SDL_Renderer *Render, SDL_Window *Window, char **textaa, TTF_Font 
     return 1;
 }
 
+int getInfo(SDL_Renderer * pRenderer, SDL_Window * pWindow, country_list_t * cl,TTF_Font * font, Mix_Chunk *Select,texture_list_t* texturesButton){
+    SDL_Color white = {255 ,255 ,255};
+    SDL_Color red = {255 ,71 ,71};
+
+    SDL_RenderClear(pRenderer);
+    int isOpen = 1;
+    SDL_Event events;
+    SDL_Rect pBG, pReturn, Rnom[cl->nb], RNInfect[cl->nb], Rinfect[cl->nb];
+    while(isOpen){
+        while(SDL_PollEvent(&events)){
+            switch (events.type){
+                case SDL_QUIT:
+                    isOpen = 0;
+                    return 0;
+                    break;
+                case SDL_MOUSEBUTTONDOWN:
+                    if(events.button.button == SDL_BUTTON_LEFT){
+                        if (isOnButton(pReturn))
+                        {
+                            isOpen = 0;
+                            play(Select, 300);
+                        }
+                    }
+            }
+        }
+        initRect(pRenderer, &pBG, 0,0, LONG, HAUT, 0 ,137 ,255,255);
+        int i;
+        int colone = 0, ligne = 0;
+        for (i = 0; i < cl->nb; i++){
+            initRect(pRenderer, &Rnom[i], 70 + (320 * colone ),20 + (80 * ligne), 15*strlen(cl->liste[i]->name),20 , 150,150,150, 0);
+            if(cl->liste[i]->healthy_pcs_cpt != 0)
+                showText(pRenderer, &Rnom[i], cl->liste[i]->name, font, &white);
+            else
+                showText(pRenderer, &Rnom[i], cl->liste[i]->name, font, &red);
+
+
+            initRect(pRenderer, &RNInfect[i], 70 + (320 * colone ),45 + (80 * ligne), 200,20 , 13, 13, 240, 255);
+
+            initRect(pRenderer, &Rinfect[i], 70 + (320 * colone ),45 + (80 * ligne), cl->liste[i]->compromised_pcs_cpt * 200 / (cl->liste[i]->healthy_pcs_cpt + cl->liste[i]->compromised_pcs_cpt),20 , 240, 13, 13, 255);
+
+            ligne++;
+            if(ligne == 9){
+                ligne = 0;
+                colone++;
+            }
+
+        }
+
+        initRect(pRenderer, &pReturn, 1080 - 70, 720 - 70, 45, 45, 255, 0, 0, 0); //Button de retour
+        SDL_RenderCopy(pRenderer, texturesButton->textures[0], NULL, &pReturn);
+        SDL_RenderPresent(pRenderer);
+
+    }
+}
+
 int shop(SDL_Renderer *Render, SDL_Window *Window, jeu_t *jeu, upgrade_list_t *up_list, TTF_Font *font, Mix_Chunk *Select, Mix_Chunk *Error, texture_list_t * texturesButton)
 {
     SDL_Color white = {255, 255, 255};
@@ -497,8 +552,7 @@ void startNewGame(int new)
 
     */
 
-    SDL_Rect pLoInfect, pLoRecherche, pSelectHit, pRateSlider, pBottom, pbg, pmoney, pboutique, prpour, prr, prpoub, prb, pRecMap, pRecBit;
-    SDL_Rect Russie, AmeriqueCentre, CoreeSud, CoreeNord, Oceanie, Bresil, AmeriqueNord, Inde, Chine, PaysOuest, PaysEst, AffriqueNord, MoyOrient, AffriqueSud, AffriqueCentre;
+    SDL_Rect pLoInfect, pLoRecherche, pSelectHit, pRateSlider, pBottom, pbg, pmoney, pboutique, prpour, prr, prpoub, prb, pRecMap, pRecBit, pinfo;
     SDL_Event events;
     int isOpen = 1;
     int ret = 0;
@@ -547,6 +601,13 @@ void startNewGame(int new)
                         int xS, yS;
                         SDL_GetMouseState(&xS, &yS);
                         edit_mining_rate(jeu, (xS - 350) / 200.0);
+                    }
+                    else if (isOnButton(pinfo))
+                    {
+                        play(Select, 200);
+                        printf("INFO \n");
+                        getInfo(pRenderer, pWindow, cl, font, Select, texturesButton);
+
                     }
                 }
 
@@ -599,6 +660,9 @@ void startNewGame(int new)
 
         initRect(pRenderer, &pboutique, 1080 - 100, 720 - 100, 37, 37, 0, 0, 0, 0);
         SDL_RenderCopy(pRenderer, texturesButton->textures[3], NULL, &pboutique);
+
+        initRect(pRenderer, &pinfo, 1080 - 200, 720 - 100, 37, 37, 0, 0, 0, 0);
+        SDL_RenderCopy(pRenderer, texturesButton->textures[6], NULL, &pinfo);
 
         drawCountryPoint(cl, texturesMap);
 
