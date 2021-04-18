@@ -41,6 +41,24 @@ extern jeu_t *jeu_create(virus_t *vir, float btc)
     return (jeu);
 }
 
+extern void save_jeu(jeu_t *jeu){
+    FILE *fichier;
+	fichier = fopen("../datas/jeuSAVE", "w");
+	fprintf(fichier,"%f %f", jeu->btc, jeu->virus_research);
+	fclose(fichier);
+	printf("Sauvegarde du jeu");
+    save_virus(jeu->virus);
+}
+
+extern void load_jeu(jeu_t *jeu){
+    FILE *fichier;
+	fichier = fopen("../datas/jeuSAVE", "r");
+	fscanf(fichier,"%f %f", &jeu->btc, &jeu->virus_research);
+	fclose(fichier);
+	printf("Chargement du jeu");
+    load_virus(jeu->virus);
+}
+
 /**
  * @brief Permet l'achat d'un upgrade passé en paramètre, déduit son prix à notre argent
  * 

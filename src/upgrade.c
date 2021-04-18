@@ -24,17 +24,38 @@
  * @param rsch_rate 
  * @return upgrade_t* 
  */
-extern upgrade_t *upgrade_create(char name[], float price, float spr_rate, float rsch_rate){ //cr�� un upgrade
-    upgrade_t * upgrade = malloc(sizeof(upgrade_t));
+extern upgrade_t *upgrade_create(char name[], float price, float spr_rate, float rsch_rate)
+{ //cr�� un upgrade
+    upgrade_t *upgrade = malloc(sizeof(upgrade_t));
 
-    upgrade->name=name;
+    upgrade->name = malloc(strlen(name) * sizeof(char)); //il me semble que la taille d'un char peut changer selon le système....on est jamais trop prudents
 
-    upgrade->price=price;
+    strcpy(upgrade->name, name);
 
-    upgrade->spreading_rate=spr_rate;
+    upgrade->price = price;
 
-    upgrade->research_rate=rsch_rate;
-    return(upgrade);
+    upgrade->spreading_rate = spr_rate;
+
+    upgrade->research_rate = rsch_rate;
+    return (upgrade);
+}
+
+extern void upgrade_edit(upgrade_t *u, char name[], float price, float spr_rate, float rsch_rate)
+{
+    if (name != NULL)
+        upgrade_edit_name(u, name);
+    if (price != -1)
+        u->price = price;
+    if (spr_rate != -1)
+        u->spreading_rate = spr_rate;
+    if (rsch_rate != -1)
+        u->research_rate = rsch_rate;
+}
+
+extern void upgrade_edit_name(upgrade_t *u, char *name)
+{
+    u->name = realloc(u->name, sizeof(name));
+    strcpy(u->name, name);
 }
 
 /**
@@ -43,8 +64,9 @@ extern upgrade_t *upgrade_create(char name[], float price, float spr_rate, float
  * @param upgrade 
  * @param price 
  */
-extern void upgrade_edit_price(upgrade_t * upgrade, float price){ //modifie le prix du upgrade pass� en parametre
-    upgrade->price=price;
+extern void upgrade_edit_price(upgrade_t *upgrade, float price)
+{ //modifie le prix du upgrade pass� en parametre
+    upgrade->price = price;
 }
 
 /**
@@ -53,8 +75,9 @@ extern void upgrade_edit_price(upgrade_t * upgrade, float price){ //modifie le p
  * @param upgrade 
  * @param rsch_rate 
  */
-extern void upgrade_edit_rsch_rate(upgrade_t * upgrade, float rsch_rate){ //modifie le taux de recherche du upgrade pass� en parametre
-    upgrade->research_rate=rsch_rate;
+extern void upgrade_edit_rsch_rate(upgrade_t *upgrade, float rsch_rate)
+{ //modifie le taux de recherche du upgrade pass� en parametre
+    upgrade->research_rate = rsch_rate;
 }
 
 /**
@@ -63,8 +86,9 @@ extern void upgrade_edit_rsch_rate(upgrade_t * upgrade, float rsch_rate){ //modi
  * @param upgrade 
  * @param spr_rate 
  */
-extern void upgrade_edit_spr_rate(upgrade_t * upgrade, float spr_rate){ //modifie le taux de propagation du upgrade pass� en parametre
-    upgrade->spreading_rate=spr_rate;
+extern void upgrade_edit_spr_rate(upgrade_t *upgrade, float spr_rate)
+{ //modifie le taux de propagation du upgrade pass� en parametre
+    upgrade->spreading_rate = spr_rate;
 }
 
 /**
@@ -72,9 +96,14 @@ extern void upgrade_edit_spr_rate(upgrade_t * upgrade, float spr_rate){ //modifi
  * 
  * @param upgrade 
  */
-static void upgrade_destroy(upgrade_t **upgrade){ //detruie le upgrade
-    free((*upgrade));
-    (*upgrade)=NULL;
+extern void upgrade_destroy(upgrade_t **upgrade)
+{ //detruie le upgrade
+    if (*upgrade != NULL)
+    {
+        free((*upgrade)->name);
+        free(*upgrade);
+        *upgrade = NULL;
+    }
 }
 
 /**
@@ -82,13 +111,17 @@ static void upgrade_destroy(upgrade_t **upgrade){ //detruie le upgrade
  * 
  * @param upgrade 
  */
-extern void upgrade_display(upgrade_t *upgrade){ //affiche les donn�es du upgrade
-    if(upgrade!=NULL){
+extern void upgrade_display(upgrade_t *upgrade)
+{ //affiche les donn�es du upgrade
+    if (upgrade != NULL)
+    {
         printf("Nom du upgrade : %s \n", upgrade->name);
         printf("Prix : %f \n", upgrade->price);
         printf("Taux de propagation : %f \n", upgrade->spreading_rate);
         printf("Taux de recherche : %f \n", upgrade->research_rate);
-    } else {
+    }
+    else
+    {
         printf("Le upgrade n'existe pas");
     }
 }
@@ -99,4 +132,3 @@ extern void upgrade_display(upgrade_t *upgrade){ //affiche les donn�es du upgr
     upgrade_edit_rsch_rate(op, 0.5);
     upgrade_display(op);
 }*/
-

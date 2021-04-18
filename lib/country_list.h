@@ -28,6 +28,8 @@ typedef struct country_list_s
 } country_list_t ;
 
 extern country_list_t * creer_country_list() ;
+extern void save_country_list(country_list_t *cl);
+extern void load_country_list(country_list_t *cl);
 extern void afficher_country_list(const country_list_t * c);
 extern void detruire_country_list(country_list_t ** c);
 extern float count_compromised_pcs(country_list_t * list);

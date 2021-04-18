@@ -1,7 +1,7 @@
 # BOTNET
 ## Comment installer ? 
 ```
-sudo apt install < package.txt
+xargs sudo apt-get install <package.txt -y
 make all
 ```
 ## Comment lancer ? 

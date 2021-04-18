@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../lib/country_list.h"
+#include "../lib/config.h"
 
 /**
  * \file country_list.c
@@ -109,25 +110,6 @@ void set_borders(country_list_t *c)
 	}
 }
 
-int compter_lignes(char *n_fichier)
-{
-	FILE *fichier;
-
-	fichier = fopen(n_fichier, "r");
-
-	int cpt = 0;
-	int read;
-	char tete;
-
-	do
-	{
-		tete = fgetc(fichier);
-		if (tete == '\n')
-			cpt++;
-	} while (!feof(fichier));
-
-	return cpt;
-}
 
 /**
  * @brief Créateur de la country_list, à partir du fichier data/countrylist
@@ -176,6 +158,32 @@ extern country_list_t *creer_country_list()
 
 	return country_list;
 }
+
+extern void save_country_list(country_list_t *cl){
+	FILE *fichier;
+	fichier = fopen("../datas/countrylistSAVE", "w");
+	for(int i=0; i<cl->nb; i++){
+		fprintf(fichier,"%lu %lu \n", cl->liste[i]->healthy_pcs_cpt,cl->liste[i]->compromised_pcs_cpt);
+	}
+	fclose(fichier);
+	printf("Sauvegarde de la country list");
+}
+
+extern void load_country_list(country_list_t *cl){
+	FILE *fichier;
+	fichier = fopen("../datas/countrylistSAVE", "r");
+	int read;
+	int i=0;
+	do
+	{
+
+		read = fscanf(fichier, "%lu %lu \n", &cl->liste[i]->healthy_pcs_cpt, &cl->liste[i]->compromised_pcs_cpt);
+		i++;
+
+	} while (read != EOF);
+	fclose(fichier);
+}
+
 
 extern float count_compromised_pcs(country_list_t * list){
     float compromised_pcs=0;

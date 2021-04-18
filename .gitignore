@@ -458,6 +458,8 @@ test/test_virus
 test/test_jeu
 test/sdltest
 
+datas/*SAVE
+
 #exceptions
 !*/.gitkeep
 

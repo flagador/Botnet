@@ -26,7 +26,13 @@ typedef struct
 } upgrade_t ;
 
 extern upgrade_t *upgrade_create(char name[], float price, float spr_rate, float rsch_rate);
+
+extern void upgrade_edit(upgrade_t * u, char name[], float price, float spr_rate, float rsch_rate);
+extern void upgrade_edit_name(upgrade_t * u, char * name);
+
 extern void upgrade_display(upgrade_t *upgrade);
 extern void upgrade_edit_price(upgrade_t * upgrade, float price);
+
+extern void upgrade_destroy(upgrade_t ** upgrade);
 
 #endif
