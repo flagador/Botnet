@@ -61,9 +61,7 @@ int isOnButton(SDL_Rect rect)
     int x, y;
     SDL_GetMouseState(&x, &y);
     //printf("x = %i , y = %i \n", x,y);
-    if ((x > rect.x && x < (rect.x + rect.w)) && (y > rect.y && y < (rect.y + rect.h)))
-        return 1;
-    return 0;
+    return (x > rect.x && x < (rect.x + rect.w)) && (y > rect.y && y < (rect.y + rect.h));
 }
 
 int SDL_RenderDrawCircle(SDL_Renderer *renderer, int x, int y, int radius)
@@ -228,7 +226,7 @@ void genererShop(SDL_Rect *Items, SDL_Renderer * Render, upgrade_list_t * up_lis
         snprintf(buffer, 50, "Recherche:%.2f", up_list->liste[index]->research_rate);
         showSmallerText(Render, &Items[index], buffer, font, &white, Items[index].y + 90);
         colone++;
-        if (colone == 4)
+        if (colone == 4) /*chaque ligne est composé de 4 colones toutes le 4 colones on retourne a la ligne*/
         {
             colone = 0;
             ligne++;
