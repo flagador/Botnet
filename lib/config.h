@@ -1,3 +1,15 @@
+/**
+ * @file config.h
+ * @author {Grégoire BELLON, Klemens Galus, Julian LEBOUC}
+ * @brief Fichier de configuration, permet d'équilibrer le jeu
+ * @version 0.1
+ * @date 2021-03-22
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
+
 #define DEFAULT_BITCOIN 100
 #define DEFAULT_BOTNET_SIZE 10
 #define DEFAULT_MINING_RATE 0.5

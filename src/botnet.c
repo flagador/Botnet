@@ -1,6 +1,6 @@
 /**
  * @file botnet.c
- * @author {Grégoire BELLON, Klemens Galus, Julian LEBOUC}
+ * @author {Klemens Galus, Julian LEBOUC}
  * @brief Le fichier botnet.c est le fichier principal, il utilise tous les autres pour éxecuter une partie.
  * @version 0.1
  * @date 2021-03-22

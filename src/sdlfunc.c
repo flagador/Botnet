@@ -1,3 +1,14 @@
+/**
+ * @file sdlfunc.c
+ * @author {Klemens Galus}
+ * @brief Bibliothèque d'aides pour la sdl
+ * @version 0.1
+ * @date 2021-04-18
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #include "../lib/data_sdl.h"
 #include "../lib/country_list.h"
 #include "../lib/config.h"
@@ -44,7 +55,20 @@ void initText(SDL_Surface * surface, SDL_Texture * texture, TTF_Font * font, SDL
     surface = TTF_RenderText_Blended(font , text, color);
     texture = SDL_CreateTextureFromSurface(render, surface);
 }*/
-
+/**
+ * @brief Crée un rectangle
+ * 
+ * @param render objet de rendu
+ * @param rect objet rectangle
+ * @param x pos x du coin supérieur gauche
+ * @param y pos y du coin supérieur gauche
+ * @param w largeur
+ * @param h hauteur
+ * @param r canal couleur rouge
+ * @param g canal couleur vert
+ * @param b canal couleur bleu
+ * @param alpha tranparence
+ */
 void initRect(SDL_Renderer *render, SDL_Rect *rect, int x, int y, int w, int h, int r, int g, int b, int alpha)
 {
     rect->x = x;
@@ -56,6 +80,12 @@ void initRect(SDL_Renderer *render, SDL_Rect *rect, int x, int y, int w, int h, 
     SDL_RenderFillRect(render, rect);
 }
 
+/**
+ * @brief Test si un clic est sur un bouton
+ * 
+ * @param rect Bouton à tester
+ * @return int 1 si le clic est sur le bouton, 0 sinon
+ */
 int isOnButton(SDL_Rect rect)
 {
     int x, y;
@@ -64,8 +94,18 @@ int isOnButton(SDL_Rect rect)
     if ((x > rect.x && x < (rect.x + rect.w)) && (y > rect.y && y < (rect.y + rect.h)))
         return 1;
     return 0;
+    //return (x > rect.x && x < (rect.x + rect.w)) && (y > rect.y && y < (rect.y + rect.h));
 }
 
+/**
+ * @brief Dessine un cercle
+ * 
+ * @param renderer 
+ * @param x 
+ * @param y 
+ * @param radius 
+ * @return int 
+ */
 int SDL_RenderDrawCircle(SDL_Renderer *renderer, int x, int y, int radius)
 {
     int offsetx, offsety, d;
@@ -114,6 +154,15 @@ int SDL_RenderDrawCircle(SDL_Renderer *renderer, int x, int y, int radius)
     return status;
 }
 
+/**
+ * @brief Dessine un disque
+ * 
+ * @param renderer 
+ * @param x 
+ * @param y 
+ * @param radius 
+ * @return int 
+ */
 int SDL_RenderFillCircle(SDL_Renderer *renderer, int x, int y, int radius)
 {
     int offsetx, offsety, d;
@@ -159,6 +208,12 @@ int SDL_RenderFillCircle(SDL_Renderer *renderer, int x, int y, int radius)
     return status;
 }
 
+/**
+ * @brief Modifie la transparence de l'image "infectée" selon l'infection des pays
+ * 
+ * @param cl 
+ * @param textures 
+ */
 void drawCountryPoint(country_list_t *cl, texture_list_t *textures)
 {
     SDL_SetTextureAlphaMod(/*mapAffC*/ textures->textures[0], cl->liste[5]->compromised_pcs_cpt * 255 / (cl->liste[5]->healthy_pcs_cpt + cl->liste[5]->compromised_pcs_cpt));
@@ -181,6 +236,13 @@ void drawCountryPoint(country_list_t *cl, texture_list_t *textures)
     SDL_SetTextureAlphaMod(/*mapRussie*/ textures->textures[17], cl->liste[2]->compromised_pcs_cpt * 255 / (cl->liste[2]->healthy_pcs_cpt + cl->liste[2]->compromised_pcs_cpt));
 }
 
+/**
+ * @brief Récupère les textures dans un fichier donc chaque ligne est au format : <chemin>\n
+ * 
+ * @param render 
+ * @param fichierloc Fichier contenant les textures
+ * @return texture_list_t* 
+ */
 texture_list_t *creer_texture_list(SDL_Renderer *render, char fichierloc[25])
 {
     FILE *fichier;
@@ -210,7 +272,11 @@ texture_list_t *creer_texture_list(SDL_Renderer *render, char fichierloc[25])
     fclose(fichier);
     return texture_list;
 }
-
+/**
+ * @brief Supprime les textures et libère la pile
+ * 
+ * @param texture 
+ */
 void destroyTexture(texture_list_t **texture)
 {
     int i;
@@ -222,6 +288,14 @@ void destroyTexture(texture_list_t **texture)
     free((*texture));
 }
 
+/**
+ * @brief Génère les boutons du shop en fonction des upgrades
+ * 
+ * @param Items 
+ * @param Render 
+ * @param up_list 
+ * @param font 
+ */
 void genererShop(SDL_Rect *Items, SDL_Renderer * Render, upgrade_list_t * up_list, TTF_Font *font)
 {
     SDL_Color white = {255, 255, 255};
@@ -239,11 +313,11 @@ void genererShop(SDL_Rect *Items, SDL_Renderer * Render, upgrade_list_t * up_lis
         showSmallerText(Render, &Items[index], buffer, font, &white, Items[index].y + 60);
         snprintf(buffer, 50, "Recherche:%.2f", up_list->liste[index]->research_rate);
         showSmallerText(Render, &Items[index], buffer, font, &white, Items[index].y + 90);
-        colone++;
+        colone++; 
         if (colone == 4)
         {
-            colone = 0;
-            ligne++;
+            colone = 0; //colone = colone%5;
+            ligne++; //ligne = colone == 0 ? ligne + 1 : ligne;
         }
     }
 }

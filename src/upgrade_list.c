@@ -1,13 +1,36 @@
+/**
+ * @file upgrade_list.c
+ * @author {Grégoire BELLON}
+ * @brief Fonction primitives pour la structure upgrade_list_t
+ * @version 0.1
+ * @date 2021-03-22
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #include "../lib/upgrade_list.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include "../lib/config.h"
 
+/**
+ * @brief Test l'existance de liste
+ * 
+ * @param liste 
+ * @return int 1 : existe 0 sinon
+ */
 extern int upgrade_liste_existe(upgrade_list_t *const liste)
 {
-    return liste == NULL;
+    return liste != NULL;
 }
 
+/**
+ * @brief Détruit une upgrade_list
+ * 
+ * @param liste 
+ * @return int code_erreur
+ */
 extern int upgrade_liste_destroy(upgrade_list_t **liste)
 {
     for (int i = 0; i < (*liste)->nb; i++)
@@ -19,6 +42,11 @@ extern int upgrade_liste_destroy(upgrade_list_t **liste)
     return 0;
 }
 
+/**
+ * @brief Affiche chaque upgrade avec un index
+ * 
+ * @param l 
+ */
 extern void afficher_upgrade_list(const upgrade_list_t *l)
 {
     for (int i = 0; i < l->nb; i++)
@@ -29,6 +57,13 @@ extern void afficher_upgrade_list(const upgrade_list_t *l)
     }
 }
 
+/**
+ * @brief Sauvegarde l'upgrade_list_t dans un fichier
+ * 
+ * @param liste Liste à sauvegarder
+ * @param path Fichier de sauvegarde
+ * @return int 
+ */
 extern int upgrade_liste_sauv(upgrade_list_t *liste, char *path)
 {
     FILE *f;
@@ -49,6 +84,12 @@ extern int upgrade_liste_sauv(upgrade_list_t *liste, char *path)
     return 0;
 }
 
+/**
+ * @brief Charge une upgrade_liste_t à partir d'un fichier
+ * 
+ * @param nom_file Fichier de sauvegarde
+ * @return upgrade_list_t* liste crée
+ */
 extern upgrade_list_t *upgrade_liste_charger(char *nom_file)
 {
     int nb_lignes = compter_lignes(nom_file);
@@ -77,6 +118,12 @@ extern upgrade_list_t *upgrade_liste_charger(char *nom_file)
     return l;
 }
 
+/**
+ * @brief Crée une upgrade_liste_t vide
+ * 
+ * @param nb Taille de la liste à créer
+ * @return upgrade_list_t* 
+ */
 extern upgrade_list_t *upgrade_liste_creer(const int nb)
 {
     upgrade_list_t *l = malloc(sizeof(upgrade_list_t));

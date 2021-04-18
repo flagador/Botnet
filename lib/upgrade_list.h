@@ -1,13 +1,14 @@
 /**
- * @file computer_list.h
- * @author {Grégoire BELLON, Klemens Galus, Julian LEBOUC}
- * @brief Définition structure computer_list_t et prototypes fonctions externes
+ * @file upgrade_list.h
+ * @author {Grégoire BELLON}
+ * @brief Définition structure upgrade_list_t et prototypes fonctions externes
  * @version 0.1
  * @date 2021-04-17
  * 
  * @copyright Copyright (c) 2021
  * 
  */
+
 #ifndef _UPGRADE_LIST_H
 #define _UPGRADE_LIST_H
 
