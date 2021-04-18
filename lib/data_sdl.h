@@ -34,4 +34,6 @@ int SDL_RenderDrawCircle(SDL_Renderer * renderer, int x, int y, int radius);
 void drawCountryPoint(country_list_t *cl, texture_list_t * textures);
 void destroyTexture(texture_list_t ** texture);
 texture_list_t * creer_texture_list(SDL_Renderer * render, char fichierloc[25]);
+int getInfo(SDL_Renderer * pRenderer, SDL_Window * pWindow, country_list_t * cl,TTF_Font * font, Mix_Chunk *Select,texture_list_t* texturesButton);
+int getRealSize(char * text);
 #endif
