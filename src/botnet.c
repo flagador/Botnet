@@ -222,6 +222,8 @@ int nameVirus(SDL_Renderer *Render, SDL_Window *Window, char **textaa, TTF_Font 
 
 int getInfo(SDL_Renderer * pRenderer, SDL_Window * pWindow, country_list_t * cl,TTF_Font * font, Mix_Chunk *Select,texture_list_t* texturesButton){
     SDL_Color white = {255 ,255 ,255};
+    SDL_Color red = {255 ,71 ,71};
+
     SDL_RenderClear(pRenderer);
     int isOpen = 1;
     SDL_Event events;
@@ -248,7 +250,11 @@ int getInfo(SDL_Renderer * pRenderer, SDL_Window * pWindow, country_list_t * cl,
         int colone = 0, ligne = 0;
         for (i = 0; i < cl->nb; i++){
             initRect(pRenderer, &Rnom[i], 70 + (320 * colone ),20 + (80 * ligne), 15*strlen(cl->liste[i]->name),20 , 150,150,150, 0);
-            showText(pRenderer, &Rnom[i], cl->liste[i]->name, font, &white);
+            if(cl->liste[i]->healthy_pcs_cpt != 0)
+                showText(pRenderer, &Rnom[i], cl->liste[i]->name, font, &white);
+            else
+                showText(pRenderer, &Rnom[i], cl->liste[i]->name, font, &red);
+
 
             initRect(pRenderer, &RNInfect[i], 70 + (320 * colone ),45 + (80 * ligne), 200,20 , 13, 13, 240, 255);
 
