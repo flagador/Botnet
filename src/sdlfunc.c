@@ -160,25 +160,31 @@ int SDL_RenderFillCircle(SDL_Renderer *renderer, int x, int y, int radius)
 }
 
 void drawCountryPoint(country_list_t *cl, texture_list_t *textures)
-{
-    SDL_SetTextureAlphaMod(/*mapAffC*/ textures->textures[0], cl->liste[5]->compromised_pcs_cpt * 255 / (cl->liste[5]->healthy_pcs_cpt + cl->liste[5]->compromised_pcs_cpt));
-    SDL_SetTextureAlphaMod(/*mapAffN*/ textures->textures[1], cl->liste[3]->compromised_pcs_cpt * 255 / (cl->liste[3]->healthy_pcs_cpt + cl->liste[3]->compromised_pcs_cpt));
-    SDL_SetTextureAlphaMod(/*mapAffS*/ textures->textures[2], cl->liste[4]->compromised_pcs_cpt * 255 / (cl->liste[4]->healthy_pcs_cpt + cl->liste[4]->compromised_pcs_cpt));
-    SDL_SetTextureAlphaMod(/*mapAmeriqueC*/ textures->textures[3], cl->liste[15]->compromised_pcs_cpt * 255 / (cl->liste[15]->healthy_pcs_cpt + cl->liste[15]->compromised_pcs_cpt));
-    SDL_SetTextureAlphaMod(/*mapAmeriqueN*/ textures->textures[4], cl->liste[16]->compromised_pcs_cpt * 255 / (cl->liste[16]->healthy_pcs_cpt + cl->liste[16]->compromised_pcs_cpt));
-    SDL_SetTextureAlphaMod(/*mapAmeriqueS*/ textures->textures[5], cl->liste[14]->compromised_pcs_cpt * 255 / (cl->liste[14]->healthy_pcs_cpt + cl->liste[14]->compromised_pcs_cpt));
-    SDL_SetTextureAlphaMod(/*mapAsie*/ textures->textures[6], cl->liste[10]->compromised_pcs_cpt * 255 / (cl->liste[10]->healthy_pcs_cpt + cl->liste[10]->compromised_pcs_cpt));
-    SDL_SetTextureAlphaMod(/*mapBresil*/ textures->textures[7], cl->liste[13]->compromised_pcs_cpt * 255 / (cl->liste[13]->healthy_pcs_cpt + cl->liste[13]->compromised_pcs_cpt));
-    SDL_SetTextureAlphaMod(/*mapChine*/ textures->textures[8], cl->liste[8]->compromised_pcs_cpt * 255 / (cl->liste[8]->healthy_pcs_cpt + cl->liste[8]->compromised_pcs_cpt));
-    SDL_SetTextureAlphaMod(/*mapCoreN*/ textures->textures[9], cl->liste[9]->compromised_pcs_cpt * 255 / (cl->liste[9]->healthy_pcs_cpt + cl->liste[9]->compromised_pcs_cpt));
-    SDL_SetTextureAlphaMod(/*mapCoreS*/ textures->textures[10], cl->liste[17]->compromised_pcs_cpt * 255 / (cl->liste[17]->healthy_pcs_cpt + cl->liste[17]->compromised_pcs_cpt));
-    SDL_SetTextureAlphaMod(/*mapEurEs*/ textures->textures[11], cl->liste[1]->compromised_pcs_cpt * 255 / (cl->liste[1]->healthy_pcs_cpt + cl->liste[1]->compromised_pcs_cpt));
-    SDL_SetTextureAlphaMod(/*mapEurOu*/ textures->textures[12], cl->liste[0]->compromised_pcs_cpt * 255 / (cl->liste[0]->healthy_pcs_cpt + cl->liste[0]->compromised_pcs_cpt));
-    SDL_SetTextureAlphaMod(/*mapInde*/ textures->textures[13], cl->liste[7]->compromised_pcs_cpt * 255 / (cl->liste[7]->healthy_pcs_cpt + cl->liste[7]->compromised_pcs_cpt));
-    SDL_SetTextureAlphaMod(/*mapJapon*/ textures->textures[14], cl->liste[11]->compromised_pcs_cpt * 255 / (cl->liste[11]->healthy_pcs_cpt + cl->liste[11]->compromised_pcs_cpt));
-    SDL_SetTextureAlphaMod(/*mapMoyO*/ textures->textures[15], cl->liste[6]->compromised_pcs_cpt * 255 / (cl->liste[6]->healthy_pcs_cpt + cl->liste[6]->compromised_pcs_cpt));
-    SDL_SetTextureAlphaMod(/*mapOceanie*/ textures->textures[16], cl->liste[12]->compromised_pcs_cpt * 255 / (cl->liste[12]->healthy_pcs_cpt + cl->liste[12]->compromised_pcs_cpt));
-    SDL_SetTextureAlphaMod(/*mapRussie*/ textures->textures[17], cl->liste[2]->compromised_pcs_cpt * 255 / (cl->liste[2]->healthy_pcs_cpt + cl->liste[2]->compromised_pcs_cpt));
+{   
+    int i;
+    for(i = 0 ; i<cl->nb; i++){
+        SDL_SetTextureAlphaMod(textures->textures[i], cl->liste[i]->compromised_pcs_cpt * 255 / (cl->liste[i]->healthy_pcs_cpt + cl->liste[i]->compromised_pcs_cpt));
+    }
+    
+    // SDL_SetTextureAlphaMod(/*mapAffC*/ textures->textures[0], cl->liste[5]->compromised_pcs_cpt * 255 / (cl->liste[5]->healthy_pcs_cpt + cl->liste[5]->compromised_pcs_cpt));
+    // SDL_SetTextureAlphaMod(/*mapAffN*/ textures->textures[1], cl->liste[3]->compromised_pcs_cpt * 255 / (cl->liste[3]->healthy_pcs_cpt + cl->liste[3]->compromised_pcs_cpt));
+    // SDL_SetTextureAlphaMod(/*mapAffS*/ textures->textures[2], cl->liste[4]->compromised_pcs_cpt * 255 / (cl->liste[4]->healthy_pcs_cpt + cl->liste[4]->compromised_pcs_cpt));
+    // SDL_SetTextureAlphaMod(/*mapAmeriqueC*/ textures->textures[3], cl->liste[15]->compromised_pcs_cpt * 255 / (cl->liste[15]->healthy_pcs_cpt + cl->liste[15]->compromised_pcs_cpt));
+    // SDL_SetTextureAlphaMod(/*mapAmeriqueN*/ textures->textures[4], cl->liste[16]->compromised_pcs_cpt * 255 / (cl->liste[16]->healthy_pcs_cpt + cl->liste[16]->compromised_pcs_cpt));
+    // SDL_SetTextureAlphaMod(/*mapAmeriqueS*/ textures->textures[5], cl->liste[14]->compromised_pcs_cpt * 255 / (cl->liste[14]->healthy_pcs_cpt + cl->liste[14]->compromised_pcs_cpt));
+    // SDL_SetTextureAlphaMod(/*mapAsie*/ textures->textures[6], cl->liste[10]->compromised_pcs_cpt * 255 / (cl->liste[10]->healthy_pcs_cpt + cl->liste[10]->compromised_pcs_cpt));
+    // SDL_SetTextureAlphaMod(/*mapBresil*/ textures->textures[7], cl->liste[13]->compromised_pcs_cpt * 255 / (cl->liste[13]->healthy_pcs_cpt + cl->liste[13]->compromised_pcs_cpt));
+    // SDL_SetTextureAlphaMod(/*mapChine*/ textures->textures[8], cl->liste[8]->compromised_pcs_cpt * 255 / (cl->liste[8]->healthy_pcs_cpt + cl->liste[8]->compromised_pcs_cpt));
+    // SDL_SetTextureAlphaMod(/*mapCoreN*/ textures->textures[9], cl->liste[9]->compromised_pcs_cpt * 255 / (cl->liste[9]->healthy_pcs_cpt + cl->liste[9]->compromised_pcs_cpt));
+    // SDL_SetTextureAlphaMod(/*mapCoreS*/ textures->textures[10], cl->liste[17]->compromised_pcs_cpt * 255 / (cl->liste[17]->healthy_pcs_cpt + cl->liste[17]->compromised_pcs_cpt));
+    // SDL_SetTextureAlphaMod(/*mapEurEs*/ textures->textures[11], cl->liste[1]->compromised_pcs_cpt * 255 / (cl->liste[1]->healthy_pcs_cpt + cl->liste[1]->compromised_pcs_cpt));
+    // SDL_SetTextureAlphaMod(/*mapEurOu*/ textures->textures[12], cl->liste[0]->compromised_pcs_cpt * 255 / (cl->liste[0]->healthy_pcs_cpt + cl->liste[0]->compromised_pcs_cpt));
+    // SDL_SetTextureAlphaMod(/*mapInde*/ textures->textures[13], cl->liste[7]->compromised_pcs_cpt * 255 / (cl->liste[7]->healthy_pcs_cpt + cl->liste[7]->compromised_pcs_cpt));
+    // SDL_SetTextureAlphaMod(/*mapJapon*/ textures->textures[14], cl->liste[11]->compromised_pcs_cpt * 255 / (cl->liste[11]->healthy_pcs_cpt + cl->liste[11]->compromised_pcs_cpt));
+    // SDL_SetTextureAlphaMod(/*mapMoyO*/ textures->textures[15], cl->liste[6]->compromised_pcs_cpt * 255 / (cl->liste[6]->healthy_pcs_cpt + cl->liste[6]->compromised_pcs_cpt));
+    // SDL_SetTextureAlphaMod(/*mapOceanie*/ textures->textures[16], cl->liste[12]->compromised_pcs_cpt * 255 / (cl->liste[12]->healthy_pcs_cpt + cl->liste[12]->compromised_pcs_cpt));
+    // SDL_SetTextureAlphaMod(/*mapRussie*/ textures->textures[17], cl->liste[2]->compromised_pcs_cpt * 255 / (cl->liste[2]->healthy_pcs_cpt + cl->liste[2]->compromised_pcs_cpt));
+    
 }
 
 texture_list_t *creer_texture_list(SDL_Renderer *render, char fichierloc[25])
