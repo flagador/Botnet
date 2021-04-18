@@ -90,6 +90,8 @@ int mainMenu()
     int ret = 0;
     TTF_Init();
     TTF_Font *font = TTF_OpenFont("../asset/Lato-Black.ttf", 240);
+    int IsSaveExist = saveExist();
+    printf("save = %d \n", IsSaveExist);
     if (font == NULL)
     {
         printf("Error can't load font \n");
@@ -116,7 +118,7 @@ int mainMenu()
                     ret = 1;
                     play(Select, 200);
                 }
-                if (isOnButton(pcharge))
+                if (isOnButton(pcharge) && IsSaveExist)
                 {
                     isOpen = 0;
                     ret = 2;
@@ -130,7 +132,10 @@ int mainMenu()
         SDL_RenderPresent(pRenderer);
 
         initRect(pRenderer, &pstart, 390, 195, 300, 100, 255, 0, 0, 255);
-        initRect(pRenderer, &pcharge, 390, 380, 300, 100, 255, 0, 0, 255);
+        if(IsSaveExist)
+            initRect(pRenderer, &pcharge, 390, 380, 300, 100, 255, 0, 0, 255);
+        else
+            initRect(pRenderer, &pcharge, 390, 380, 300, 100, 158, 158, 158, 255);
         initRect(pRenderer, &pquit, 465, 555, 150, 50, 255, 0, 0, 255);
 
         showText(pRenderer, &pstart, "JOUER", font, &white);

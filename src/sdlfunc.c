@@ -235,3 +235,14 @@ void genererShop(SDL_Rect *Items, SDL_Renderer * Render, upgrade_list_t * up_lis
         }
     }
 }
+
+int saveExist(){
+    FILE * jeu, *virus, *country;
+    jeu = fopen("../datas/jeuSAVE", "r");
+    virus = fopen("../datas/virusSAVE", "r");
+    country = fopen("../datas/countrylistSAVE", "r");
+    if(jeu == NULL && virus == NULL && country == NULL)
+        return 0;
+    return 1;
+
+}
