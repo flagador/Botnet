@@ -38,7 +38,12 @@ extern void detruire_country_list(country_list_t **c)
 	*c = NULL;
 }
 
-//Compte les frontières grâce au fichier texte "borders"
+/**
+ * @brief Compte le nombre de frontières d'un pays dont l'identifiant est passé en paramètre grâce au fichier texte "borders"
+ * 
+ * @param id_country 
+ * @return int
+ */
 int compter_borders(int id_country)
 {
 	FILE *fichier;
@@ -76,7 +81,11 @@ int compter_borders(int id_country)
 	}
 }
 
-//initialise les borders de c grâce au fichier texte borders
+/**
+ * @brief affecte les frontières de c grâce au fichier texte borders
+ * 
+ * @param c
+ */
 void set_borders(country_list_t *c)
 {
 	FILE *fichier;
@@ -159,6 +168,11 @@ extern country_list_t *creer_country_list()
 	return country_list;
 }
 
+/**
+ * @brief Enregistre le nombre d'ordinateurs sains et infectés de chaque pays de la country_list_t passée en paramètre dans le fichier countrylistSAVE
+ * 
+ * @param cl
+ */
 extern void save_country_list(country_list_t *cl){
 	FILE *fichier;
 	fichier = fopen("../datas/countrylistSAVE", "w");
@@ -169,6 +183,11 @@ extern void save_country_list(country_list_t *cl){
 	printf("Sauvegarde de la country list");
 }
 
+/**
+ * @brief Lit le nombre d'ordinateurs sains et infectés dans le fichier countrylistSAVE et les affecte à la country_list_t passée en paramètre
+ * 
+ * @param cl
+ */
 extern void load_country_list(country_list_t *cl){
 	FILE *fichier;
 	fichier = fopen("../datas/countrylistSAVE", "r");
@@ -184,7 +203,12 @@ extern void load_country_list(country_list_t *cl){
 	fclose(fichier);
 }
 
-
+/**
+ * @brief Compte et retourne le nombre total d'ordinateurs infectés dans la country_list_t passée en paramètre
+ * 
+ * @param list
+ * @return float
+ */
 extern float count_compromised_pcs(country_list_t * list){
     float compromised_pcs=0;
     for(int i=0; i<list->nb; i++){
@@ -192,7 +216,12 @@ extern float count_compromised_pcs(country_list_t * list){
     }
 	return compromised_pcs;
 }
-
+/**
+ * @brief Compte et retourne le nombre total d'ordinateurs sains dans la country_list_t passée en paramètre
+ * 
+ * @param list
+ * @return float
+ */
 extern float count_healthy_pcs(country_list_t * list){
     float healthy_pcs=0;
     for(int i=0; i<list->nb; i++){
@@ -200,7 +229,12 @@ extern float count_healthy_pcs(country_list_t * list){
     }
 	return healthy_pcs;
 }
-
+/**
+ * @brief Compte et retourne la proportion d'ordinateurs infectés dans la country_list_t passée en paramètre
+ * 
+ * @param list
+ * @return float
+ */
 extern float compromised_healthy_proportion(country_list_t * list){
 	float cp_pcs = count_compromised_pcs(list);
 	float ht_pcs = count_healthy_pcs(list);
